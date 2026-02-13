@@ -3,233 +3,209 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MAIVANE DAMASCENO | V8 ACADEMIC SUPREMACY</title>
+    <title>MAIVANE DAMASCENO | V8 ELITE EDITION</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;500;700&family=Righteous&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    
     <style>
-        :root { --magenta: #ff007a; --cyan: #00f2ff; --bg: #020205; --card: rgba(15, 15, 20, 0.95); }
+        :root { --magenta: #ff007a; --cyan: #00f2ff; --bg: #020205; --card: rgba(15, 15, 20, 0.98); }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { background: var(--bg); color: #fff; font-family: 'Rajdhani', sans-serif; min-height: 100vh; }
-
-        /* HEADER */
-        .header-v8 { text-align: center; padding: 20px; border-bottom: 2px solid #111; background: #000; }
-        .brand-name { font-family: 'Righteous', cursive; font-size: 1.8rem; letter-spacing: 2px; color: #fff; }
+        
+        header { text-align: center; padding: 20px; border-bottom: 2px solid #111; background: #000; }
+        .brand { font-family: 'Righteous', cursive; font-size: 1.8rem; color: #fff; }
         .v8-tag { font-family: 'Orbitron'; font-size: 8px; color: var(--magenta); letter-spacing: 4px; }
 
-        /* NAV */
-        .nav-v8 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; padding: 10px; max-width: 900px; margin: 0 auto; }
-        .nav-item { background: #0a0b0f; border: 1px solid #222; padding: 10px; border-radius: 6px; text-align: center; cursor: pointer; }
+        .nav-v8 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; padding: 10px; max-width: 900px; margin: 0 auto; }
+        .nav-item { background: #0a0b0f; border: 1px solid #222; padding: 12px; border-radius: 6px; text-align: center; cursor: pointer; }
         .nav-item.active { border-color: var(--cyan); box-shadow: 0 0 10px rgba(0, 242, 255, 0.2); }
-        .nav-item span { font-size: 0.6rem; font-weight: bold; color: #aaa; text-transform: uppercase; }
+        .nav-item span { font-size: 0.7rem; font-weight: bold; color: #fff; text-transform: uppercase; }
 
         .container { padding: 15px; max-width: 900px; margin: 0 auto; }
         .hidden { display: none !important; }
 
-        /* CARDS */
-        .v8-card { background: var(--card); border: 1px solid #222; padding: 20px; border-radius: 8px; margin-bottom: 15px; }
-        .box-label { font-size: 9px; color: var(--cyan); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 5px; display: block; }
+        /* GERADOR INTERATIVO */
+        .v8-card { background: var(--card); border: 1px solid #222; padding: 25px; border-radius: 8px; margin-bottom: 15px; border-left: 4px solid var(--magenta); }
+        .interactive-chat { background: #050505; padding: 15px; border-radius: 8px; min-height: 200px; border: 1px solid #1a1a1a; margin-bottom: 15px; }
+        .bot-msg { color: var(--cyan); font-family: 'Orbitron'; font-size: 0.8rem; margin-bottom: 10px; border-left: 2px solid var(--cyan); padding-left: 10px; }
+        .user-input-area { display: flex; gap: 10px; }
         
-        input, textarea, select { width: 100%; background: #000; border: 1px solid #333; color: #fff; font-family: 'Rajdhani'; padding: 10px; margin-bottom: 10px; border-radius: 4px; outline: none; }
-        textarea:focus { border-color: var(--magenta); }
+        /* CADERNOS EDITÁVEIS */
+        .note-editor { background: #000; border: 1px solid #222; padding: 20px; min-height: 300px; color: #fff; font-size: 1.1rem; outline: none; border-radius: 8px; line-height: 1.6; }
+        .note-controls { display: flex; gap: 10px; margin-bottom: 10px; }
+        .note-saved { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
+        .note-card { background: #0a0b0f; padding: 15px; border: 1px solid #222; border-radius: 4px; cursor: pointer; }
 
-        /* GERADOR 5 LACUNAS */
-        .grid-5 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .btn-v8 { background: var(--cyan); border: none; color: #000; padding: 12px; font-family: 'Orbitron'; font-size: 10px; font-weight: 900; cursor: pointer; width: 100%; border-radius: 4px; }
+        /* BOTÕES */
+        .btn { background: var(--cyan); border: none; color: #000; padding: 12px; font-family: 'Orbitron'; font-size: 10px; font-weight: 900; cursor: pointer; border-radius: 4px; }
+        .btn-mag { background: var(--magenta); color: #fff; }
 
-        /* CADERNOS REAIS */
-        .note-header { display: flex; gap: 10px; margin-bottom: 15px; }
-        .note-editor { background: #050505; border-left: 4px solid var(--magenta); padding: 15px; min-height: 200px; font-size: 16px; line-height: 1.6; white-space: pre-wrap; }
-        .note-list { margin-top: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .note-card { background: #111; padding: 10px; border-radius: 4px; cursor: pointer; border: 1px solid #222; position: relative; }
-        .note-card:hover { border-color: var(--cyan); }
-
-        /* TREINO GAMIFICADO */
-        .q-box { background: #0a0a0f; border: 2px solid #222; padding: 20px; border-radius: 12px; position: relative; overflow: hidden; }
-        .q-box::before { content: 'QUESTÃO ACADÊMICA'; position: absolute; top: 0; right: 0; background: var(--magenta); color: #fff; font-size: 8px; padding: 2px 10px; font-family: 'Orbitron'; }
-        .opt-btn { background: #1a1a1a; border: 1px solid #333; padding: 15px; margin: 8px 0; width: 100%; border-radius: 8px; color: #fff; text-align: left; cursor: pointer; font-family: 'Rajdhani'; font-size: 15px; transition: 0.3s; }
-        .opt-btn:hover { background: #222; transform: translateX(5px); }
-        .correct { background: #064e3b !important; border-color: #00ff88 !important; box-shadow: 0 0 15px rgba(0,255,136,0.3); }
-        .wrong { background: #450a0a !important; border-color: #ff007a !important; }
-
-        /* CHARTS */
-        .stats-mini { display: flex; justify-content: space-between; align-items: center; background: #000; padding: 10px; border-radius: 4px; margin-bottom: 10px; }
+        #final-prompt { background: #000; border: 1px dashed var(--cyan); padding: 15px; color: var(--cyan); font-family: monospace; font-size: 12px; margin-top: 15px; }
     </style>
 </head>
 <body>
 
-    <header class="header-v8">
-        <h1 class="brand-name">MAIVANE DAMASCENO</h1>
-        <div class="v8-tag">V8 SINGULARITY | ACADEMIC GOD MODE</div>
+    <header>
+        <div class="brand">MAIVANE DAMASCENO</div>
+        <div class="v8-tag">V8 SINGULARITY | INTERACTIVE ELITE</div>
     </header>
 
     <nav class="nav-v8">
         <div class="nav-item active" onclick="tab('prompt', this)"><span>V8 PROMPT</span></div>
-        <div class="nav-item" onclick="tab('treino', this)"><span>TREINO</span></div>
         <div class="nav-item" onclick="tab('notas', this)"><span>CADERNOS</span></div>
-        <div class="nav-item" onclick="tab('stats', this)"><span>STATUS</span></div>
+        <div class="nav-item" onclick="tab('treino', this)"><span>TREINO A-E</span></div>
     </nav>
 
     <main class="container">
         
         <section id="prompt" class="tab-content">
             <div class="v8-card">
-                <span class="box-label">CONFIGURAÇÃO DE ENTRADA (5 EIXOS)</span>
-                <div class="grid-5">
-                    <input type="text" id="l1" placeholder="1. Papel Acadêmico (Ex: Doutor em Direito)">
-                    <input type="text" id="l2" placeholder="2. Nível de Rigor (Ex: Pós-Graduação)">
-                    <input type="text" id="l3" placeholder="3. Tópico Base (Ex: Atos Administrativos)">
-                    <input type="text" id="l4" placeholder="4. Formato de Saída (Ex: Tabela Comparativa)">
-                    <input type="text" id="l5" placeholder="5. Bibliografia Alvo (Ex: Celso Antônio Bandeira)">
+                <div class="interactive-chat" id="chatBox">
+                    <div class="bot-msg">SISTEMA INICIALIZADO. MAIVANE, VAMOS CONSTRUIR SEU COMANDO ACADÊMICO.</div>
+                    <div class="bot-msg" id="questionText">1. Qual o PAPEL do especialista que deve te ajudar agora? (Ex: Professor de Direito)</div>
                 </div>
-                <textarea id="facts" rows="4" placeholder="Insira aqui o texto bruto ou dados para processamento..."></textarea>
-                <button class="btn-v8" onclick="gerarV8()">GERAR COMANDO SINGULARITY</button>
-                <div id="out-v8" class="hidden" style="margin-top:15px; padding:15px; background:#000; border-left:4px solid var(--cyan); font-family:monospace; font-size:12px; color:var(--cyan);"></div>
-                <button id="copyBtn" class="btn-v8 hidden" style="background:var(--magenta); margin-top:5px; color:#fff;" onclick="copyV8()">COPIAR COMANDO</button>
-            </div>
-        </section>
-
-        <section id="treino" class="tab-content hidden">
-            <div class="v8-card">
-                <span class="box-label">CRIAR QUESTÃO ELITE</span>
-                <textarea id="qText" rows="2" placeholder="Digite o enunciado da questão aqui..."></textarea>
-                <div class="grid-5">
-                    <input type="text" id="oA" placeholder="Opção A"> <input type="text" id="oB" placeholder="Opção B">
-                    <input type="text" id="oC" placeholder="Opção C"> <input type="text" id="oD" placeholder="Opção D">
+                <div class="user-input-area">
+                    <input type="text" id="userInput" placeholder="Digite sua resposta aqui...">
+                    <button class="btn" onclick="processStep()">ENVIAR</button>
                 </div>
-                <input type="text" id="oE" placeholder="Opção E">
-                <select id="qCorreta">
-                    <option value="A">CORRETA: A</option><option value="B">CORRETA: B</option>
-                    <option value="C">CORRETA: C</option><option value="D">CORRETA: D</option><option value="E">CORRETA: E</option>
-                </select>
-                <button class="btn-v8" onclick="ativarQuestao()">LANÇAR DESAFIO</button>
-            </div>
-
-            <div id="playZone" class="hidden q-box">
-                <p id="displayQ" style="font-size: 1.2rem; margin-bottom: 20px; line-height: 1.4;"></p>
-                <div id="optionsArea"></div>
+                <div id="final-area" class="hidden">
+                    <div id="final-prompt"></div>
+                    <button class="btn btn-mag" style="width:100%; margin-top:10px;" onclick="copyPrompt()">COPIAR COMANDO PARA IA</button>
+                </div>
             </div>
         </section>
 
         <section id="notas" class="tab-content hidden">
-            <div class="v8-card">
-                <span class="box-label">EDITOR DE CADERNOS - MAIVANE NOTES</span>
-                <input type="text" id="noteTitle" placeholder="Título do Novo Caderno...">
-                <div id="editor" contenteditable="true" class="note-editor" data-placeholder="Comece a escrever suas anotações acadêmicas aqui..."></div>
-                <button class="btn-v8" style="margin-top:10px;" onclick="saveNote()">SALVAR NO CADERNO</button>
+            <div class="note-controls">
+                <input type="text" id="noteTitle" placeholder="Título do Estudo...">
+                <button class="btn" onclick="saveNote()">SALVAR</button>
             </div>
-            <div id="noteList" class="note-list"></div>
+            <div id="noteEditor" class="note-editor" contenteditable="true" placeholder="Escreva suas anotações acadêmicas..."></div>
+            <div id="noteList" class="note-saved"></div>
         </section>
 
-        <section id="stats" class="tab-content hidden">
+        <section id="treino" class="tab-content hidden">
             <div class="v8-card">
-                <div class="stats-mini">
-                    <span style="color:var(--cyan)">ACERTOS: <b id="statA">0</b></span>
-                    <span style="color:var(--magenta)">ERROS: <b id="statE">0</b></span>
-                </div>
-                <div style="height: 250px;"><canvas id="chartV8"></canvas></div>
+                <p style="color:var(--cyan); font-family:'Orbitron'; font-size:12px; margin-bottom:15px;">GERADOR DE SIMULADOS A-E</p>
+                <textarea id="qIn" rows="3" placeholder="Cole o enunciado da questão..."></textarea>
+                <input type="text" id="oA" placeholder="Opção A">
+                <input type="text" id="oB" placeholder="Opção B">
+                <input type="text" id="oC" placeholder="Opção C">
+                <input type="text" id="oD" placeholder="Opção D">
+                <input type="text" id="oE" placeholder="Opção E">
+                <select id="qCorrect">
+                    <option value="A">CORRETA: A</option><option value="B">CORRETA: B</option>
+                    <option value="C">CORRETA: C</option><option value="D">CORRETA: D</option><option value="E">CORRETA: E</option>
+                </select>
+                <button class="btn btn-mag" style="width:100%" onclick="launchQ()">ATIVAR DESAFIO</button>
+            </div>
+            <div id="playArea" class="hidden v8-card" style="border-left-color: var(--cyan);">
+                <div id="qDisp" style="font-size:1.2rem; margin-bottom:20px;"></div>
+                <div id="optArea"></div>
             </div>
         </section>
 
     </main>
 
     <script>
-        lucide.createIcons();
-        let acertos = 0; let erros = 0; let chart;
-        let db = JSON.parse(localStorage.getItem('maivane_notes')) || [];
+        // LÓGICA DO GERADOR INTERATIVO
+        let step = 0;
+        let answers = [];
+        const questions = [
+            "1. Qual o PAPEL do especialista? (Ex: Auditor Contábil)",
+            "2. Qual o NÍVEL de complexidade? (Ex: Concurso Público / Mestrado)",
+            "3. Qual o TÓPICO exato para análise? (Ex: Atos Administrativos)",
+            "4. Qual o FORMATO de saída desejado? (Ex: Resumo em Tópicos)",
+            "5. Alguma REFERÊNCIA ou autor específico? (Ex: Lei 8.666 / AvançaSP)"
+        ];
 
-        // GERADOR 5 LACUNAS
-        function gerarV8() {
-            const prompt = `### [PROTOCOLO V8 ACADEMIC]\n` +
-                `1. PAPEL: ${document.getElementById('l1').value}\n2. NÍVEL: ${document.getElementById('l2').value}\n` +
-                `3. TÓPICO: ${document.getElementById('l3').value}\n4. SAÍDA: ${document.getElementById('l4').value}\n` +
-                `5. REFERÊNCIA: ${document.getElementById('l5').value}\n\n` +
-                `CONTEXTO: "${document.getElementById('facts').value}"\n\n` +
-                `DIRETRIZ: Maivane Damasceno exige profundidade, lógica acadêmica e zero alucinações.`;
+        function processStep() {
+            const input = document.getElementById('userInput');
+            if(!input.value) return;
+
+            answers.push(input.value);
+            const chat = document.getElementById('chatBox');
+            chat.innerHTML += `<div style="text-align:right; color:var(--magenta); font-size:0.8rem; margin-bottom:10px;">> ${input.value}</div>`;
             
-            const out = document.getElementById('out-v8');
-            out.innerText = prompt;
-            out.classList.remove('hidden');
-            document.getElementById('copyBtn').classList.remove('hidden');
+            step++;
+            if(step < questions.length) {
+                chat.innerHTML += `<div class="bot-msg">${questions[step]}</div>`;
+                input.value = '';
+            } else {
+                showFinalPrompt();
+            }
+            chat.scrollTop = chat.scrollHeight;
         }
 
-        function copyV8() {
-            navigator.clipboard.writeText(document.getElementById('out-v8').innerText);
-            alert("V8 SINCRONIZADO!");
+        function showFinalPrompt() {
+            document.querySelector('.user-input-area').classList.add('hidden');
+            document.getElementById('final-area').classList.remove('hidden');
+            const p = `### [PROTOCOLO V8 ACADEMIC - MAIVANE DAMASCENO]\n` +
+                      `ATUE COMO: ${answers[0]}\nNÍVEL: ${answers[1]}\nASSUNTO: ${answers[2]}\n` +
+                      `FORMATO: ${answers[3]}\nREFERÊNCIA: ${answers[4]}\n\n` +
+                      `DIRETRIZ: Use apenas dados científicos e técnicos. Force a lógica acadêmica.`;
+            document.getElementById('final-prompt').innerText = p;
         }
 
-        // CADERNOS (SALVAR E EDITAR)
+        function copyPrompt() {
+            navigator.clipboard.writeText(document.getElementById('final-prompt').innerText);
+            alert("COMANDO COPIADO! AGORA COLE NA IA.");
+        }
+
+        // LÓGICA DOS CADERNOS
+        let notes = JSON.parse(localStorage.getItem('maivane_v8_notes')) || [];
         function saveNote() {
             const title = document.getElementById('noteTitle').value;
-            const content = document.getElementById('editor').innerText;
-            if(!title || !content) return alert("Preencha título e conteúdo!");
-            
-            db.push({title, content, date: new Date().toLocaleDateString()});
-            localStorage.setItem('maivane_notes', JSON.stringify(db));
+            const text = document.getElementById('noteEditor').innerText;
+            if(!title) return alert("Dê um título!");
+            notes.push({title, text});
+            localStorage.setItem('maivane_v8_notes', JSON.stringify(notes));
             renderNotes();
             document.getElementById('noteTitle').value = '';
-            document.getElementById('editor').innerText = '';
+            document.getElementById('noteEditor').innerText = '';
         }
 
         function renderNotes() {
             const list = document.getElementById('noteList');
             list.innerHTML = '';
-            db.forEach((n, i) => {
-                list.innerHTML += `<div class="note-card" onclick="loadNote(${i})">
-                    <b>${n.title}</b><br><small>${n.date}</small>
-                </div>`;
+            notes.forEach((n, i) => {
+                list.innerHTML += `<div class="note-card" onclick="loadNote(${i})"><b>${n.title}</b></div>`;
             });
         }
 
         function loadNote(i) {
-            document.getElementById('noteTitle').value = db[i].title;
-            document.getElementById('editor').innerText = db[i].content;
-            tab('notas', document.querySelectorAll('.nav-item')[2]);
+            document.getElementById('noteTitle').value = notes[i].title;
+            document.getElementById('noteEditor').innerText = notes[i].text;
         }
 
-        // TREINO GAMIFICADO
-        function ativarQuestao() {
-            const q = document.getElementById('qText').value;
-            const cor = document.getElementById('qCorreta').value;
+        // TREINO A-E
+        function launchQ() {
+            const q = document.getElementById('qIn').value;
+            const cor = document.getElementById('qCorrect').value;
             const opts = [
-                {l:'A', v:document.getElementById('oA').value}, {l:'B', v:document.getElementById('oB').value},
-                {l:'C', v:document.getElementById('oC').value}, {l:'D', v:document.getElementById('oD').value},
+                {l:'A', v:document.getElementById('oA').value},
+                {l:'B', v:document.getElementById('oB').value},
+                {l:'C', v:document.getElementById('oC').value},
+                {l:'D', v:document.getElementById('oD').value},
                 {l:'E', v:document.getElementById('oE').value}
             ];
 
-            document.getElementById('displayQ').innerText = q;
-            const area = document.getElementById('optionsArea');
+            document.getElementById('qDisp').innerText = q;
+            const area = document.getElementById('optArea');
             area.innerHTML = '';
 
             opts.forEach(o => {
                 if(o.v) {
                     const b = document.createElement('button');
-                    b.className = 'opt-btn';
+                    b.style = "display:block; width:100%; text-align:left; padding:15px; margin-bottom:10px; background:#111; border:1px solid #333; color:#fff; cursor:pointer; border-radius:8px;";
                     b.innerText = `${o.l}) ${o.v}`;
                     b.onclick = () => {
-                        const btns = area.querySelectorAll('button');
-                        btns.forEach(btn => btn.style.pointerEvents = 'none');
-                        if(o.l === cor) { b.classList.add('correct'); acertos++; }
-                        else { b.classList.add('wrong'); area.querySelector(`button:nth-child(${['A','B','C','D','E'].indexOf(cor)+1})`).classList.add('correct'); erros++; }
-                        updateChart();
+                        if(o.l === cor) { b.style.borderColor = "var(--cyan)"; b.style.background = "#002222"; alert("CORRETO!"); }
+                        else { b.style.borderColor = "var(--magenta)"; b.style.background = "#220000"; alert("ERRADO! A correta era " + cor); }
                     };
                     area.appendChild(b);
                 }
             });
-            document.getElementById('playZone').classList.remove('hidden');
-        }
-
-        function updateChart() {
-            document.getElementById('statA').innerText = acertos;
-            document.getElementById('statE').innerText = erros;
-            const ctx = document.getElementById('chartV8').getContext('2d');
-            if(chart) chart.destroy();
-            chart = new Chart(ctx, {
-                type: 'doughnut',
-                data: { labels: ['Acertos', 'Erros'], datasets: [{ data: [acertos, erros], backgroundColor: ['#00f2ff', '#ff007a'], borderWidth: 0 }]},
-                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
-            });
+            document.getElementById('playArea').classList.remove('hidden');
         }
 
         function tab(id, el) {
@@ -237,11 +213,9 @@
             document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
             document.getElementById(id).classList.remove('hidden');
             el.classList.add('active');
-            if(id === 'stats') updateChart();
         }
 
         renderNotes();
-        updateChart();
     </script>
 </body>
 </html>
