@@ -1,318 +1,134 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>✨ Painel de Estudos - Franciane Costa ✨</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Righteous&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+    <title>MAIVANE MARIA - Painel de Estudos</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #34495e;
+            --accent-color: #e74c3c;
+            --bg-color: #f4f7f6;
+            --text-color: #333;
+            --card-bg: #ffffff;
+        }
+
         body {
-            font-family: 'Quicksand', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
-            background-attachment: fixed;
-            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
         }
-        .glass { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(20px); }
-        .gradient-text {
-            font-family: 'Righteous', cursive;
-            background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-size: 200% 200%;
-            animation: gradient 3s ease infinite;
+
+        .header {
+            text-align: center;
+            padding: 40px 0;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
-        @keyframes gradient { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
-        .floating { animation: float 3s ease-in-out infinite; }
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
-        .tab-active { background: linear-gradient(135deg, #667eea, #764ba2) !important; color: white !important; transform: translateY(-2px); }
-        .btn-primary { background: linear-gradient(135deg, #667eea, #764ba2); }
-        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 15px 35px rgba(102, 126, 234, 0.4); }
-        .pdf-card { background: linear-gradient(145deg, #fef3c7, #fef9e7); border: 2px solid #fbbf24; }
-        .pdf-card:hover { transform: scale(1.05); box-shadow: 0 20px 50px rgba(251, 191, 36, 0.4); }
-        .upload-zone { border: 3px dashed #9333ea; background: linear-gradient(145deg, #faf5ff, #f3e8ff); }
-        .upload-zone.dragover { border-color: #6d28d9; background: #ede9fe; }
+
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            letter-spacing: 2px;
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+            border-top: 5px solid var(--accent-color);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card h3 {
+            color: var(--primary-color);
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn {
+            display: inline-block;
+            width: 100%;
+            padding: 12px;
+            background-color: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: bold;
+            transition: background 0.3s;
+            margin-top: 15px;
+        }
+
+        .btn:hover {
+            background-color: var(--accent-color);
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            font-size: 0.9em;
+            color: #7f8c8d;
+        }
     </style>
 </head>
-<body class="p-4">
-    <div class="container mx-auto max-w-7xl">
-        <!-- Header -->
-        <div class="glass rounded-3xl shadow-2xl p-8 mb-8">
-            <div class="flex justify-between items-center flex-wrap gap-6">
-                <div class="flex items-center gap-6">
-                    <div class="bg-gradient-to-br from-purple-600 to-indigo-600 p-6 rounded-2xl floating">
-                        <i data-lucide="graduation-cap" class="text-white w-16 h-16"></i>
-                    </div>
-                    <div>
-                        <h1 class="text-6xl font-black gradient-text mb-2">FRANCIANE COSTA</h1>
-                        <p class="text-gray-600 text-xl font-bold bg-yellow-100 px-4 py-2 rounded-full inline-block">🎯 Rumo à Aprovação!</p>
-                    </div>
-                </div>
-                <div class="flex gap-4">
-                    <div class="glass px-8 py-4 rounded-2xl shadow-xl">
-                        <div class="text-green-600 text-sm font-black">✓ ACERTOS</div>
-                        <div class="text-4xl font-black text-green-700" id="correctCount">0</div>
-                    </div>
-                    <div class="glass px-8 py-4 rounded-2xl shadow-xl">
-                        <div class="text-red-600 text-sm font-black">✗ ERROS</div>
-                        <div class="text-4xl font-black text-red-700" id="incorrectCount">0</div>
-                    </div>
-                    <div class="glass px-8 py-4 rounded-2xl shadow-xl">
-                        <div class="text-blue-600 text-sm font-black">📊 NOTA</div>
-                        <div class="text-4xl font-black text-blue-700" id="percentageCount">0%</div>
-                    </div>
-                </div>
-            </div>
+<body>
+
+    <div class="header">
+        <h1>MAIVANE MARIA</h1>
+        <p>Cássia Prompt V8 God Mode | Elite Edition</p>
+    </div>
+
+    <div class="container">
+        <div class="card">
+            <h3><i class="fas fa-calendar-alt"></i> Cronograma</h3>
+            <p>Acesse o planejamento detalhado das metas de estudo e prazos.</p>
+            <a href="#" class="btn">Visualizar Metas</a>
         </div>
 
-        <!-- Navegação -->
-        <div class="glass rounded-3xl shadow-2xl mb-8 p-2">
-            <div class="flex gap-2 flex-wrap">
-                <button onclick="switchTab('questoes')" id="tab-questoes" class="tab-btn px-8 py-4 rounded-2xl font-black transition-all text-gray-700 hover:bg-purple-100 tab-active flex items-center gap-2">
-                    <i data-lucide="brain" class="w-6 h-6"></i> Quest ões
-                </button>
-                <button onclick="switchTab('caderno')" id="tab-caderno" class="tab-btn px-8 py-4 rounded-2xl font-black transition-all text-gray-700 hover:bg-purple-100 flex items-center gap-2">
-                    <i data-lucide="book-open" class="w-6 h-6"></i> 📚 Caderno
-                </button>
-                <button onclick="switchTab('pdfs')" id="tab-pdfs" class="tab-btn px-8 py-4 rounded-2xl font-black transition-all text-gray-700 hover:bg-purple-100 flex items-center gap-2">
-                    <i data-lucide="file-text" class="w-6 h-6"></i> 📄 PDFs
-                </button>
-                <button onclick="switchTab('duvidas')" id="tab-duvidas" class="tab-btn px-8 py-4 rounded-2xl font-black transition-all text-gray-700 hover:bg-purple-100 flex items-center gap-2">
-                    <i data-lucide="message-square" class="w-6 h-6"></i> 🤖 IA
-                </button>
-            </div>
+        <div class="card">
+            <h3><i class="fas fa-book-open"></i> Materiais Base</h3>
+            <p>Doutrina, jurisprudência e arquivos PDF estruturados para o V8.</p>
+            <a href="#" class="btn">Abrir Biblioteca</a>
         </div>
 
-        <!-- Aba PDFs -->
-        <div id="content-pdfs" class="tab-content hidden">
-            <div class="grid lg:grid-cols-3 gap-6">
-                <div class="lg:col-span-2">
-                    <div class="upload-zone rounded-3xl p-12 mb-8 text-center cursor-pointer" id="uploadZone" onclick="document.getElementById('pdfInput').click()">
-                        <input type="file" id="pdfInput" accept=".pdf" multiple class="hidden" onchange="handlePDFUpload(event)">
-                        <i data-lucide="upload-cloud" class="w-24 h-24 text-purple-600 mx-auto mb-6"></i>
-                        <h3 class="text-3xl font-black text-gray-800 mb-4">📤 Arraste seus PDFs aqui</h3>
-                        <p class="text-lg font-semibold text-gray-600">ou clique para selecionar</p>
-                    </div>
-                    <div class="glass rounded-3xl shadow-2xl p-8">
-                        <h2 class="text-3xl font-black mb-6">📚 Minha Biblioteca</h2>
-                        <div id="pdfsList"></div>
-                    </div>
-                </div>
-                <div>
-                    <div class="glass rounded-3xl shadow-2xl p-8 mb-6">
-                        <h3 class="font-black text-xl mb-6">📊 Estatísticas</h3>
-                        <div class="space-y-4">
-                            <div class="p-4 bg-purple-100 rounded-xl">
-                                <span class="font-bold">PDFs:</span>
-                                <span class="text-2xl font-black text-purple-700" id="totalPDFs">0</span>
-                            </div>
-                            <div class="p-4 bg-purple-100 rounded-xl">
-                                <span class="font-bold">Tamanho:</span>
-                                <span class="text-2xl font-black text-purple-700" id="totalSize">0 MB</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Outras abas aqui -->
-        <div id="content-questoes" class="tab-content">
-            <div class="glass rounded-3xl shadow-2xl p-8">
-                <h2 class="text-3xl font-black mb-6">🎯 Painel de Questões</h2>
-                <p class="text-xl">Funcionalidade em desenvolvimento...</p>
-            </div>
-        </div>
-
-        <div id="content-caderno" class="tab-content hidden">
-            <div class="glass rounded-3xl shadow-2xl p-8">
-                <h2 class="text-3xl font-black mb-6">📚 Meu Caderno</h2>
-                <div class="mb-6">
-                    <input type="text" id="noteTitle" placeholder="Título da anotação..." class="w-full p-4 border-3 border-purple-300 rounded-xl font-bold text-xl mb-4">
-                    <textarea id="noteContent" placeholder="Digite aqui suas anotações..." class="w-full p-6 border-3 border-purple-300 rounded-xl resize-none" rows="15"></textarea>
-                </div>
-                <div class="flex gap-4">
-                    <button onclick="saveNote()" class="flex-1 btn-primary text-white px-8 py-5 rounded-2xl font-black text-lg">💾 Salvar</button>
-                    <button onclick="downloadNoteAsPDF()" class="bg-blue-600 text-white px-8 py-5 rounded-2xl font-black text-lg flex items-center gap-2">
-                        <i data-lucide="download" class="w-6 h-6"></i> Baixar PDF
-                    </button>
-                </div>
-                <div id="notesList" class="mt-8"></div>
-            </div>
-        </div>
-
-        <div id="content-duvidas" class="tab-content hidden">
-            <div class="glass rounded-3xl shadow-2xl p-8">
-                <h2 class="text-3xl font-black mb-6">🤖 Dúvidas com IA</h2>
-                <textarea id="doubtArea" placeholder="Cole sua dúvida aqui..." class="w-full p-6 border-3 border-purple-300 rounded-xl resize-none" rows="15"></textarea>
-                <div class="flex gap-4 mt-6">
-                    <button onclick="copyDoubtText()" class="flex-1 btn-primary text-white px-8 py-5 rounded-2xl font-black text-lg">📋 Copiar</button>
-                    <button onclick="clearDoubtText()" class="bg-gray-600 text-white px-8 py-5 rounded-2xl font-black text-lg">🗑️ Limpar</button>
-                </div>
-            </div>
+        <div class="card">
+            <h3><i class="fas fa-edit"></i> Simulados Elite</h3>
+            <p>Área de testes práticos com feedback imediato do sistema.</p>
+            <a href="#" class="btn">Iniciar Teste</a>
         </div>
     </div>
 
-    <script>
-        lucide.createIcons();
-        
-        let state = { pdfs: [], notes: [] };
-        
-        function switchTab(tab) {
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
-            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('tab-active'));
-            document.getElementById('content-' + tab).classList.remove('hidden');
-            document.getElementById('tab-' + tab).classList.add('tab-active');
-            lucide.createIcons();
-        }
-        
-        function handlePDFUpload(e) {
-            const files = e.target.files;
-            for (let file of files) {
-                if (file.type === 'application/pdf' && file.size <= 50*1024*1024) {
-                    const reader = new FileReader();
-                    reader.onload = (ev) => {
-                        state.pdfs.push({
-                            id: Date.now() + Math.random(),
-                            name: file.name,
-                            size: (file.size / (1024*1024)).toFixed(2),
-                            date: new Date().toLocaleDateString('pt-BR'),
-                            data: ev.target.result
-                        });
-                        renderPDFs();
-                    };
-                    reader.readAsDataURL(file);
-                }
-            }
-        }
-        
-        function renderPDFs() {
-            const list = document.getElementById('pdfsList');
-            if (state.pdfs.length === 0) {
-                list.innerHTML = '<div class="text-center py-12 text-gray-500">Nenhum PDF ainda</div>';
-            } else {
-                list.innerHTML = state.pdfs.map(pdf => `
-                    <div class="pdf-card p-6 rounded-2xl mb-4">
-                        <div class="flex justify-between items-center">
-                            <div>
-                                <h4 class="font-black text-lg">${pdf.name}</h4>
-                                <p class="text-sm text-gray-600">${pdf.size} MB • ${pdf.date}</p>
-                            </div>
-                            <div class="flex gap-2">
-                                <button onclick="viewPDF(${pdf.id})" class="p-3 bg-blue-100 rounded-xl">👁️</button>
-                                <button onclick="downloadPDF(${pdf.id})" class="p-3 bg-green-100 rounded-xl">⬇️</button>
-                                <button onclick="deletePDF(${pdf.id})" class="p-3 bg-red-100 rounded-xl">🗑️</button>
-                            </div>
-                        </div>
-                    </div>
-                `).join('');
-            }
-            document.getElementById('totalPDFs').textContent = state.pdfs.length;
-            const total = state.pdfs.reduce((sum, p) => sum + parseFloat(p.size), 0);
-            document.getElementById('totalSize').textContent = total.toFixed(2) + ' MB';
-        }
-        
-        function viewPDF(id) {
-            const pdf = state.pdfs.find(p => p.id === id);
-            if (pdf) window.open(pdf.data, '_blank');
-        }
-        
-        function downloadPDF(id) {
-            const pdf = state.pdfs.find(p => p.id === id);
-            if (pdf) {
-                const a = document.createElement('a');
-                a.href = pdf.data;
-                a.download = pdf.name;
-                a.click();
-            }
-        }
-        
-        function deletePDF(id) {
-            if (confirm('Excluir este PDF?')) {
-                state.pdfs = state.pdfs.filter(p => p.id !== id);
-                renderPDFs();
-            }
-        }
-        
-        function saveNote() {
-            const title = document.getElementById('noteTitle').value;
-            const content = document.getElementById('noteContent').value;
-            if (title && content) {
-                state.notes.push({ id: Date.now(), title, content, date: new Date().toLocaleDateString('pt-BR') });
-                document.getElementById('noteTitle').value = '';
-                document.getElementById('noteContent').value = '';
-                renderNotes();
-                alert('✅ Anotação salva!');
-            }
-        }
-        
-        function renderNotes() {
-            const list = document.getElementById('notesList');
-            list.innerHTML = state.notes.map(note => `
-                <div class="bg-yellow-50 border-l-4 border-yellow-400 p-6 rounded-xl mb-4">
-                    <div class="flex justify-between mb-2">
-                        <h4 class="font-black text-lg">${note.title}</h4>
-                        <button onclick="downloadSingleNotePDF(${note.id})" class="text-blue-600">📥</button>
-                    </div>
-                    <p class="whitespace-pre-wrap">${note.content}</p>
-                    <p class="text-sm text-gray-500 mt-2">${note.date}</p>
-                </div>
-            `).join('');
-        }
-        
-        function downloadNoteAsPDF() {
-            const title = document.getElementById('noteTitle').value;
-            const content = document.getElementById('noteContent').value;
-            if (!title || !content) { alert('Preencha título e conteúdo!'); return; }
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
-            doc.setFontSize(20);
-            doc.text(title, 20, 20);
-            doc.setFontSize(11);
-            const lines = doc.splitTextToSize(content, 170);
-            doc.text(lines, 20, 35);
-            doc.save(title + '.pdf');
-        }
-        
-        function downloadSingleNotePDF(id) {
-            const note = state.notes.find(n => n.id === id);
-            if (note) {
-                const { jsPDF } = window.jspdf;
-                const doc = new jsPDF();
-                doc.setFontSize(20);
-                doc.text(note.title, 20, 20);
-                doc.setFontSize(11);
-                const lines = doc.splitTextToSize(note.content, 170);
-                doc.text(lines, 20, 35);
-                doc.save(note.title + '.pdf');
-            }
-        }
-        
-        function copyDoubtText() {
-            const text = document.getElementById('doubtArea').value;
-            if (text) {
-                navigator.clipboard.writeText(text);
-                alert('✅ Copiado!');
-            }
-        }
-        
-        function clearDoubtText() {
-            document.getElementById('doubtArea').value = '';
-        }
-        
-        const zone = document.getElementById('uploadZone');
-        zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('dragover'); });
-        zone.addEventListener('dragleave', () => zone.classList.remove('dragover'));
-        zone.addEventListener('drop', e => {
-            e.preventDefault();
-            zone.classList.remove('dragover');
-            handlePDFUpload({ target: { files: e.dataTransfer.files } });
-        });
-    </script>
+    <div class="footer">
+        <p>&copy; 2026 Sistema de Estudos - Gerado por Cássia Prompt V8</p>
+    </div>
+
 </body>
 </html>
