@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MAIVANE MARIA - V8 SINGULARITY</title>
+    <title>MAIVANE DAMASCENO - V8 SINGULARITY</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;500;700&family=Righteous&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -15,18 +15,17 @@
             --cyan: #00f2ff; 
             --bg-dark: #020205; 
             --card-bg: rgba(10, 11, 15, 0.98); 
-            --neon-purple: #7000ff;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background: var(--bg-dark); color: #fff; font-family: 'Rajdhani', sans-serif; min-height: 100vh; }
+        body { background: var(--bg-dark); color: #fff; font-family: 'Rajdhani', sans-serif; min-height: 100vh; overflow-x: hidden; }
 
-        /* HEADER SUPREMO */
+        /* HEADER */
         .header-elite { text-align: center; padding: 25px 10px; border-bottom: 1px solid #1a1a1a; background: #000; }
-        .brand-name { font-family: 'Righteous', cursive; font-size: 2.2rem; letter-spacing: 4px; color: #fff; text-transform: uppercase; }
-        .v8-tag { font-family: 'Orbitron'; font-size: 10px; color: var(--magenta); letter-spacing: 5px; margin-top: 5px; }
+        .brand-name { font-family: 'Righteous', cursive; font-size: 2rem; letter-spacing: 3px; color: #fff; text-transform: uppercase; }
+        .v8-tag { font-family: 'Orbitron'; font-size: 9px; color: var(--magenta); letter-spacing: 4px; margin-top: 5px; }
 
-        /* NAVEGAÇÃO TÁTICA */
+        /* NAV */
         .nav-v8 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; padding: 15px; max-width: 950px; margin: 0 auto; }
         .nav-item { background: #0a0b0f; border: 1px solid #222; padding: 12px 5px; border-radius: 4px; text-align: center; cursor: pointer; transition: 0.3s; }
         .nav-item i { color: var(--cyan); display: block; margin-bottom: 5px; width: 18px; margin-left: auto; margin-right: auto; }
@@ -37,118 +36,96 @@
         .container { padding: 15px; max-width: 950px; margin: 0 auto; }
         .hidden { display: none !important; }
 
-        /* GERADOR V8 SINGULARITY */
-        .v8-card { background: var(--card-bg); border: 1px solid rgba(255,255,255,0.05); padding: 25px; border-radius: 4px; }
-        .upload-zone { border: 1px dashed var(--cyan); background: rgba(0, 242, 255, 0.05); padding: 15px; text-align: center; margin-bottom: 20px; cursor: pointer; }
+        /* CARDS */
+        .v8-card { background: var(--card-bg); border: 1px solid rgba(255,255,255,0.05); padding: 20px; border-radius: 4px; margin-bottom: 20px; }
         .box-label { font-size: 10px; color: var(--cyan); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 8px; display: block; font-weight: 700; }
         
         input, textarea, select { width: 100%; background: rgba(0,0,0,0.4); border: none; color: #fff; font-family: 'Rajdhani'; font-size: 15px; border-bottom: 1px solid #333; padding: 10px 5px; margin-bottom: 15px; outline: none; }
         input:focus, textarea:focus { border-bottom-color: var(--magenta); }
 
-        .terminal-box { background: #000; border: 1px solid #222; margin-top: 20px; }
-        .terminal-header { background: #111; padding: 8px 15px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #222; }
-        #output-v8 { padding: 20px; color: var(--cyan); font-family: monospace; font-size: 12px; white-space: pre-wrap; display: none; }
+        /* CADERNOS SAMSUNG STYLE */
+        .notes-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .note-item { background: #0a0b0f; border: 1px solid #222; padding: 20px; border-radius: 8px; border-left: 4px solid var(--magenta); position: relative; }
+        .note-item b { display: block; font-size: 1rem; color: var(--cyan); }
+        .note-item span { font-size: 0.7rem; color: #555; }
 
-        /* TREINO INTERATIVO */
-        .q-display { background: #0a0b0f; padding: 20px; border-radius: 4px; border-left: 4px solid var(--magenta); margin-top: 20px; }
-        .opt-btn { background: #111; border: 1px solid #333; padding: 12px; margin: 8px 0; width: 100%; border-radius: 4px; color: #fff; text-align: left; cursor: pointer; font-family: 'Rajdhani'; font-size: 1rem; }
-        .correct { background: #064e3b !important; border-color: #10b981 !important; }
-        .wrong { background: #450a0a !important; border-color: #ef4444 !important; }
+        /* BUTTONS */
+        .btn-sync { background: var(--cyan); border: none; color: #000; padding: 15px; font-family: 'Orbitron'; font-size: 11px; font-weight: 900; cursor: pointer; width: 100%; text-transform: uppercase; }
+        .btn-magenta { background: var(--magenta); color: white; border: none; padding: 10px; cursor: pointer; font-family: 'Orbitron'; font-size: 10px; }
 
-        /* GRÁFICO */
-        .stats-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
-        .chart-box { height: 300px; position: relative; }
+        /* TERMINAL OUTPUT */
+        #output-v8 { background: #000; border: 1px solid #222; padding: 15px; color: var(--cyan); font-family: monospace; font-size: 12px; margin-top: 15px; white-space: pre-wrap; display: none; }
 
-        .btn-sync { background: var(--cyan); border: none; color: #000; padding: 15px; font-family: 'Orbitron'; font-size: 12px; font-weight: 900; cursor: pointer; width: 100%; margin-top: 10px; }
+        /* CHARTS */
+        .chart-box { height: 250px; margin-top: 15px; }
 
-        #screensaver { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: #000; z-index: 9999; flex-direction: column; align-items: center; justify-content: center; }
+        /* SCREENSAVER */
+        #foco-screen { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: #000; z-index: 10000; flex-direction: column; align-items: center; justify-content: center; }
     </style>
 </head>
 <body>
 
-    <div id="screensaver" onclick="this.style.display='none'">
-        <h1 class="brand-name" style="opacity: 0.2; font-size: 4rem;">MAIVANE MARIA</h1>
+    <div id="foco-screen" onclick="this.style.display='none'">
+        <h1 class="brand-name" style="opacity: 0.2; font-size: 3rem;">MAIVANE DAMASCENO</h1>
         <div id="relogio" style="font-family: 'Orbitron'; font-size: 5rem; color: var(--cyan);">00:00</div>
     </div>
 
     <header class="header-elite">
-        <h1 class="brand-name">MAIVANE MARIA</h1>
+        <h1 class="brand-name">MAIVANE DAMASCENO</h1>
         <div class="v8-tag">UNIVERSAL PROTOCOL: V8 SINGULARITY</div>
     </header>
 
     <nav class="nav-v8">
-        <div class="nav-item active" onclick="showTab('v8-tab', this)"><i data-lucide="zap"></i><span>V8 PROMPT</span></div>
-        <div class="nav-item" onclick="showTab('treino-tab', this)"><i data-lucide="edit-3"></i><span>TREINO</span></div>
-        <div class="nav-item" onclick="showTab('stats-tab', this)"><i data-lucide="bar-chart-3"></i><span>EVOLUÇÃO</span></div>
-        <div class="nav-item" onclick="startFoco()"><i data-lucide="moon"></i><span>FOCO</span></div>
+        <div class="nav-item active" onclick="tab('v8', this)"><i data-lucide="zap"></i><span>PROMPT</span></div>
+        <div class="nav-item" onclick="tab('treino', this)"><i data-lucide="edit-3"></i><span>TREINO</span></div>
+        <div class="nav-item" onclick="tab('notas', this)"><i data-lucide="book"></i><span>CADERNOS</span></div>
+        <div class="nav-item" onclick="openFoco()"><i data-lucide="moon"></i><span>FOCO</span></div>
     </nav>
 
     <main class="container">
         
-        <section id="v8-tab" class="tab-content">
+        <section id="v8" class="tab-content">
             <div class="v8-card">
-                <div class="upload-zone" onclick="document.getElementById('fileInput').click()">
-                    <span id="upload-status">⇪ IMPORTAR PDF PARA CONTEXTO V8</span>
-                    <input type="file" id="fileInput" hidden accept="application/pdf">
+                <div style="border: 1px dashed var(--cyan); padding: 15px; text-align: center; margin-bottom: 20px; cursor: pointer;" onclick="document.getElementById('fileIn').click()">
+                    <span id="up-status" style="font-size: 11px; color: var(--cyan); font-weight: bold;">⇪ IMPORTAR PDF V8</span>
+                    <input type="file" id="fileIn" hidden accept="application/pdf">
                 </div>
-                
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-                    <div>
-                        <span class="box-label">Papel do Especialista</span>
-                        <input type="text" id="p1" placeholder="Ex: Auditor Jurídico">
-                    </div>
-                    <div>
-                        <span class="box-label">Objetivo da Saída</span>
-                        <input type="text" id="p2" placeholder="Ex: Resumo de Alta Retenção">
-                    </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                    <input type="text" id="p1" placeholder="Papel (Ex: Auditor)">
+                    <input type="text" id="p2" placeholder="Objetivo (Ex: Resumo)">
                 </div>
-
-                <span class="box-label">Base de Dados (Contexto Interativo)</span>
-                <textarea id="facts" rows="6" placeholder="Insira o texto ou aguarde o PDF..."></textarea>
-                
-                <button class="btn-sync" onclick="generateV8()">SINCRONIZAR COMANDO</button>
-
-                <div class="terminal-box">
-                    <div class="terminal-header">
-                        <span style="font-size: 9px; color: #666;">COMANDO GERADO</span>
-                        <button onclick="copyV8()" style="background:var(--magenta); border:none; color:#fff; font-size:9px; padding:5px 10px; cursor:pointer;">COPIAR</button>
-                    </div>
-                    <div id="output-v8"></div>
-                </div>
+                <textarea id="facts" rows="5" placeholder="Contexto ou texto extraído..."></textarea>
+                <button class="btn-sync" onclick="gerarV8()">SINCRONIZAR COMANDO</button>
+                <div id="output-v8"></div>
+                <button id="copyBtn" class="btn-magenta" style="width: 100%; margin-top: 10px; display: none;" onclick="copyV8()">COPIAR COMANDO</button>
             </div>
         </section>
 
-        <section id="treino-tab" class="tab-content hidden">
+        <section id="treino" class="tab-content hidden">
             <div class="v8-card">
-                <span class="box-label">MONTAGEM DE QUESTÃO</span>
-                <textarea id="qIn" rows="2" placeholder="Enunciado da questão..."></textarea>
-                <input type="text" id="opt1" placeholder="Opção A">
-                <input type="text" id="opt2" placeholder="Opção B">
-                <input type="text" id="opt3" placeholder="Opção C">
-                <select id="qCorrect">
-                    <option value="0">A correta é a A</option>
-                    <option value="1">A correta é a B</option>
-                    <option value="2">A correta é a C</option>
-                </select>
-                <button class="btn-sync" onclick="montarQ()" style="background: var(--magenta); color: white;">ATIVAR QUESTÃO</button>
-                
-                <div id="qArea" class="q-display hidden">
-                    <p id="qTxt" style="font-weight: bold; margin-bottom: 15px;"></p>
-                    <div id="optsArea"></div>
+                <span class="box-label">EVOLUÇÃO EM TEMPO REAL</span>
+                <div class="chart-box"><canvas id="evolucaoChart"></canvas></div>
+                <div style="display: flex; justify-content: space-around; margin-top: 15px; font-family: 'Orbitron'; font-size: 0.7rem;">
+                    <div style="color: var(--cyan);">ACERTOS: <span id="cA">0</span></div>
+                    <div style="color: var(--magenta);">ERROS: <span id="cE">0</span></div>
                 </div>
+            </div>
+            <div class="v8-card">
+                <span class="box-label">INSERIR QUESTÃO INTERATIVA</span>
+                <textarea id="qText" rows="2" placeholder="Enunciado..."></textarea>
+                <input type="text" id="oA" placeholder="Opção A">
+                <input type="text" id="oB" placeholder="Opção B">
+                <select id="qCorreta"><option value="0">A é a Correta</option><option value="1">B é a Correta</option></select>
+                <button class="btn-sync" onclick="responder()">TESTAR CONHECIMENTO</button>
             </div>
         </section>
 
-        <section id="stats-tab" class="tab-content hidden">
-            <div class="v8-card">
-                <span class="box-label">PERFORMANCE SINGULARITY</span>
-                <div class="chart-box">
-                    <canvas id="evolucaoChart"></canvas>
-                </div>
-                <div style="display:flex; justify-content: space-around; margin-top:20px; font-family: 'Orbitron';">
-                    <div style="color: var(--cyan);">ACERTOS: <span id="numA">0</span></div>
-                    <div style="color: var(--magenta);">ERROS: <span id="numE">0</span></div>
-                </div>
+        <section id="notas" class="tab-content hidden">
+            <div class="notes-grid">
+                <div class="note-item"><b>Português</b><span>PDF Sincronizado</span></div>
+                <div class="note-item"><b>Gestão Pública</b><span>AvançaSP V8</span></div>
+                <div class="note-item"><b>Matemática</b><span>Lógica de Sequência</span></div>
+                <div class="note-item"><b>Legislação</b><span>Protocolo Singularity</span></div>
             </div>
         </section>
 
@@ -158,12 +135,11 @@
         lucide.createIcons();
         let acertos = 0; let erros = 0; let chart;
 
-        // LÓGICA DE PDF (V8 SINGULARITY)
-        const fileInput = document.getElementById('fileInput');
-        fileInput.addEventListener('change', async (e) => {
+        // PDF V8
+        document.getElementById('fileIn').addEventListener('change', async (e) => {
             const file = e.target.files[0];
             if (!file) return;
-            document.getElementById('upload-status').innerText = "⌛ PROCESSANDO...";
+            document.getElementById('up-status').innerText = "⌛ PROCESSANDO...";
             const reader = new FileReader();
             reader.onload = async function() {
                 const typedarray = new Uint8Array(this.result);
@@ -174,26 +150,19 @@
                     const content = await page.getTextContent();
                     text += content.items.map(item => item.str).join(" ") + "\n";
                 }
-                document.getElementById('facts').value = text.substring(0, 15000);
-                document.getElementById('upload-status').innerText = "✓ SINCRONIZADO";
+                document.getElementById('facts').value = text.substring(0, 10000);
+                document.getElementById('up-status').innerText = "✓ SINCRONIZADO";
             };
             reader.readAsArrayBuffer(file);
         });
 
-        function generateV8() {
+        function gerarV8() {
             const f = document.getElementById('facts').value;
-            const p1 = document.getElementById('p1').value || "Especialista";
-            const p2 = document.getElementById('p2').value || "Análise";
-            if(f.length < 10) return alert("ERRO: Insira dados na lacuna!");
-
-            const prompt = `### [PROTOCOLO V8 SINGULARITY]\n` +
-                           `**ESPECIALISTA:** ${p1}\n**OBJETIVO:** ${p2}\n\n` +
-                           `**CONTEXTO:**\n"${f}"\n\n` +
-                           `**DIRETRIZES:** Baseie-se apenas no contexto. Seja técnico e direto.`;
-            
-            const out = document.getElementById('output-v8');
-            out.innerText = prompt;
-            out.style.display = 'block';
+            if(!f) return alert("Insira contexto!");
+            const prompt = `### [PROTOCOLO V8 SINGULARITY]\nESPECIALISTA: ${document.getElementById('p1').value || 'Expert'}\nOBJETIVO: ${document.getElementById('p2').value || 'Análise'}\n\nCONTEXTO: "${f}"\n\nDIRETRIZES: Direto, técnico e sem invenções.`;
+            document.getElementById('output-v8').innerText = prompt;
+            document.getElementById('output-v8').style.display = 'block';
+            document.getElementById('copyBtn').style.display = 'block';
         }
 
         function copyV8() {
@@ -201,56 +170,38 @@
             alert("V8 COPIADO!");
         }
 
-        // QUESTÕES E GRÁFICO
-        function montarQ() {
-            const q = document.getElementById('qIn').value;
-            const cor = document.getElementById('qCorrect').value;
-            const opts = [document.getElementById('opt1').value, document.getElementById('opt2').value, document.getElementById('opt3').value];
-
-            document.getElementById('qTxt').innerText = q;
-            const area = document.getElementById('optsArea');
-            area.innerHTML = '';
-            
-            opts.forEach((t, i) => {
-                const b = document.createElement('button');
-                b.className = 'opt-btn';
-                b.innerText = t;
-                b.onclick = () => {
-                    if(i == cor) { b.classList.add('correct'); acertos++; }
-                    else { b.classList.add('wrong'); area.children[cor].classList.add('correct'); erros++; }
-                    updateChart();
-                };
-                area.appendChild(b);
-            });
-            document.getElementById('qArea').classList.remove('hidden');
+        // TREINO E GRÁFICO
+        function responder() {
+            const resp = prompt("Qual sua resposta? (A ou B)").toUpperCase();
+            const correta = document.getElementById('qCorreta').value == "0" ? "A" : "B";
+            if(resp === correta) { alert("CERTO!"); acertos++; } 
+            else { alert("ERROU!"); erros++; }
+            updateChart();
         }
 
         function updateChart() {
-            document.getElementById('numA').innerText = acertos;
-            document.getElementById('numE').innerText = erros;
+            document.getElementById('cA').innerText = acertos;
+            document.getElementById('cE').innerText = erros;
             const ctx = document.getElementById('evolucaoChart').getContext('2d');
             if(chart) chart.destroy();
             chart = new Chart(ctx, {
                 type: 'doughnut',
-                data: {
-                    labels: ['Acertos', 'Erros'],
-                    datasets: [{ data: [acertos, erros], backgroundColor: ['#00f2ff', '#ff007a'], borderWidth: 0 }]
-                },
+                data: { labels: ['A','E'], datasets: [{ data: [acertos, erros], backgroundColor: ['#00f2ff', '#ff007a'], borderWidth: 0 }]},
                 options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
             });
         }
 
-        // NAVEGAÇÃO
-        function showTab(id, el) {
+        // NAV
+        function tab(id, el) {
             document.querySelectorAll('.tab-content').forEach(t => t.classList.add('hidden'));
             document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
             document.getElementById(id).classList.remove('hidden');
             el.classList.add('active');
-            if(id === 'stats-tab') updateChart();
+            if(id === 'treino') updateChart();
         }
 
-        function startFoco() {
-            document.getElementById('screensaver').style.display = 'flex';
+        function openFoco() {
+            document.getElementById('foco-screen').style.display = 'flex';
             setInterval(() => {
                 document.getElementById('relogio').innerText = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
             }, 1000);
