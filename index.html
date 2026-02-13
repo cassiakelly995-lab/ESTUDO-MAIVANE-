@@ -3,209 +3,201 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MAIVANE DAMASCENO | V8 ELITE EDITION</title>
+    <title>MAIVANE DAMASCENO | V8 POMODORO ELITE</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;500;700&family=Righteous&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         :root { --magenta: #ff007a; --cyan: #00f2ff; --bg: #020205; --card: rgba(15, 15, 20, 0.98); }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background: var(--bg); color: #fff; font-family: 'Rajdhani', sans-serif; min-height: 100vh; }
-        
-        header { text-align: center; padding: 20px; border-bottom: 2px solid #111; background: #000; }
-        .brand { font-family: 'Righteous', cursive; font-size: 1.8rem; color: #fff; }
-        .v8-tag { font-family: 'Orbitron'; font-size: 8px; color: var(--magenta); letter-spacing: 4px; }
+        body { background: var(--bg); color: #fff; font-family: 'Rajdhani', sans-serif; overflow-x: hidden; }
 
-        .nav-v8 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; padding: 10px; max-width: 900px; margin: 0 auto; }
-        .nav-item { background: #0a0b0f; border: 1px solid #222; padding: 12px; border-radius: 6px; text-align: center; cursor: pointer; }
+        header { text-align: center; padding: 15px; border-bottom: 2px solid #111; background: #000; }
+        .brand { font-family: 'Righteous', cursive; font-size: 1.5rem; color: #fff; }
+        .v8-tag { font-family: 'Orbitron'; font-size: 8px; color: var(--magenta); letter-spacing: 3px; }
+
+        .nav-v8 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; padding: 10px; max-width: 900px; margin: 0 auto; }
+        .nav-item { background: #0a0b0f; border: 1px solid #222; padding: 10px; border-radius: 6px; text-align: center; cursor: pointer; transition: 0.3s; }
         .nav-item.active { border-color: var(--cyan); box-shadow: 0 0 10px rgba(0, 242, 255, 0.2); }
-        .nav-item span { font-size: 0.7rem; font-weight: bold; color: #fff; text-transform: uppercase; }
+        .nav-item span { font-size: 0.6rem; font-weight: bold; color: #fff; text-transform: uppercase; }
 
         .container { padding: 15px; max-width: 900px; margin: 0 auto; }
         .hidden { display: none !important; }
 
+        /* FOCO POMODORO */
+        #foco-screen { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: #000; z-index: 10000; flex-direction: column; align-items: center; justify-content: center; }
+        .pomo-timer { font-family: 'Orbitron'; font-size: 6rem; color: var(--cyan); text-shadow: 0 0 20px var(--cyan); margin: 20px 0; }
+        .pomo-label { font-family: 'Orbitron'; font-size: 1rem; color: var(--magenta); letter-spacing: 5px; }
+        .pomo-controls { display: flex; gap: 20px; }
+
         /* GERADOR INTERATIVO */
-        .v8-card { background: var(--card); border: 1px solid #222; padding: 25px; border-radius: 8px; margin-bottom: 15px; border-left: 4px solid var(--magenta); }
-        .interactive-chat { background: #050505; padding: 15px; border-radius: 8px; min-height: 200px; border: 1px solid #1a1a1a; margin-bottom: 15px; }
-        .bot-msg { color: var(--cyan); font-family: 'Orbitron'; font-size: 0.8rem; margin-bottom: 10px; border-left: 2px solid var(--cyan); padding-left: 10px; }
-        .user-input-area { display: flex; gap: 10px; }
-        
-        /* CADERNOS EDITÁVEIS */
-        .note-editor { background: #000; border: 1px solid #222; padding: 20px; min-height: 300px; color: #fff; font-size: 1.1rem; outline: none; border-radius: 8px; line-height: 1.6; }
-        .note-controls { display: flex; gap: 10px; margin-bottom: 10px; }
-        .note-saved { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px; }
-        .note-card { background: #0a0b0f; padding: 15px; border: 1px solid #222; border-radius: 4px; cursor: pointer; }
+        .v8-card { background: var(--card); border: 1px solid #222; padding: 20px; border-radius: 8px; margin-bottom: 15px; border-left: 4px solid var(--magenta); }
+        .chat-box { background: #050505; padding: 15px; border-radius: 8px; min-height: 180px; border: 1px solid #1a1a1a; margin-bottom: 15px; overflow-y: auto; max-height: 250px; }
+        .bot-msg { color: var(--cyan); font-family: 'Orbitron'; font-size: 0.75rem; margin-bottom: 10px; border-left: 2px solid var(--cyan); padding-left: 10px; }
+        .user-reply { color: var(--magenta); text-align: right; font-size: 0.9rem; margin-bottom: 10px; }
+
+        /* CADERNOS */
+        .note-editor { background: #000; border: 1px solid #222; padding: 15px; min-height: 250px; color: #fff; font-size: 1rem; outline: none; border-radius: 8px; }
+        .note-card { background: #0a0b0f; padding: 12px; border: 1px solid #222; border-radius: 4px; cursor: pointer; margin-top: 10px; }
 
         /* BOTÕES */
-        .btn { background: var(--cyan); border: none; color: #000; padding: 12px; font-family: 'Orbitron'; font-size: 10px; font-weight: 900; cursor: pointer; border-radius: 4px; }
+        .btn { background: var(--cyan); border: none; color: #000; padding: 10px 20px; font-family: 'Orbitron'; font-size: 10px; font-weight: 900; cursor: pointer; border-radius: 4px; }
         .btn-mag { background: var(--magenta); color: #fff; }
-
-        #final-prompt { background: #000; border: 1px dashed var(--cyan); padding: 15px; color: var(--cyan); font-family: monospace; font-size: 12px; margin-top: 15px; }
+        input[type="text"] { background: #000; border: 1px solid #333; color: #fff; padding: 10px; width: 100%; border-radius: 4px; outline: none; }
     </style>
 </head>
 <body>
 
+    <div id="foco-screen">
+        <div class="pomo-label" id="pomo-status">WORK SESSION</div>
+        <div class="pomo-timer" id="timer-display">25:00</div>
+        <div class="pomo-controls">
+            <button class="btn" onclick="toggleTimer()" id="btn-start">START</button>
+            <button class="btn btn-mag" onclick="resetTimer()">RESET</button>
+            <button class="btn" style="background:#333; color:#fff" onclick="closeFoco()">SAIR</button>
+        </div>
+        <div style="margin-top: 40px; opacity: 0.3; font-family: 'Righteous';">MAIVANE DAMASCENO</div>
+    </div>
+
     <header>
         <div class="brand">MAIVANE DAMASCENO</div>
-        <div class="v8-tag">V8 SINGULARITY | INTERACTIVE ELITE</div>
+        <div class="v8-tag">V8 SINGULARITY | POMODORO ELITE</div>
     </header>
 
     <nav class="nav-v8">
-        <div class="nav-item active" onclick="tab('prompt', this)"><span>V8 PROMPT</span></div>
-        <div class="nav-item" onclick="tab('notas', this)"><span>CADERNOS</span></div>
-        <div class="nav-item" onclick="tab('treino', this)"><span>TREINO A-E</span></div>
+        <div class="nav-item active" onclick="tab('prompt', this)"><span>PROMPT</span></div>
+        <div class="nav-item" onclick="tab('notas', this)"><span>NOTAS</span></div>
+        <div class="nav-item" onclick="tab('treino', this)"><span>TREINO</span></div>
+        <div class="nav-item" onclick="openFoco()" style="border-color: var(--magenta);"><span>FOCO</span></div>
     </nav>
 
     <main class="container">
         
         <section id="prompt" class="tab-content">
             <div class="v8-card">
-                <div class="interactive-chat" id="chatBox">
-                    <div class="bot-msg">SISTEMA INICIALIZADO. MAIVANE, VAMOS CONSTRUIR SEU COMANDO ACADÊMICO.</div>
-                    <div class="bot-msg" id="questionText">1. Qual o PAPEL do especialista que deve te ajudar agora? (Ex: Professor de Direito)</div>
+                <div class="chat-box" id="chatV8">
+                    <div class="bot-msg">SISTEMA V8 ATIVO. VAMOS CONFIGURAR SEU ESTUDO.</div>
+                    <div class="bot-msg" id="q-v8">1. Qual o PAPEL acadêmico da Maivane agora?</div>
                 </div>
-                <div class="user-input-area">
-                    <input type="text" id="userInput" placeholder="Digite sua resposta aqui...">
-                    <button class="btn" onclick="processStep()">ENVIAR</button>
+                <div style="display: flex; gap: 10px;">
+                    <input type="text" id="userIn" placeholder="Sua resposta...">
+                    <button class="btn" onclick="nextStep()">ENVIAR</button>
                 </div>
-                <div id="final-area" class="hidden">
-                    <div id="final-prompt"></div>
-                    <button class="btn btn-mag" style="width:100%; margin-top:10px;" onclick="copyPrompt()">COPIAR COMANDO PARA IA</button>
+                <div id="final-box" class="hidden" style="margin-top:15px;">
+                    <div id="res-v8" style="background:#000; border:1px dashed var(--cyan); padding:10px; color:var(--cyan); font-family:monospace; font-size:11px;"></div>
+                    <button class="btn btn-mag" style="width:100%; margin-top:10px;" onclick="copyV8()">COPIAR COMANDO</button>
                 </div>
             </div>
         </section>
 
         <section id="notas" class="tab-content hidden">
-            <div class="note-controls">
-                <input type="text" id="noteTitle" placeholder="Título do Estudo...">
-                <button class="btn" onclick="saveNote()">SALVAR</button>
-            </div>
-            <div id="noteEditor" class="note-editor" contenteditable="true" placeholder="Escreva suas anotações acadêmicas..."></div>
-            <div id="noteList" class="note-saved"></div>
+            <input type="text" id="noteTitle" placeholder="Título do Caderno..." style="margin-bottom:10px;">
+            <div id="editor" class="note-editor" contenteditable="true">Escreva suas anotações aqui...</div>
+            <button class="btn btn-mag" style="width:100%; margin-top:10px;" onclick="saveNote()">SALVAR CADERNO</button>
+            <div id="noteList"></div>
         </section>
 
         <section id="treino" class="tab-content hidden">
             <div class="v8-card">
-                <p style="color:var(--cyan); font-family:'Orbitron'; font-size:12px; margin-bottom:15px;">GERADOR DE SIMULADOS A-E</p>
-                <textarea id="qIn" rows="3" placeholder="Cole o enunciado da questão..."></textarea>
-                <input type="text" id="oA" placeholder="Opção A">
-                <input type="text" id="oB" placeholder="Opção B">
-                <input type="text" id="oC" placeholder="Opção C">
-                <input type="text" id="oD" placeholder="Opção D">
-                <input type="text" id="oE" placeholder="Opção E">
-                <select id="qCorrect">
-                    <option value="A">CORRETA: A</option><option value="B">CORRETA: B</option>
-                    <option value="C">CORRETA: C</option><option value="D">CORRETA: D</option><option value="E">CORRETA: E</option>
-                </select>
-                <button class="btn btn-mag" style="width:100%" onclick="launchQ()">ATIVAR DESAFIO</button>
+                <textarea id="qArea" rows="3" placeholder="Enunciado da Questão..." style="width:100%; background:#000; color:#fff; border:1px solid #333; padding:10px;"></textarea>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap:5px; margin: 10px 0;">
+                    <input type="text" id="optA" placeholder="A"> <input type="text" id="optB" placeholder="B">
+                    <input type="text" id="optC" placeholder="C"> <input type="text" id="optD" placeholder="D">
+                    <input type="text" id="optE" placeholder="E">
+                    <select id="correctOpt" style="background:#000; color:var(--cyan); border:1px solid #333;">
+                        <option value="A">CORRETA: A</option><option value="B">CORRETA: B</option>
+                        <option value="C">CORRETA: C</option><option value="D">CORRETA: D</option><option value="E">CORRETA: E</option>
+                    </select>
+                </div>
+                <button class="btn" style="width:100%;" onclick="startQuiz()">LANÇAR QUESTÃO</button>
             </div>
-            <div id="playArea" class="hidden v8-card" style="border-left-color: var(--cyan);">
-                <div id="qDisp" style="font-size:1.2rem; margin-bottom:20px;"></div>
-                <div id="optArea"></div>
-            </div>
+            <div id="quizDisplay" class="hidden v8-card"></div>
         </section>
 
     </main>
 
     <script>
-        // LÓGICA DO GERADOR INTERATIVO
-        let step = 0;
-        let answers = [];
-        const questions = [
-            "1. Qual o PAPEL do especialista? (Ex: Auditor Contábil)",
-            "2. Qual o NÍVEL de complexidade? (Ex: Concurso Público / Mestrado)",
-            "3. Qual o TÓPICO exato para análise? (Ex: Atos Administrativos)",
-            "4. Qual o FORMATO de saída desejado? (Ex: Resumo em Tópicos)",
-            "5. Alguma REFERÊNCIA ou autor específico? (Ex: Lei 8.666 / AvançaSP)"
-        ];
+        // LÓGICA POMODORO
+        let timer;
+        let timeLeft = 25 * 60;
+        let isRunning = false;
+        let mode = 'WORK';
 
-        function processStep() {
-            const input = document.getElementById('userInput');
-            if(!input.value) return;
+        function updateTimer() {
+            const mins = Math.floor(timeLeft / 60);
+            const secs = timeLeft % 60;
+            document.getElementById('timer-display').innerText = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+        }
 
-            answers.push(input.value);
-            const chat = document.getElementById('chatBox');
-            chat.innerHTML += `<div style="text-align:right; color:var(--magenta); font-size:0.8rem; margin-bottom:10px;">> ${input.value}</div>`;
-            
-            step++;
-            if(step < questions.length) {
-                chat.innerHTML += `<div class="bot-msg">${questions[step]}</div>`;
-                input.value = '';
+        function toggleTimer() {
+            if (isRunning) {
+                clearInterval(timer);
+                document.getElementById('btn-start').innerText = 'START';
             } else {
-                showFinalPrompt();
+                timer = setInterval(() => {
+                    timeLeft--;
+                    updateTimer();
+                    if (timeLeft <= 0) {
+                        clearInterval(timer);
+                        alert(mode === 'WORK' ? "Pausa! Descanse 5 min." : "De volta ao trabalho!");
+                        mode = mode === 'WORK' ? 'BREAK' : 'WORK';
+                        timeLeft = (mode === 'WORK' ? 25 : 5) * 60;
+                        document.getElementById('pomo-status').innerText = mode + " SESSION";
+                        toggleTimer();
+                    }
+                }, 1000);
+                document.getElementById('btn-start').innerText = 'PAUSE';
             }
-            chat.scrollTop = chat.scrollHeight;
+            isRunning = !isRunning;
         }
 
-        function showFinalPrompt() {
-            document.querySelector('.user-input-area').classList.add('hidden');
-            document.getElementById('final-area').classList.remove('hidden');
-            const p = `### [PROTOCOLO V8 ACADEMIC - MAIVANE DAMASCENO]\n` +
-                      `ATUE COMO: ${answers[0]}\nNÍVEL: ${answers[1]}\nASSUNTO: ${answers[2]}\n` +
-                      `FORMATO: ${answers[3]}\nREFERÊNCIA: ${answers[4]}\n\n` +
-                      `DIRETRIZ: Use apenas dados científicos e técnicos. Force a lógica acadêmica.`;
-            document.getElementById('final-prompt').innerText = p;
+        function resetTimer() {
+            clearInterval(timer);
+            isRunning = false;
+            timeLeft = 25 * 60;
+            mode = 'WORK';
+            document.getElementById('pomo-status').innerText = "WORK SESSION";
+            document.getElementById('btn-start').innerText = 'START';
+            updateTimer();
         }
 
-        function copyPrompt() {
-            navigator.clipboard.writeText(document.getElementById('final-prompt').innerText);
-            alert("COMANDO COPIADO! AGORA COLE NA IA.");
+        function openFoco() { document.getElementById('foco-screen').style.display = 'flex'; }
+        function closeFoco() { document.getElementById('foco-screen').style.display = 'none'; }
+
+        // GERADOR INTERATIVO
+        let steps = 0;
+        let data = [];
+        const qs = ["1. Qual o PAPEL?", "2. Qual o NÍVEL?", "3. Qual o TÓPICO?", "4. Qual o FORMATO?", "5. Qual a REFERÊNCIA?"];
+
+        function nextStep() {
+            const val = document.getElementById('userIn').value;
+            if(!val) return;
+            data.push(val);
+            const chat = document.getElementById('chatV8');
+            chat.innerHTML += `<div class="user-reply">${val}</div>`;
+            steps++;
+            if(steps < 5) {
+                chat.innerHTML += `<div class="bot-msg">${qs[steps]}</div>`;
+                document.getElementById('userIn').value = '';
+            } else {
+                document.getElementById('final-box').classList.remove('hidden');
+                document.getElementById('res-v8').innerText = `[V8 ACADEMIC] ATUE COMO: ${data[0]} | NÍVEL: ${data[1]} | ASSUNTO: ${data[2]} | SAÍDA: ${data[3]} | REF: ${data[4]}`;
+            }
         }
 
-        // LÓGICA DOS CADERNOS
-        let notes = JSON.parse(localStorage.getItem('maivane_v8_notes')) || [];
+        function copyV8() { navigator.clipboard.writeText(document.getElementById('res-v8').innerText); alert("V8 COPIADO!"); }
+
+        // CADERNOS
+        let notes = JSON.parse(localStorage.getItem('m_notes')) || [];
         function saveNote() {
-            const title = document.getElementById('noteTitle').value;
-            const text = document.getElementById('noteEditor').innerText;
-            if(!title) return alert("Dê um título!");
-            notes.push({title, text});
-            localStorage.setItem('maivane_v8_notes', JSON.stringify(notes));
+            const t = document.getElementById('noteTitle').value;
+            const c = document.getElementById('editor').innerText;
+            notes.push({t, c});
+            localStorage.setItem('m_notes', JSON.stringify(notes));
             renderNotes();
-            document.getElementById('noteTitle').value = '';
-            document.getElementById('noteEditor').innerText = '';
         }
-
         function renderNotes() {
             const list = document.getElementById('noteList');
             list.innerHTML = '';
-            notes.forEach((n, i) => {
-                list.innerHTML += `<div class="note-card" onclick="loadNote(${i})"><b>${n.title}</b></div>`;
-            });
-        }
-
-        function loadNote(i) {
-            document.getElementById('noteTitle').value = notes[i].title;
-            document.getElementById('noteEditor').innerText = notes[i].text;
-        }
-
-        // TREINO A-E
-        function launchQ() {
-            const q = document.getElementById('qIn').value;
-            const cor = document.getElementById('qCorrect').value;
-            const opts = [
-                {l:'A', v:document.getElementById('oA').value},
-                {l:'B', v:document.getElementById('oB').value},
-                {l:'C', v:document.getElementById('oC').value},
-                {l:'D', v:document.getElementById('oD').value},
-                {l:'E', v:document.getElementById('oE').value}
-            ];
-
-            document.getElementById('qDisp').innerText = q;
-            const area = document.getElementById('optArea');
-            area.innerHTML = '';
-
-            opts.forEach(o => {
-                if(o.v) {
-                    const b = document.createElement('button');
-                    b.style = "display:block; width:100%; text-align:left; padding:15px; margin-bottom:10px; background:#111; border:1px solid #333; color:#fff; cursor:pointer; border-radius:8px;";
-                    b.innerText = `${o.l}) ${o.v}`;
-                    b.onclick = () => {
-                        if(o.l === cor) { b.style.borderColor = "var(--cyan)"; b.style.background = "#002222"; alert("CORRETO!"); }
-                        else { b.style.borderColor = "var(--magenta)"; b.style.background = "#220000"; alert("ERRADO! A correta era " + cor); }
-                    };
-                    area.appendChild(b);
-                }
-            });
-            document.getElementById('playArea').classList.remove('hidden');
+            notes.forEach(n => list.innerHTML += `<div class="note-card"><b>${n.t}</b></div>`);
         }
 
         function tab(id, el) {
