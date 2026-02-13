@@ -2,133 +2,231 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MAIVANE MARIA - Painel de Estudos</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>MAIVANE MARIA - V8 God Mode</title>
+    <link href="https://fonts.googleapis.com/css2?family=Righteous&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    
     <style>
         :root {
-            --primary-color: #2c3e50;
-            --secondary-color: #34495e;
-            --accent-color: #e74c3c;
-            --bg-color: #f4f7f6;
-            --text-color: #333;
-            --card-bg: #ffffff;
+            --primary: #8e44ad;
+            --secondary: #ff0080;
+            --glass: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --text: #ffffff;
         }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; -webkit-tap-highlight-color: transparent; }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            margin: 0;
-            padding: 20px;
+            background: linear-gradient(-45deg, #0f0c29, #302b63, #24243e, #4a148c);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: var(--text);
+            min-height: 100vh;
+            padding: 10px; /* Reduzido para celular */
         }
 
-        .header {
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* HEADER RESPONSIVO */
+        .brand-header {
             text-align: center;
-            padding: 40px 0;
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: white;
-            border-radius: 15px;
-            margin-bottom: 30px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            padding: 30px 0;
         }
 
-        .header h1 {
-            margin: 0;
-            font-size: 2.5em;
+        .brand-name {
+            font-family: 'Righteous', cursive;
+            font-size: clamp(2rem, 12vw, 4.5rem); /* Ajuste automático de tamanho */
+            background: linear-gradient(to right, #fff, #ff0080, #7000ff, #fff);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shine 4s linear infinite;
+            filter: drop-shadow(0 0 10px rgba(255,0,128,0.4));
             letter-spacing: 2px;
+            text-transform: uppercase;
+            line-height: 1.2;
         }
 
-        .header p {
-            opacity: 0.9;
-            font-weight: 300;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
+        /* NAVEGAÇÃO MOBILE-FRIENDLY */
+        .tabs {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-        }
-
-        .card {
-            background: var(--card-bg);
-            padding: 25px;
-            border-radius: 12px;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
-            transition: transform 0.3s ease;
-            border-top: 5px solid var(--accent-color);
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-        }
-
-        .card h3 {
-            color: var(--primary-color);
-            margin-top: 0;
-            display: flex;
-            align-items: center;
+            grid-template-columns: repeat(2, 1fr); /* 2 colunas no celular */
             gap: 10px;
+            margin-bottom: 25px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
-        .btn {
-            display: inline-block;
-            width: 100%;
-            padding: 12px;
-            background-color: var(--primary-color);
+        @media (min-width: 768px) {
+            .tabs { grid-template-columns: repeat(4, 1fr); } /* 4 colunas no PC */
+        }
+
+        .tab-btn {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
             color: white;
-            text-decoration: none;
-            border-radius: 8px;
-            text-align: center;
+            padding: 15px 10px;
+            border-radius: 15px;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column; /* Ícone em cima do texto no mobile */
+            align-items: center;
+            gap: 5px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .tab-btn.active {
+            background: var(--secondary);
+            box-shadow: 0 0 15px var(--secondary);
+            border-color: transparent;
+        }
+
+        /* CONTAINER E CARDS */
+        .container { max-width: 1000px; margin: 0 auto; }
+        
+        .glass-card {
+            background: var(--glass);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        /* INPUTS OTIMIZADOS PARA TOQUE */
+        textarea, input, select {
+            width: 100%;
+            background: rgba(0,0,0,0.4);
+            border: 1px solid var(--glass-border);
+            color: white;
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            font-size: 16px; /* Evita zoom automático no iOS */
+        }
+
+        .btn-action {
+            background: linear-gradient(90deg, #8e44ad, #ff0080);
+            border: none;
+            padding: 18px;
+            color: white;
+            border-radius: 12px;
             font-weight: bold;
-            transition: background 0.3s;
-            margin-top: 15px;
+            cursor: pointer;
+            width: 100%;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
-        .btn:hover {
-            background-color: var(--accent-color);
-        }
+        .hidden { display: none; }
 
-        .footer {
-            text-align: center;
-            margin-top: 50px;
-            font-size: 0.9em;
-            color: #7f8c8d;
-        }
+        @keyframes shine { to { background-position: 200% center; } }
     </style>
 </head>
 <body>
 
-    <div class="header">
-        <h1>MAIVANE MARIA</h1>
-        <p>Cássia Prompt V8 God Mode | Elite Edition</p>
-    </div>
+    <header class="brand-header">
+        <h1 class="brand-name">MAIVANE MARIA</h1>
+        <p style="font-size: 0.7rem; letter-spacing: 2px; opacity: 0.8; margin-top: 5px;">V8 GOD MODE • ELITE EDITION</p>
+    </header>
 
-    <div class="container">
-        <div class="card">
-            <h3><i class="fas fa-calendar-alt"></i> Cronograma</h3>
-            <p>Acesse o planejamento detalhado das metas de estudo e prazos.</p>
-            <a href="#" class="btn">Visualizar Metas</a>
-        </div>
+    <nav class="tabs">
+        <button class="tab-btn active" onclick="showTab('biblioteca')"><i data-lucide="file-up"></i> PDF</button>
+        <button class="tab-btn" onclick="showTab('caderno')"><i data-lucide="pen-tool"></i> CADERNO</button>
+        <button class="tab-btn" onclick="showTab('questoes')"><i data-lucide="target"></i> QUESTÕES</button>
+        <button class="tab-btn" onclick="showTab('ia')"><i data-lucide="zap"></i> IA</button>
+    </nav>
 
-        <div class="card">
-            <h3><i class="fas fa-book-open"></i> Materiais Base</h3>
-            <p>Doutrina, jurisprudência e arquivos PDF estruturados para o V8.</p>
-            <a href="#" class="btn">Abrir Biblioteca</a>
-        </div>
+    <main class="container">
+        
+        <section id="biblioteca" class="tab-content glass-card">
+            <h2 style="margin-bottom:15px">📚 Minha Biblioteca</h2>
+            <input type="file" id="pdfInput" accept="application/pdf">
+            <button class="btn-action">SUBIR MATERIAL</button>
+        </section>
 
-        <div class="card">
-            <h3><i class="fas fa-edit"></i> Simulados Elite</h3>
-            <p>Área de testes práticos com feedback imediato do sistema.</p>
-            <a href="#" class="btn">Iniciar Teste</a>
-        </div>
-    </div>
+        <section id="caderno" class="tab-content glass-card hidden">
+            <h2 style="margin-bottom:15px">📝 Caderno Digital</h2>
+            <input type="text" id="noteTitle" placeholder="Título do Estudo">
+            <select id="noteSubject">
+                <option value="Direito">Direito</option>
+                <option value="Português">Português</option>
+                <option value="Informática">Informática</option>
+            </select>
+            <textarea id="noteContent" rows="8" placeholder="Digite suas anotações para Maivane Maria..."></textarea>
+            <button class="btn-action" onclick="gerarPDF()">SALVAR PDF COM CAPA</button>
+        </section>
 
-    <div class="footer">
-        <p>&copy; 2026 Sistema de Estudos - Gerado por Cássia Prompt V8</p>
-    </div>
+        <section id="questoes" class="tab-content glass-card hidden">
+            <div style="text-align: center;">
+                <h2 style="margin-bottom:10px">🎯 449 Questões</h2>
+                <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 15px;">
+                    <p>Simulado otimizado para mobile.</p>
+                    <button class="btn-action" style="margin-top: 15px;">INICIAR TREINO</button>
+                </div>
+            </div>
+        </section>
 
+        <section id="ia" class="tab-content glass-card hidden">
+            <h2 style="margin-bottom:15px">🤖 Mentor IA</h2>
+            <textarea id="iaInput" rows="6" placeholder="Cole aqui sua dúvida complexa..."></textarea>
+            <button class="btn-action" onclick="copyIA()">COPIAR PARA IA</button>
+        </section>
+
+    </main>
+
+    <script>
+        lucide.createIcons();
+
+        function showTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(tabId).classList.remove('hidden');
+            event.currentTarget.classList.add('active');
+        }
+
+        function gerarPDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            const nome = "MAIVANE MARIA";
+            const titulo = document.getElementById('noteTitle').value || "SEM TITULO";
+            const texto = document.getElementById('noteContent').value;
+
+            // Capa
+            doc.setFillColor(30, 0, 60);
+            doc.rect(0, 0, 210, 297, 'F');
+            doc.setTextColor(255, 255, 255);
+            doc.setFontSize(35);
+            doc.text(nome, 105, 100, { align: 'center' });
+            doc.setFontSize(18);
+            doc.text(titulo, 105, 120, { align: 'center' });
+
+            // Conteúdo
+            doc.addPage();
+            doc.setTextColor(0, 0, 0);
+            doc.setFontSize(12);
+            doc.text(doc.splitTextToSize(texto, 180), 15, 20);
+
+            doc.save(`MAIVANE_V8_${titulo}.pdf`);
+        }
+
+        function copyIA() {
+            const txt = document.getElementById('iaInput');
+            txt.select();
+            document.execCommand('copy');
+            alert("Copiado! Agora abra o ChatGPT/Claude.");
+        }
+    </script>
 </body>
 </html>
