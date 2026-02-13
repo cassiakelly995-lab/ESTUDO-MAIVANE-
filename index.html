@@ -3,13 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MAIVANE DAMASCENO - V8 GOD MODE</title>
+    <title>MAIVANE DAMASCENO - V8 BLACKOUT</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;500;700&family=Righteous&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         :root { --magenta: #ff007a; --cyan: #00f2ff; --bg: #020205; --card: rgba(10, 11, 15, 0.98); }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background: var(--bg); color: #fff; font-family: 'Rajdhani', sans-serif; min-height: 100vh; }
+        body { background: var(--bg); color: #fff; font-family: 'Rajdhani', sans-serif; min-height: 100vh; overflow-x: hidden; }
 
         .header-v8 { text-align: center; padding: 20px; border-bottom: 1px solid #1a1a1a; background: #000; }
         .brand-name { font-family: 'Righteous', cursive; font-size: 1.8rem; letter-spacing: 2px; }
@@ -23,115 +22,108 @@
         .container { padding: 15px; max-width: 900px; margin: 0 auto; }
         .hidden { display: none !important; }
 
+        /* V8 ENGINE */
         .v8-card { background: var(--card); border: 1px solid #222; padding: 20px; border-radius: 4px; margin-bottom: 15px; border-left: 4px solid var(--cyan); }
-        .box-label { font-size: 10px; color: var(--cyan); text-transform: uppercase; margin-bottom: 10px; display: block; font-weight: bold; font-family: 'Orbitron'; }
-
-        /* MOTOR DE PROMPT V8 POTENTE */
-        .v8-engine-input { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
+        .box-label { font-size: 10px; color: var(--cyan); text-transform: uppercase; margin-bottom: 10px; display: block; font-family: 'Orbitron'; }
+        .grid-inputs { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
         input, textarea, select { width: 100%; background: #000; border: 1px solid #333; color: #fff; padding: 12px; font-family: 'Rajdhani'; outline: none; border-radius: 4px; }
-        textarea:focus, input:focus { border-color: var(--magenta); box-shadow: 0 0 5px rgba(255, 0, 122, 0.2); }
-        .btn-v8-fire { background: linear-gradient(90deg, var(--magenta), #8000ff); border: none; color: #fff; padding: 15px; font-family: 'Orbitron'; font-weight: bold; cursor: pointer; width: 100%; text-transform: uppercase; letter-spacing: 2px; transition: 0.3s; }
-        .btn-v8-fire:hover { filter: brightness(1.2); transform: scale(1.01); }
-        
+        .btn-v8 { background: linear-gradient(90deg, var(--magenta), #8000ff); border: none; color: #fff; padding: 15px; font-family: 'Orbitron'; font-weight: bold; cursor: pointer; width: 100%; text-transform: uppercase; letter-spacing: 2px; }
         #out-v8 { background: #000; border: 1px solid var(--cyan); padding: 15px; color: var(--cyan); font-family: monospace; font-size: 12px; margin-top: 15px; white-space: pre-wrap; position: relative; }
-        .copy-tag { position: absolute; top: 5px; right: 10px; color: var(--magenta); font-size: 9px; font-family: 'Orbitron'; cursor: pointer; }
 
         /* CADERNOS E TREINO */
         .note-item { background: #0a0b0f; border: 1px solid #222; padding: 15px; border-radius: 4px; border-left: 4px solid var(--magenta); margin-bottom: 10px; }
         .note-editor { background: #000; border: 1px solid #222; padding: 15px; min-height: 200px; color: #fff; outline: none; border-radius: 4px; }
         .opt-btn { background: #111; border: 1px solid #333; padding: 12px; margin: 5px 0; width: 100%; text-align: left; color: #fff; cursor: pointer; border-radius: 4px; }
 
-        /* POMODORO */
-        .pomo-box { text-align: center; padding: 30px; }
-        .timer-val { font-family: 'Orbitron'; font-size: 5rem; color: var(--cyan); }
+        /* TELA DE FOCO BLACKOUT */
+        #foco-screen { 
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; 
+            background: #000; z-index: 1000; display: none; 
+            flex-direction: column; align-items: center; justify-content: center;
+        }
+        .timer-blackout { font-family: 'Orbitron'; font-size: 8rem; color: var(--cyan); text-shadow: 0 0 30px rgba(0, 242, 255, 0.4); margin-bottom: 20px; }
+        .maivane-ghost { font-family: 'Righteous'; font-size: 1.5rem; color: #111; text-transform: uppercase; letter-spacing: 10px; }
+        .foco-controls { margin-top: 30px; display: flex; gap: 15px; }
+        .btn-foco { background: none; border: 1px solid #333; color: #444; padding: 10px 20px; font-family: 'Orbitron'; cursor: pointer; border-radius: 4px; font-size: 10px; transition: 0.3s; }
+        .btn-foco:hover { color: var(--magenta); border-color: var(--magenta); }
     </style>
 </head>
 <body>
 
+    <div id="foco-screen">
+        <div class="maivane-ghost">MAIVANE DAMASCENO</div>
+        <div class="timer-blackout" id="timer">25:00</div>
+        <div class="foco-controls">
+            <button class="btn-foco" onclick="togglePomo()" id="btn-start">INICIAR SESSÃO</button>
+            <button class="btn-foco" onclick="resetPomo()">RESET</button>
+            <button class="btn-foco" onclick="closeFoco()">SAIR DO BLACKOUT</button>
+        </div>
+    </div>
+
     <header class="header-v8">
         <h1 class="brand-name">MAIVANE DAMASCENO</h1>
-        <div class="v8-tag">V8 SINGULARITY | GOD MODE V8 ENGINE</div>
+        <div class="v8-tag">V8 SINGULARITY | POTENT PROMPT ENGINE</div>
     </header>
 
     <nav class="nav-v8">
         <div class="nav-item active" onclick="tab('prompt', this)"><span>V8 PROMPT</span></div>
         <div class="nav-item" onclick="tab('notas', this)"><span>CADERNOS</span></div>
         <div class="nav-item" onclick="tab('treino', this)"><span>TREINO</span></div>
-        <div class="nav-item" onclick="tab('foco', this)"><span>FOCO</span></div>
+        <div class="nav-item" onclick="openFoco()" style="border-color: var(--cyan);"><span>FOCO</span></div>
     </nav>
 
     <main class="container">
-        
         <section id="prompt" class="tab-content">
             <div class="v8-card">
-                <span class="box-label">MOTOR DE COMANDO V8 GOD MODE</span>
-                <div class="v8-engine-input">
-                    <input type="text" id="v8_role" placeholder="PERSONA (Ex: Juiz Auditor)">
-                    <input type="text" id="v8_task" placeholder="TAREFA (Ex: Fichamento Crítico)">
-                    <input type="text" id="v8_topic" placeholder="ASSUNTO (Ex: Direito Administrativo)">
-                    <select id="v8_tone">
-                        <option value="Técnico/Acadêmico">Tom: Acadêmico</option>
-                        <option value="Jurídico Estrito">Tom: Jurídico</option>
-                        <option value="Analítico/Doutrinário">Tom: Analítico</option>
-                    </select>
+                <span class="box-label">MOTOR V8 GOD MODE</span>
+                <div class="grid-inputs">
+                    <input type="text" id="v_role" placeholder="PERSONA">
+                    <input type="text" id="v_task" placeholder="TAREFA">
+                    <input type="text" id="v_topic" placeholder="ASSUNTO">
+                    <input type="text" id="v_ref" placeholder="REFERÊNCIAS">
                 </div>
-                <textarea id="v8_context" rows="5" placeholder="INJETAR CONTEXTO OU DADOS BRUTOS PARA PROCESSAMENTO..."></textarea>
-                <input type="text" id="v8_ref" placeholder="REFERÊNCIAS (Ex: Lei 14.133, Doutrina de Hely Lopes)">
-                
-                <button class="btn-v8-fire" onclick="buildPotentPrompt()">ATIVAR MOTOR V8</button>
-                
+                <textarea id="v_context" rows="5" placeholder="INJETAR CONTEXTO..."></textarea>
+                <button class="btn-v8" onclick="buildPrompt()">ATIVAR MOTOR V8</button>
                 <div id="out-v8" class="hidden">
-                    <span class="copy-tag" onclick="copyV8()">[ CLIQUE PARA COPIAR ]</span>
-                    <div id="v8_final_text"></div>
+                    <div id="v_final"></div>
                 </div>
             </div>
         </section>
 
         <section id="notas" class="tab-content hidden">
             <div class="v8-card">
-                <span class="box-label">EDITOR DE NOTAS</span>
-                <input type="text" id="noteTitle" placeholder="Título do Assunto...">
+                <span class="box-label">NOTAS ACADÊMICAS</span>
+                <input type="text" id="ntTitle" placeholder="Título...">
                 <div id="editor" class="note-editor" contenteditable="true"></div>
-                <button class="opt-btn" style="background: var(--magenta); text-align:center; margin-top:10px;" onclick="saveNote()">SALVAR NO CADERNO</button>
+                <button class="opt-btn" style="background: var(--magenta); text-align:center; margin-top:10px;" onclick="saveNote()">SALVAR</button>
             </div>
-            <div id="noteList"></div>
+            <div id="nList"></div>
         </section>
 
         <section id="treino" class="tab-content hidden">
             <div class="v8-card">
-                <span class="box-label">SIMULADOR A-E</span>
-                <textarea id="qIn" rows="2" placeholder="Enunciado..."></textarea>
-                <div class="v8-engine-input">
+                <span class="box-label">QUESTÕES A-E</span>
+                <textarea id="qI" rows="2" placeholder="Questão..."></textarea>
+                <div class="grid-inputs">
                     <input type="text" id="oA" placeholder="A"> <input type="text" id="oB" placeholder="B">
                     <input type="text" id="oC" placeholder="C"> <input type="text" id="oD" placeholder="D">
                 </div>
                 <input type="text" id="oE" placeholder="E">
-                <select id="qCorreta">
+                <select id="qC">
                     <option value="A">CORRETA: A</option><option value="B">CORRETA: B</option>
                     <option value="C">CORRETA: C</option><option value="D">CORRETA: D</option><option value="E">CORRETA: E</option>
                 </select>
-                <button class="opt-btn" style="background: var(--cyan); color:#000; text-align:center;" onclick="startQuest()">CRIAR QUESTÃO</button>
+                <button class="opt-btn" style="background: var(--cyan); color:#000; text-align:center;" onclick="startQ()">GERAR</button>
             </div>
-            <div id="quizArea" class="hidden v8-card"></div>
+            <div id="qArea" class="hidden v8-card"></div>
         </section>
-
-        <section id="foco" class="tab-content hidden">
-            <div class="v8-card pomo-box">
-                <span class="box-label">SISTEMA POMODORO</span>
-                <div class="timer-val" id="timer">25:00</div>
-                <div style="margin-top:20px; display:flex; gap:10px; justify-content:center;">
-                    <button class="btn-v8-fire" style="width:120px;" onclick="startPomo()">START</button>
-                    <button class="btn-v8-fire" style="width:120px; background:#333;" onclick="resetPomo()">RESET</button>
-                </div>
-            </div>
-        </section>
-
     </main>
 
     <script>
-        let notes = JSON.parse(localStorage.getItem('v8_notes_db')) || [];
+        let notes = JSON.parse(localStorage.getItem('v8_db')) || [];
         let timer;
         let timeLeft = 1500;
+        let running = false;
 
         function tab(id, el) {
             document.querySelectorAll('.tab-content').forEach(t => t.classList.add('hidden'));
@@ -140,85 +132,68 @@
             el.classList.add('active');
         }
 
-        // MOTOR V8 POTENTE
-        function buildPotentPrompt() {
-            const role = document.getElementById('v8_role').value || "Especialista";
-            const task = document.getElementById('v8_task').value || "Análise";
-            const topic = document.getElementById('v8_topic').value || "Geral";
-            const tone = document.getElementById('v8_tone').value;
-            const context = document.getElementById('v8_context').value;
-            const ref = document.getElementById('v8_ref').value;
-
-            const prompt = `### [SISTEMA V8 GOD MODE - MAIVANE DAMASCENO]\n` +
-                           `**PERSONA:** ${role}\n` +
-                           `**OBJETIVO:** ${task} sobre ${topic}\n` +
-                           `**RIGOR:** ${tone}\n\n` +
-                           `**CONTEXTO DE ENTRADA:**\n"${context}"\n\n` +
-                           `**REFERÊNCIAS OBRIGATÓRIAS:** ${ref}\n\n` +
-                           `**DIRETRIZES DE SAÍDA:**\n` +
-                           `1. Resposta direta, técnica e sem preâmbulos.\n` +
-                           `2. Estruture em blocos lógicos acadêmicos.\n` +
-                           `3. Não invente dados; se não houver no contexto, cite as referências fornecidas.\n` +
-                           `4. Formate para leitura de alto nível (Bullet Points e Negritos).`;
-
-            document.getElementById('v8_final_text').innerText = prompt;
+        // MOTOR V8
+        function buildPrompt() {
+            const p = `### [SISTEMA V8 - MAIVANE DAMASCENO]\nPERSONA: ${document.getElementById('v_role').value}\nOBJETIVO: ${document.getElementById('v_task').value}\nASSUNTO: ${document.getElementById('v_topic').value}\nREF: ${document.getElementById('v_ref').value}\n\nCONTEXTO:\n${document.getElementById('v_context').value}`;
+            document.getElementById('v_final').innerText = p;
             document.getElementById('out-v8').classList.remove('hidden');
         }
 
-        function copyV8() {
-            const text = document.getElementById('v8_final_text').innerText;
-            navigator.clipboard.writeText(text);
-            alert("PROMPT V8 COPIADO PARA ÁREA DE TRANSFERÊNCIA!");
+        // BLACKOUT POMODORO
+        function openFoco() { document.getElementById('foco-screen').style.display = 'flex'; }
+        function closeFoco() { document.getElementById('foco-screen').style.display = 'none'; }
+        
+        function togglePomo() {
+            if(running) {
+                clearInterval(timer);
+                document.getElementById('btn-start').innerText = 'RECURAR SESSÃO';
+            } else {
+                timer = setInterval(() => {
+                    timeLeft--;
+                    let m = Math.floor(timeLeft / 60);
+                    let s = timeLeft % 60;
+                    document.getElementById('timer').innerText = `${m}:${s < 10 ? '0'+s : s}`;
+                    if(timeLeft <= 0) { clearInterval(timer); alert("Ciclo Completo!"); resetPomo(); }
+                }, 1000);
+                document.getElementById('btn-start').innerText = 'PAUSAR';
+            }
+            running = !running;
         }
 
-        // CADERNOS
+        function resetPomo() {
+            clearInterval(timer);
+            running = false;
+            timeLeft = 1500;
+            document.getElementById('timer').innerText = "25:00";
+            document.getElementById('btn-start').innerText = 'INICIAR SESSÃO';
+        }
+
+        // CADERNOS & TREINO
         function saveNote() {
-            const title = document.getElementById('noteTitle').value;
+            const title = document.getElementById('ntTitle').value;
             const content = document.getElementById('editor').innerText;
             if(!title) return;
             notes.push({title, content});
-            localStorage.setItem('v8_notes_db', JSON.stringify(notes));
+            localStorage.setItem('v8_db', JSON.stringify(notes));
             renderNotes();
-            document.getElementById('noteTitle').value = '';
-            document.getElementById('editor').innerText = '';
+            document.getElementById('ntTitle').value = ''; document.getElementById('editor').innerText = '';
         }
 
         function renderNotes() {
-            const list = document.getElementById('noteList');
-            list.innerHTML = '';
-            notes.forEach(n => list.innerHTML += `<div class="note-item"><b>${n.title}</b></div>`);
+            const l = document.getElementById('nList'); l.innerHTML = '';
+            notes.forEach(n => l.innerHTML += `<div class="note-item"><b>${n.title}</b></div>`);
         }
 
-        // QUESTÕES
-        function startQuest() {
-            const area = document.getElementById('quizArea');
-            const certa = document.getElementById('qCorreta').value;
-            area.innerHTML = `<p style="margin-bottom:15px; font-weight:bold;">${document.getElementById('qIn').value}</p>`;
+        function startQ() {
+            const a = document.getElementById('qArea');
+            const c = document.getElementById('qC').value;
+            a.innerHTML = `<p style="margin-bottom:15px;">${document.getElementById('qI').value}</p>`;
             ['A','B','C','D','E'].forEach(l => {
-                const val = document.getElementById('o'+l).value;
-                if(val) area.innerHTML += `<button class="opt-btn" onclick="check('${l}','${certa}', this)">${l}) ${val}</button>`;
+                const v = document.getElementById('o'+l).value;
+                if(v) a.innerHTML += `<button class="opt-btn" onclick="this.style.background='${l==c?'#064e3b':'#450a0a'}'">${l}) ${v}</button>`;
             });
-            area.classList.remove('hidden');
+            a.classList.remove('hidden');
         }
-
-        function check(l, c, el) {
-            if(l === c) { el.style.background = "#064e3b"; el.style.borderColor = "var(--cyan)"; }
-            else { el.style.background = "#450a0a"; el.style.borderColor = "var(--magenta)"; }
-        }
-
-        // POMODORO
-        function startPomo() {
-            clearInterval(timer);
-            timer = setInterval(() => {
-                timeLeft--;
-                let m = Math.floor(timeLeft / 60);
-                let s = timeLeft % 60;
-                document.getElementById('timer').innerText = `${m}:${s < 10 ? '0'+s : s}`;
-                if(timeLeft <= 0) { clearInterval(timer); alert("POMODORO FINALIZADO!"); }
-            }, 1000);
-        }
-
-        function resetPomo() { clearInterval(timer); timeLeft = 1500; document.getElementById('timer').innerText = "25:00"; }
 
         renderNotes();
     </script>
