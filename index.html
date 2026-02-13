@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MAIVANE DAMASCENO - V8 ELITE</title>
+    <title>MAIVANE DAMASCENO - V8 GOD MODE</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;500;700&family=Righteous&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
@@ -11,12 +11,10 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { background: var(--bg); color: #fff; font-family: 'Rajdhani', sans-serif; min-height: 100vh; }
 
-        /* HEADER FIXO */
         .header-v8 { text-align: center; padding: 20px; border-bottom: 1px solid #1a1a1a; background: #000; }
         .brand-name { font-family: 'Righteous', cursive; font-size: 1.8rem; letter-spacing: 2px; }
         .v8-tag { font-family: 'Orbitron'; font-size: 9px; color: var(--magenta); letter-spacing: 4px; }
 
-        /* NAV PADRÃO ANTERIOR */
         .nav-v8 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; padding: 10px; max-width: 900px; margin: 0 auto; }
         .nav-item { background: #0a0b0f; border: 1px solid #222; padding: 12px; border-radius: 4px; text-align: center; cursor: pointer; }
         .nav-item.active { border-color: var(--magenta); box-shadow: 0 0 10px rgba(255, 0, 122, 0.2); }
@@ -25,39 +23,38 @@
         .container { padding: 15px; max-width: 900px; margin: 0 auto; }
         .hidden { display: none !important; }
 
-        /* CARDS */
-        .v8-card { background: var(--card); border: 1px solid #222; padding: 20px; border-radius: 4px; margin-bottom: 15px; }
-        .box-label { font-size: 10px; color: var(--cyan); text-transform: uppercase; margin-bottom: 10px; display: block; font-weight: bold; }
+        .v8-card { background: var(--card); border: 1px solid #222; padding: 20px; border-radius: 4px; margin-bottom: 15px; border-left: 4px solid var(--cyan); }
+        .box-label { font-size: 10px; color: var(--cyan); text-transform: uppercase; margin-bottom: 10px; display: block; font-weight: bold; font-family: 'Orbitron'; }
 
-        /* GERADOR 5 LACUNAS */
-        .grid-inputs { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        input, textarea, select { width: 100%; background: #000; border: 1px solid #333; color: #fff; padding: 10px; margin-bottom: 10px; font-family: 'Rajdhani'; outline: none; }
-        input:focus { border-color: var(--cyan); }
+        /* MOTOR DE PROMPT V8 POTENTE */
+        .v8-engine-input { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
+        input, textarea, select { width: 100%; background: #000; border: 1px solid #333; color: #fff; padding: 12px; font-family: 'Rajdhani'; outline: none; border-radius: 4px; }
+        textarea:focus, input:focus { border-color: var(--magenta); box-shadow: 0 0 5px rgba(255, 0, 122, 0.2); }
+        .btn-v8-fire { background: linear-gradient(90deg, var(--magenta), #8000ff); border: none; color: #fff; padding: 15px; font-family: 'Orbitron'; font-weight: bold; cursor: pointer; width: 100%; text-transform: uppercase; letter-spacing: 2px; transition: 0.3s; }
+        .btn-v8-fire:hover { filter: brightness(1.2); transform: scale(1.01); }
+        
+        #out-v8 { background: #000; border: 1px solid var(--cyan); padding: 15px; color: var(--cyan); font-family: monospace; font-size: 12px; margin-top: 15px; white-space: pre-wrap; position: relative; }
+        .copy-tag { position: absolute; top: 5px; right: 10px; color: var(--magenta); font-size: 9px; font-family: 'Orbitron'; cursor: pointer; }
 
-        /* CADERNOS REAIS */
-        .note-item { background: #0a0b0f; border: 1px solid #222; padding: 15px; border-radius: 4px; border-left: 4px solid var(--magenta); margin-bottom: 10px; cursor: pointer; }
-        .note-editor { background: #000; border: 1px solid #222; padding: 15px; min-height: 200px; color: #fff; outline: none; border-radius: 4px; white-space: pre-wrap; }
-
-        /* TREINO A-E */
+        /* CADERNOS E TREINO */
+        .note-item { background: #0a0b0f; border: 1px solid #222; padding: 15px; border-radius: 4px; border-left: 4px solid var(--magenta); margin-bottom: 10px; }
+        .note-editor { background: #000; border: 1px solid #222; padding: 15px; min-height: 200px; color: #fff; outline: none; border-radius: 4px; }
         .opt-btn { background: #111; border: 1px solid #333; padding: 12px; margin: 5px 0; width: 100%; text-align: left; color: #fff; cursor: pointer; border-radius: 4px; }
-        .correct { background: #064e3b !important; border-color: #00f2ff !important; }
-        .wrong { background: #450a0a !important; border-color: var(--magenta) !important; }
 
-        /* FOCO POMODORO */
-        .pomo-display { text-align: center; padding: 40px 0; }
-        .timer-val { font-family: 'Orbitron'; font-size: 5rem; color: var(--cyan); text-shadow: 0 0 20px rgba(0, 242, 255, 0.3); }
-        .btn-pomo { background: var(--magenta); border: none; color: #fff; padding: 10px 30px; font-family: 'Orbitron'; cursor: pointer; border-radius: 4px; font-size: 12px; }
+        /* POMODORO */
+        .pomo-box { text-align: center; padding: 30px; }
+        .timer-val { font-family: 'Orbitron'; font-size: 5rem; color: var(--cyan); }
     </style>
 </head>
 <body>
 
     <header class="header-v8">
         <h1 class="brand-name">MAIVANE DAMASCENO</h1>
-        <div class="v8-tag">V8 GOD MODE | ELITE EDITION</div>
+        <div class="v8-tag">V8 SINGULARITY | GOD MODE V8 ENGINE</div>
     </header>
 
     <nav class="nav-v8">
-        <div class="nav-item active" onclick="tab('prompt', this)"><span>PROMPT</span></div>
+        <div class="nav-item active" onclick="tab('prompt', this)"><span>V8 PROMPT</span></div>
         <div class="nav-item" onclick="tab('notas', this)"><span>CADERNOS</span></div>
         <div class="nav-item" onclick="tab('treino', this)"><span>TREINO</span></div>
         <div class="nav-item" onclick="tab('foco', this)"><span>FOCO</span></div>
@@ -67,23 +64,32 @@
         
         <section id="prompt" class="tab-content">
             <div class="v8-card">
-                <span class="box-label">GERADOR ACADÊMICO INTERATIVO</span>
-                <div class="grid-inputs">
-                    <input type="text" id="l1" placeholder="Papel (Ex: Juiz)">
-                    <input type="text" id="l2" placeholder="Nível (Ex: Acadêmico)">
-                    <input type="text" id="l3" placeholder="Tópico (Ex: LRF)">
-                    <input type="text" id="l4" placeholder="Formato (Ex: Tabela)">
-                    <input type="text" id="l5" placeholder="Autor (Ex: Maria Sylvia)">
+                <span class="box-label">MOTOR DE COMANDO V8 GOD MODE</span>
+                <div class="v8-engine-input">
+                    <input type="text" id="v8_role" placeholder="PERSONA (Ex: Juiz Auditor)">
+                    <input type="text" id="v8_task" placeholder="TAREFA (Ex: Fichamento Crítico)">
+                    <input type="text" id="v8_topic" placeholder="ASSUNTO (Ex: Direito Administrativo)">
+                    <select id="v8_tone">
+                        <option value="Técnico/Acadêmico">Tom: Acadêmico</option>
+                        <option value="Jurídico Estrito">Tom: Jurídico</option>
+                        <option value="Analítico/Doutrinário">Tom: Analítico</option>
+                    </select>
                 </div>
-                <textarea id="facts" rows="4" placeholder="Texto base..."></textarea>
-                <button class="opt-btn" style="background: var(--cyan); color:#000; font-weight:bold; text-align:center;" onclick="gerarV8()">SINCRONIZAR COMANDO</button>
-                <div id="out-v8" class="hidden" style="margin-top:10px; padding:10px; border:1px dashed var(--cyan); font-family:monospace; font-size:12px; color:var(--cyan);"></div>
+                <textarea id="v8_context" rows="5" placeholder="INJETAR CONTEXTO OU DADOS BRUTOS PARA PROCESSAMENTO..."></textarea>
+                <input type="text" id="v8_ref" placeholder="REFERÊNCIAS (Ex: Lei 14.133, Doutrina de Hely Lopes)">
+                
+                <button class="btn-v8-fire" onclick="buildPotentPrompt()">ATIVAR MOTOR V8</button>
+                
+                <div id="out-v8" class="hidden">
+                    <span class="copy-tag" onclick="copyV8()">[ CLIQUE PARA COPIAR ]</span>
+                    <div id="v8_final_text"></div>
+                </div>
             </div>
         </section>
 
         <section id="notas" class="tab-content hidden">
             <div class="v8-card">
-                <span class="box-label">NOVO CADERNO</span>
+                <span class="box-label">EDITOR DE NOTAS</span>
                 <input type="text" id="noteTitle" placeholder="Título do Assunto...">
                 <div id="editor" class="note-editor" contenteditable="true"></div>
                 <button class="opt-btn" style="background: var(--magenta); text-align:center; margin-top:10px;" onclick="saveNote()">SALVAR NO CADERNO</button>
@@ -93,9 +99,9 @@
 
         <section id="treino" class="tab-content hidden">
             <div class="v8-card">
-                <span class="box-label">SIMULADOR ELITE (A-E)</span>
+                <span class="box-label">SIMULADOR A-E</span>
                 <textarea id="qIn" rows="2" placeholder="Enunciado..."></textarea>
-                <div class="grid-inputs">
+                <div class="v8-engine-input">
                     <input type="text" id="oA" placeholder="A"> <input type="text" id="oB" placeholder="B">
                     <input type="text" id="oC" placeholder="C"> <input type="text" id="oD" placeholder="D">
                 </div>
@@ -110,12 +116,12 @@
         </section>
 
         <section id="foco" class="tab-content hidden">
-            <div class="v8-card pomo-display">
-                <span class="box-label" id="pomo-mode">MODO FOCO ATIVO</span>
+            <div class="v8-card pomo-box">
+                <span class="box-label">SISTEMA POMODORO</span>
                 <div class="timer-val" id="timer">25:00</div>
-                <div style="margin-top: 20px; display: flex; gap: 10px; justify-content: center;">
-                    <button class="btn-pomo" onclick="startPomo()">INICIAR</button>
-                    <button class="btn-pomo" style="background:#333" onclick="resetPomo()">RESET</button>
+                <div style="margin-top:20px; display:flex; gap:10px; justify-content:center;">
+                    <button class="btn-v8-fire" style="width:120px;" onclick="startPomo()">START</button>
+                    <button class="btn-v8-fire" style="width:120px; background:#333;" onclick="resetPomo()">RESET</button>
                 </div>
             </div>
         </section>
@@ -123,7 +129,7 @@
     </main>
 
     <script>
-        let notes = JSON.parse(localStorage.getItem('v8_notes')) || [];
+        let notes = JSON.parse(localStorage.getItem('v8_notes_db')) || [];
         let timer;
         let timeLeft = 1500;
 
@@ -134,11 +140,35 @@
             el.classList.add('active');
         }
 
-        // GERADOR
-        function gerarV8() {
-            const p = `[V8 ACADEMIC] PAPEL: ${document.getElementById('l1').value} | NÍVEL: ${document.getElementById('l2').value} | TÓPICO: ${document.getElementById('l3').value} | SAÍDA: ${document.getElementById('l4').value} | REF: ${document.getElementById('l5').value}\n\nCONTEXTO: ${document.getElementById('facts').value}`;
-            document.getElementById('out-v8').innerText = p;
+        // MOTOR V8 POTENTE
+        function buildPotentPrompt() {
+            const role = document.getElementById('v8_role').value || "Especialista";
+            const task = document.getElementById('v8_task').value || "Análise";
+            const topic = document.getElementById('v8_topic').value || "Geral";
+            const tone = document.getElementById('v8_tone').value;
+            const context = document.getElementById('v8_context').value;
+            const ref = document.getElementById('v8_ref').value;
+
+            const prompt = `### [SISTEMA V8 GOD MODE - MAIVANE DAMASCENO]\n` +
+                           `**PERSONA:** ${role}\n` +
+                           `**OBJETIVO:** ${task} sobre ${topic}\n` +
+                           `**RIGOR:** ${tone}\n\n` +
+                           `**CONTEXTO DE ENTRADA:**\n"${context}"\n\n` +
+                           `**REFERÊNCIAS OBRIGATÓRIAS:** ${ref}\n\n` +
+                           `**DIRETRIZES DE SAÍDA:**\n` +
+                           `1. Resposta direta, técnica e sem preâmbulos.\n` +
+                           `2. Estruture em blocos lógicos acadêmicos.\n` +
+                           `3. Não invente dados; se não houver no contexto, cite as referências fornecidas.\n` +
+                           `4. Formate para leitura de alto nível (Bullet Points e Negritos).`;
+
+            document.getElementById('v8_final_text').innerText = prompt;
             document.getElementById('out-v8').classList.remove('hidden');
+        }
+
+        function copyV8() {
+            const text = document.getElementById('v8_final_text').innerText;
+            navigator.clipboard.writeText(text);
+            alert("PROMPT V8 COPIADO PARA ÁREA DE TRANSFERÊNCIA!");
         }
 
         // CADERNOS
@@ -147,7 +177,7 @@
             const content = document.getElementById('editor').innerText;
             if(!title) return;
             notes.push({title, content});
-            localStorage.setItem('v8_notes', JSON.stringify(notes));
+            localStorage.setItem('v8_notes_db', JSON.stringify(notes));
             renderNotes();
             document.getElementById('noteTitle').value = '';
             document.getElementById('editor').innerText = '';
@@ -159,21 +189,21 @@
             notes.forEach(n => list.innerHTML += `<div class="note-item"><b>${n.title}</b></div>`);
         }
 
-        // TREINO
+        // QUESTÕES
         function startQuest() {
             const area = document.getElementById('quizArea');
             const certa = document.getElementById('qCorreta').value;
-            area.innerHTML = `<p style="margin-bottom:15px;">${document.getElementById('qIn').value}</p>`;
+            area.innerHTML = `<p style="margin-bottom:15px; font-weight:bold;">${document.getElementById('qIn').value}</p>`;
             ['A','B','C','D','E'].forEach(l => {
-                const val = document.getElementById('opt'+l)?.value || document.getElementById('o'+l).value;
+                const val = document.getElementById('o'+l).value;
                 if(val) area.innerHTML += `<button class="opt-btn" onclick="check('${l}','${certa}', this)">${l}) ${val}</button>`;
             });
             area.classList.remove('hidden');
         }
 
         function check(l, c, el) {
-            if(l === c) el.classList.add('correct');
-            else el.classList.add('wrong');
+            if(l === c) { el.style.background = "#064e3b"; el.style.borderColor = "var(--cyan)"; }
+            else { el.style.background = "#450a0a"; el.style.borderColor = "var(--magenta)"; }
         }
 
         // POMODORO
@@ -184,7 +214,7 @@
                 let m = Math.floor(timeLeft / 60);
                 let s = timeLeft % 60;
                 document.getElementById('timer').innerText = `${m}:${s < 10 ? '0'+s : s}`;
-                if(timeLeft <= 0) { clearInterval(timer); alert("Tempo Esgotado!"); }
+                if(timeLeft <= 0) { clearInterval(timer); alert("POMODORO FINALIZADO!"); }
             }, 1000);
         }
 
