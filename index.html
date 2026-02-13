@@ -3,29 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MAIVANE MARIA - V8 God Mode</title>
+    <title>MAIVANE MARIA - V8 ELITE</title>
     <link href="https://fonts.googleapis.com/css2?family=Righteous&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     
     <style>
         :root {
-            --primary: #8e44ad;
-            --secondary: #ff0080;
-            --glass: rgba(255, 255, 255, 0.1);
-            --glass-border: rgba(255, 255, 255, 0.2);
+            --primary: #4a148c; /* Roxo Profundo */
+            --secondary: #00d2ff; /* Azul Neon */
+            --accent: #6200ea;
+            --glass: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.15);
             --text: #ffffff;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; -webkit-tap-highlight-color: transparent; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
 
         body {
-            background: linear-gradient(-45deg, #0f0c29, #302b63, #24243e, #4a148c);
+            background: linear-gradient(-45deg, #0f0c29, #302b63, #24243e, #1a1a2e);
             background-size: 400% 400%;
             animation: gradientBG 15s ease infinite;
             color: var(--text);
             min-height: 100vh;
-            padding: 10px; /* Reduzido para celular */
+            padding: 15px;
         }
 
         @keyframes gradientBG {
@@ -34,199 +35,243 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* HEADER RESPONSIVO */
-        .brand-header {
-            text-align: center;
-            padding: 30px 0;
-        }
-
+        .brand-header { text-align: center; padding: 25px 0; }
         .brand-name {
             font-family: 'Righteous', cursive;
-            font-size: clamp(2rem, 12vw, 4.5rem); /* Ajuste automático de tamanho */
-            background: linear-gradient(to right, #fff, #ff0080, #7000ff, #fff);
-            background-size: 200% auto;
+            font-size: clamp(2rem, 10vw, 4rem);
+            background: linear-gradient(to right, #fff, var(--secondary), #7000ff);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            animation: shine 4s linear infinite;
-            filter: drop-shadow(0 0 10px rgba(255,0,128,0.4));
             letter-spacing: 2px;
             text-transform: uppercase;
-            line-height: 1.2;
         }
 
-        /* NAVEGAÇÃO MOBILE-FRIENDLY */
+        /* NAVEGAÇÃO */
         .tabs {
             display: grid;
-            grid-template-columns: repeat(2, 1fr); /* 2 colunas no celular */
-            gap: 10px;
-            margin-bottom: 25px;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        @media (min-width: 768px) {
-            .tabs { grid-template-columns: repeat(4, 1fr); } /* 4 colunas no PC */
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            margin-bottom: 20px;
         }
 
         .tab-btn {
             background: var(--glass);
             border: 1px solid var(--glass-border);
             color: white;
-            padding: 15px 10px;
-            border-radius: 15px;
+            padding: 12px 5px;
+            border-radius: 12px;
             cursor: pointer;
+            font-size: 0.7rem;
             display: flex;
-            flex-direction: column; /* Ícone em cima do texto no mobile */
+            flex-direction: column;
             align-items: center;
             gap: 5px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            transition: 0.3s;
         }
 
         .tab-btn.active {
-            background: var(--secondary);
-            box-shadow: 0 0 15px var(--secondary);
-            border-color: transparent;
+            background: var(--accent);
+            border-color: var(--secondary);
+            box-shadow: 0 0 15px rgba(0, 210, 255, 0.3);
         }
 
-        /* CONTAINER E CARDS */
-        .container { max-width: 1000px; margin: 0 auto; }
-        
         .glass-card {
             background: var(--glass);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border: 1px solid var(--glass-border);
             border-radius: 20px;
             padding: 20px;
             margin-bottom: 20px;
         }
 
-        /* INPUTS OTIMIZADOS PARA TOQUE */
-        textarea, input, select {
-            width: 100%;
-            background: rgba(0,0,0,0.4);
-            border: 1px solid var(--glass-border);
-            color: white;
+        /* SISTEMA DE QUIZ */
+        .quiz-box { margin-top: 15px; }
+        .option {
+            background: rgba(255,255,255,0.08);
             padding: 15px;
+            margin: 10px 0;
             border-radius: 12px;
-            margin-bottom: 15px;
-            font-size: 16px; /* Evita zoom automático no iOS */
+            cursor: pointer;
+            transition: 0.3s;
+            border: 1px solid transparent;
+        }
+        .option:hover { background: rgba(255,255,255,0.15); }
+        .correct { background: #2e7d32 !important; border-color: #4caf50; }
+        .wrong { background: #c62828 !important; border-color: #f44336; }
+
+        /* LISTA DE SALVOS */
+        .saved-list { margin-top: 15px; }
+        .saved-item {
+            background: rgba(0,0,0,0.3);
+            padding: 12px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
         }
 
         .btn-action {
-            background: linear-gradient(90deg, #8e44ad, #ff0080);
-            border: none;
-            padding: 18px;
-            color: white;
-            border-radius: 12px;
-            font-weight: bold;
-            cursor: pointer;
-            width: 100%;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            background: linear-gradient(90deg, var(--accent), var(--secondary));
+            border: none; padding: 15px; color: white; border-radius: 12px;
+            font-weight: bold; cursor: pointer; width: 100%; margin-top: 10px;
+        }
+
+        textarea, input, select {
+            width: 100%; background: rgba(0,0,0,0.4); border: 1px solid var(--glass-border);
+            color: white; padding: 12px; border-radius: 10px; margin-bottom: 10px; font-size: 16px;
         }
 
         .hidden { display: none; }
-
-        @keyframes shine { to { background-position: 200% center; } }
     </style>
 </head>
 <body>
 
     <header class="brand-header">
         <h1 class="brand-name">MAIVANE MARIA</h1>
-        <p style="font-size: 0.7rem; letter-spacing: 2px; opacity: 0.8; margin-top: 5px;">V8 GOD MODE • ELITE EDITION</p>
+        <p style="font-size: 0.7rem; opacity: 0.7; letter-spacing: 2px;">GOD MODE V8 • NO PINK EDITION</p>
     </header>
 
     <nav class="tabs">
-        <button class="tab-btn active" onclick="showTab('biblioteca')"><i data-lucide="file-up"></i> PDF</button>
-        <button class="tab-btn" onclick="showTab('caderno')"><i data-lucide="pen-tool"></i> CADERNO</button>
-        <button class="tab-btn" onclick="showTab('questoes')"><i data-lucide="target"></i> QUESTÕES</button>
-        <button class="tab-btn" onclick="showTab('ia')"><i data-lucide="zap"></i> IA</button>
+        <button class="tab-btn active" onclick="showTab('questoes')"><i data-lucide="help-circle"></i> QUIZ</button>
+        <button class="tab-btn" onclick="showTab('caderno')"><i data-lucide="book-marked"></i> NOTAS</button>
+        <button class="tab-btn" onclick="showTab('biblioteca')"><i data-lucide="file-text"></i> PDF</button>
+        <button class="tab-btn" onclick="showTab('ia')"><i data-lucide="cpu"></i> IA</button>
     </nav>
 
-    <main class="container">
-        
-        <section id="biblioteca" class="tab-content glass-card">
-            <h2 style="margin-bottom:15px">📚 Minha Biblioteca</h2>
-            <input type="file" id="pdfInput" accept="application/pdf">
-            <button class="btn-action">SUBIR MATERIAL</button>
+    <main id="app">
+        <section id="questoes" class="tab-content glass-card">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 15px;">
+                <span>Progresso: <b id="q-count">1</b>/449</span>
+                <span id="score" style="color: var(--secondary);">Acertos: 0</span>
+            </div>
+            <div id="quiz-area">
+                <p id="q-text" style="font-weight: 600; min-height: 60px;"></p>
+                <div id="options"></div>
+            </div>
+            <button class="btn-action" style="background: #333;" onclick="proximaQuestao()">Pular Questão</button>
         </section>
 
         <section id="caderno" class="tab-content glass-card hidden">
-            <h2 style="margin-bottom:15px">📝 Caderno Digital</h2>
+            <h2>Caderno Interno</h2>
             <input type="text" id="noteTitle" placeholder="Título do Estudo">
-            <select id="noteSubject">
-                <option value="Direito">Direito</option>
-                <option value="Português">Português</option>
-                <option value="Informática">Informática</option>
-            </select>
-            <textarea id="noteContent" rows="8" placeholder="Digite suas anotações para Maivane Maria..."></textarea>
-            <button class="btn-action" onclick="gerarPDF()">SALVAR PDF COM CAPA</button>
+            <textarea id="noteContent" rows="5" placeholder="Sua anotação aqui..."></textarea>
+            <button class="btn-action" onclick="saveNote()">💾 SALVAR NO SISTEMA</button>
+            
+            <div class="saved-list" id="noteList">
+                </div>
         </section>
 
-        <section id="questoes" class="tab-content glass-card hidden">
-            <div style="text-align: center;">
-                <h2 style="margin-bottom:10px">🎯 449 Questões</h2>
-                <div style="background: rgba(255,255,255,0.1); padding: 20px; border-radius: 15px;">
-                    <p>Simulado otimizado para mobile.</p>
-                    <button class="btn-action" style="margin-top: 15px;">INICIAR TREINO</button>
-                </div>
-            </div>
+        <section id="biblioteca" class="tab-content glass-card hidden">
+            <h2>Biblioteca PDF</h2>
+            <input type="file" id="pdfInput">
+            <div id="pdfList" class="saved-list"></div>
         </section>
 
         <section id="ia" class="tab-content glass-card hidden">
-            <h2 style="margin-bottom:15px">🤖 Mentor IA</h2>
-            <textarea id="iaInput" rows="6" placeholder="Cole aqui sua dúvida complexa..."></textarea>
-            <button class="btn-action" onclick="copyIA()">COPIAR PARA IA</button>
+            <h2>Mentor Digital</h2>
+            <textarea id="iaInput" rows="5" placeholder="Dúvida para a IA..."></textarea>
+            <button class="btn-action" onclick="copyIA()">COPIAR TEXTO</button>
         </section>
-
     </main>
 
     <script>
         lucide.createIcons();
 
-        function showTab(tabId) {
+        // 1. SISTEMA DE QUESTÕES (BANCO INICIAL)
+        const db = [
+            { q: "O princípio da Legalidade estrita diz que:", o: ["Pode tudo que a lei não proíbe", "Só pode o que a lei autoriza", "A lei é facultativa", "O juiz decide sem a lei"], a: 1 },
+            { q: "Qual a capital do Brasil?", o: ["Rio", "São Paulo", "Brasília", "Salvador"], a: 2 },
+            { q: "Direito de Resposta é garantido pela CF/88?", o: ["Sim, proporcional ao agravo", "Não existe esse direito", "Apenas para políticos", "Somente via rádio"], a: 0 }
+        ];
+
+        let cur = 0;
+        let acertos = 0;
+
+        function loadQ() {
+            const item = db[cur];
+            document.getElementById('q-text').innerText = item.q;
+            document.getElementById('q-count').innerText = cur + 1;
+            const optDiv = document.getElementById('options');
+            optDiv.innerHTML = '';
+            item.o.forEach((text, i) => {
+                const b = document.createElement('div');
+                b.className = 'option';
+                b.innerText = text;
+                b.onclick = () => check(i, item.a, b);
+                optDiv.appendChild(b);
+            });
+        }
+
+        function check(sel, cor, el) {
+            if(sel === cor) {
+                el.classList.add('correct');
+                acertos++;
+                document.getElementById('score').innerText = `Acertos: ${acertos}`;
+            } else {
+                el.classList.add('wrong');
+                document.getElementById('options').children[cor].classList.add('correct');
+            }
+            setTimeout(proximaQuestao, 1200);
+        }
+
+        function proximaQuestao() {
+            cur = (cur + 1) % db.length;
+            loadQ();
+        }
+
+        // 2. SISTEMA DE CADERNO (SALVAMENTO LOCAL)
+        function saveNote() {
+            const title = document.getElementById('noteTitle').value;
+            const text = document.getElementById('noteContent').value;
+            if(!title || !text) return alert("Preencha tudo!");
+
+            const notes = JSON.parse(localStorage.getItem('maivane_notes') || '[]');
+            notes.push({ title, text, date: new Date().toLocaleDateString() });
+            localStorage.setItem('maivane_notes', JSON.stringify(notes));
+            
+            document.getElementById('noteTitle').value = '';
+            document.getElementById('noteContent').value = '';
+            renderNotes();
+        }
+
+        function renderNotes() {
+            const notes = JSON.parse(localStorage.getItem('maivane_notes') || '[]');
+            const list = document.getElementById('noteList');
+            list.innerHTML = notes.map((n, i) => `
+                <div class="saved-item">
+                    <div><b>${n.title}</b><br><small>${n.date}</small></div>
+                    <button onclick="delNote(${i})" style="background:none; border:none; color:#ff4444; cursor:pointer;">Excluir</button>
+                </div>
+            `).join('');
+        }
+
+        function delNote(i) {
+            const notes = JSON.parse(localStorage.getItem('maivane_notes') || '[]');
+            notes.splice(i, 1);
+            localStorage.setItem('maivane_notes', JSON.stringify(notes));
+            renderNotes();
+        }
+
+        // 3. NAVEGAÇÃO
+        function showTab(id) {
             document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-            document.getElementById(tabId).classList.remove('hidden');
+            document.getElementById(id).classList.remove('hidden');
             event.currentTarget.classList.add('active');
         }
 
-        function gerarPDF() {
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
-            const nome = "MAIVANE MARIA";
-            const titulo = document.getElementById('noteTitle').value || "SEM TITULO";
-            const texto = document.getElementById('noteContent').value;
-
-            // Capa
-            doc.setFillColor(30, 0, 60);
-            doc.rect(0, 0, 210, 297, 'F');
-            doc.setTextColor(255, 255, 255);
-            doc.setFontSize(35);
-            doc.text(nome, 105, 100, { align: 'center' });
-            doc.setFontSize(18);
-            doc.text(titulo, 105, 120, { align: 'center' });
-
-            // Conteúdo
-            doc.addPage();
-            doc.setTextColor(0, 0, 0);
-            doc.setFontSize(12);
-            doc.text(doc.splitTextToSize(texto, 180), 15, 20);
-
-            doc.save(`MAIVANE_V8_${titulo}.pdf`);
-        }
-
         function copyIA() {
-            const txt = document.getElementById('iaInput');
-            txt.select();
+            const input = document.getElementById('iaInput');
+            input.select();
             document.execCommand('copy');
-            alert("Copiado! Agora abra o ChatGPT/Claude.");
+            alert("Copiado para Maivane Maria!");
         }
+
+        // Init
+        loadQ();
+        renderNotes();
     </script>
 </body>
 </html>
