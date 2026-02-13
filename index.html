@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MAIVANE DAMASCENO - V8 SINGULARITY</title>
+    <title>MAIVANE DAMASCENO - V8 GOD MODE</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;500;700&family=Righteous&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -40,12 +40,12 @@
         .v8-card { background: var(--card-bg); border: 1px solid rgba(255,255,255,0.05); padding: 20px; border-radius: 4px; margin-bottom: 20px; }
         .box-label { font-size: 10px; color: var(--cyan); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 8px; display: block; font-weight: 700; }
         
-        input, textarea, select { width: 100%; background: rgba(0,0,0,0.4); border: none; color: #fff; font-family: 'Rajdhani'; font-size: 15px; border-bottom: 1px solid #333; padding: 10px 5px; margin-bottom: 15px; outline: none; }
+        input, textarea, select { width: 100%; background: rgba(0,0,0,0.4); border: none; color: #fff; font-family: 'Rajdhani'; font-size: 14px; border-bottom: 1px solid #333; padding: 8px 5px; margin-bottom: 10px; outline: none; }
         input:focus, textarea:focus { border-bottom-color: var(--magenta); }
 
         /* CADERNOS SAMSUNG STYLE */
         .notes-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        .note-item { background: #0a0b0f; border: 1px solid #222; padding: 20px; border-radius: 8px; border-left: 4px solid var(--magenta); position: relative; }
+        .note-item { background: #0a0b0f; border: 1px solid #222; padding: 20px; border-radius: 8px; border-left: 4px solid var(--magenta); }
         .note-item b { display: block; font-size: 1rem; color: var(--cyan); }
         .note-item span { font-size: 0.7rem; color: #555; }
 
@@ -56,10 +56,11 @@
         /* TERMINAL OUTPUT */
         #output-v8 { background: #000; border: 1px solid #222; padding: 15px; color: var(--cyan); font-family: monospace; font-size: 12px; margin-top: 15px; white-space: pre-wrap; display: none; }
 
-        /* CHARTS */
-        .chart-box { height: 250px; margin-top: 15px; }
+        /* TREINO */
+        .opt-btn { background: #111; border: 1px solid #333; padding: 12px; margin: 5px 0; width: 100%; border-radius: 4px; color: #fff; text-align: left; cursor: pointer; font-family: 'Rajdhani'; }
+        .correct { background: #064e3b !important; border-color: #10b981 !important; }
+        .wrong { background: #450a0a !important; border-color: #ef4444 !important; }
 
-        /* SCREENSAVER */
         #foco-screen { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: #000; z-index: 10000; flex-direction: column; align-items: center; justify-content: center; }
     </style>
 </head>
@@ -94,7 +95,7 @@
                     <input type="text" id="p1" placeholder="Papel (Ex: Auditor)">
                     <input type="text" id="p2" placeholder="Objetivo (Ex: Resumo)">
                 </div>
-                <textarea id="facts" rows="5" placeholder="Contexto ou texto extraído..."></textarea>
+                <textarea id="facts" rows="5" placeholder="Cole o contexto ou aguarde o PDF..."></textarea>
                 <button class="btn-sync" onclick="gerarV8()">SINCRONIZAR COMANDO</button>
                 <div id="output-v8"></div>
                 <button id="copyBtn" class="btn-magenta" style="width: 100%; margin-top: 10px; display: none;" onclick="copyV8()">COPIAR COMANDO</button>
@@ -103,29 +104,37 @@
 
         <section id="treino" class="tab-content hidden">
             <div class="v8-card">
-                <span class="box-label">EVOLUÇÃO EM TEMPO REAL</span>
-                <div class="chart-box"><canvas id="evolucaoChart"></canvas></div>
-                <div style="display: flex; justify-content: space-around; margin-top: 15px; font-family: 'Orbitron'; font-size: 0.7rem;">
-                    <div style="color: var(--cyan);">ACERTOS: <span id="cA">0</span></div>
-                    <div style="color: var(--magenta);">ERROS: <span id="cE">0</span></div>
-                </div>
+                <span class="box-label">PERFORMANCE EM TEMPO REAL</span>
+                <div style="height: 200px;"><canvas id="evolucaoChart"></canvas></div>
             </div>
             <div class="v8-card">
-                <span class="box-label">INSERIR QUESTÃO INTERATIVA</span>
-                <textarea id="qText" rows="2" placeholder="Enunciado..."></textarea>
-                <input type="text" id="oA" placeholder="Opção A">
-                <input type="text" id="oB" placeholder="Opção B">
-                <select id="qCorreta"><option value="0">A é a Correta</option><option value="1">B é a Correta</option></select>
-                <button class="btn-sync" onclick="responder()">TESTAR CONHECIMENTO</button>
+                <span class="box-label">QUESTÃO INTERATIVA (A ATÉ E)</span>
+                <textarea id="qText" rows="2" placeholder="Enunciado da questão..."></textarea>
+                <input type="text" id="oA" placeholder="Alternativa A">
+                <input type="text" id="oB" placeholder="Alternativa B">
+                <input type="text" id="oC" placeholder="Alternativa C">
+                <input type="text" id="oD" placeholder="Alternativa D">
+                <input type="text" id="oE" placeholder="Alternativa E">
+                <select id="qCorreta">
+                    <option value="A">Correta: A</option><option value="B">Correta: B</option>
+                    <option value="C">Correta: C</option><option value="D">Correta: D</option>
+                    <option value="E">Correta: E</option>
+                </select>
+                <button class="btn-sync" onclick="montarQuestao()">GERAR TREINO</button>
+                
+                <div id="qDisplay" class="hidden" style="margin-top: 20px; border-top: 1px solid #333; padding-top: 15px;">
+                    <p id="qPrompt" style="font-weight: bold; margin-bottom: 15px; color: var(--cyan);"></p>
+                    <div id="optsArea"></div>
+                </div>
             </div>
         </section>
 
         <section id="notas" class="tab-content hidden">
             <div class="notes-grid">
-                <div class="note-item"><b>Português</b><span>PDF Sincronizado</span></div>
-                <div class="note-item"><b>Gestão Pública</b><span>AvançaSP V8</span></div>
-                <div class="note-item"><b>Matemática</b><span>Lógica de Sequência</span></div>
-                <div class="note-item"><b>Legislação</b><span>Protocolo Singularity</span></div>
+                <div class="note-item"><b>Português</b><span>Interpretação e Gramática</span></div>
+                <div class="note-item"><b>Matemática</b><span>Raciocínio Lógico V8</span></div>
+                <div class="note-item"><b>Gestão Pública</b><span>Teoria e Atos</span></div>
+                <div class="note-item"><b>Constitucional</b><span>Art. 5º ao 37º</span></div>
             </div>
         </section>
 
@@ -158,8 +167,7 @@
 
         function gerarV8() {
             const f = document.getElementById('facts').value;
-            if(!f) return alert("Insira contexto!");
-            const prompt = `### [PROTOCOLO V8 SINGULARITY]\nESPECIALISTA: ${document.getElementById('p1').value || 'Expert'}\nOBJETIVO: ${document.getElementById('p2').value || 'Análise'}\n\nCONTEXTO: "${f}"\n\nDIRETRIZES: Direto, técnico e sem invenções.`;
+            const prompt = `### [PROTOCOLO V8 SINGULARITY]\nESPECIALISTA: ${document.getElementById('p1').value}\nOBJETIVO: ${document.getElementById('p2').value}\n\nCONTEXTO: "${f}"\n\nDIRETRIZES: Técnico, direto, Maivane Damasceno.`;
             document.getElementById('output-v8').innerText = prompt;
             document.getElementById('output-v8').style.display = 'block';
             document.getElementById('copyBtn').style.display = 'block';
@@ -170,23 +178,44 @@
             alert("V8 COPIADO!");
         }
 
-        // TREINO E GRÁFICO
-        function responder() {
-            const resp = prompt("Qual sua resposta? (A ou B)").toUpperCase();
-            const correta = document.getElementById('qCorreta').value == "0" ? "A" : "B";
-            if(resp === correta) { alert("CERTO!"); acertos++; } 
-            else { alert("ERROU!"); erros++; }
-            updateChart();
+        // TREINO A-E
+        function montarQuestao() {
+            const questao = document.getElementById('qText').value;
+            const opts = [
+                {l: 'A', v: document.getElementById('oA').value},
+                {l: 'B', v: document.getElementById('oB').value},
+                {l: 'C', v: document.getElementById('oC').value},
+                {l: 'D', v: document.getElementById('oD').value},
+                {l: 'E', v: document.getElementById('oE').value}
+            ];
+            const certa = document.getElementById('qCorreta').value;
+
+            document.getElementById('qPrompt').innerText = questao;
+            const area = document.getElementById('optsArea');
+            area.innerHTML = '';
+
+            opts.forEach(opt => {
+                if(opt.v) {
+                    const b = document.createElement('button');
+                    b.className = 'opt-btn';
+                    b.innerText = `${opt.l}) ${opt.v}`;
+                    b.onclick = () => {
+                        if(opt.l === certa) { b.classList.add('correct'); acertos++; }
+                        else { b.classList.add('wrong'); erros++; }
+                        updateChart();
+                    };
+                    area.appendChild(b);
+                }
+            });
+            document.getElementById('qDisplay').classList.remove('hidden');
         }
 
         function updateChart() {
-            document.getElementById('cA').innerText = acertos;
-            document.getElementById('cE').innerText = erros;
             const ctx = document.getElementById('evolucaoChart').getContext('2d');
             if(chart) chart.destroy();
             chart = new Chart(ctx, {
                 type: 'doughnut',
-                data: { labels: ['A','E'], datasets: [{ data: [acertos, erros], backgroundColor: ['#00f2ff', '#ff007a'], borderWidth: 0 }]},
+                data: { labels: ['Acertos', 'Erros'], datasets: [{ data: [acertos, erros], backgroundColor: ['#00f2ff', '#ff007a'], borderWidth: 0 }]},
                 options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
             });
         }
