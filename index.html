@@ -3,124 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MAIVANE MARIA - V8 ELITE</title>
+    <title>MAIVANE MARIA - ELITE V8</title>
     <link href="https://fonts.googleapis.com/css2?family=Righteous&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     
     <style>
         :root {
-            --primary: #4a148c; /* Roxo Profundo */
-            --secondary: #00d2ff; /* Azul Neon */
-            --accent: #6200ea;
-            --glass: rgba(255, 255, 255, 0.05);
-            --glass-border: rgba(255, 255, 255, 0.15);
-            --text: #ffffff;
+            --primary: #1a1a2e; /* Azul Escuro Sólido */
+            --secondary: #4a148c; /* Roxo Profundo */
+            --accent: #00bcd4; /* Ciano para detalhes */
+            --glass: rgba(255, 255, 255, 0.08);
+            --glass-border: rgba(255, 255, 255, 0.2);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
 
         body {
-            background: linear-gradient(-45deg, #0f0c29, #302b63, #24243e, #1a1a2e);
-            background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite;
-            color: var(--text);
+            background: #eef2f3; /* Fundo claro para contraste com o nome escuro */
+            color: #333;
             min-height: 100vh;
-            padding: 15px;
+            padding: 10px;
         }
 
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        .brand-header { text-align: center; padding: 25px 0; }
+        /* NOME MAIVANE MARIA - ESCURO E FIXO */
+        .brand-header { text-align: center; padding: 30px 0; }
         .brand-name {
             font-family: 'Righteous', cursive;
-            font-size: clamp(2rem, 10vw, 4rem);
-            background: linear-gradient(to right, #fff, var(--secondary), #7000ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            font-size: clamp(2.2rem, 10vw, 4rem);
+            color: #1a1a2e; /* COR ESCURA FIXA */
             letter-spacing: 2px;
             text-transform: uppercase;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
         }
 
-        /* NAVEGAÇÃO */
-        .tabs {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 8px;
-            margin-bottom: 20px;
-        }
-
+        .tabs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 20px; }
         .tab-btn {
-            background: var(--glass);
-            border: 1px solid var(--glass-border);
-            color: white;
-            padding: 12px 5px;
-            border-radius: 12px;
-            cursor: pointer;
-            font-size: 0.7rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 5px;
+            background: white; border: 1px solid #ddd; color: #1a1a2e;
+            padding: 12px 5px; border-radius: 12px; cursor: pointer;
+            font-size: 0.75rem; font-weight: 600; display: flex; flex-direction: column; align-items: center; gap: 5px;
         }
+        .tab-btn.active { background: #1a1a2e; color: white; border-color: #1a1a2e; }
 
-        .tab-btn.active {
-            background: var(--accent);
-            border-color: var(--secondary);
-            box-shadow: 0 0 15px rgba(0, 210, 255, 0.3);
-        }
+        .glass-card { background: white; border-radius: 20px; padding: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); margin-bottom: 20px; }
 
-        .glass-card {
-            background: var(--glass);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            padding: 20px;
-            margin-bottom: 20px;
-        }
-
-        /* SISTEMA DE QUIZ */
-        .quiz-box { margin-top: 15px; }
+        /* QUIZ NO PAINEL */
         .option {
-            background: rgba(255,255,255,0.08);
-            padding: 15px;
-            margin: 10px 0;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: 0.3s;
-            border: 1px solid transparent;
+            background: #f8f9fa; padding: 15px; margin: 10px 0; border-radius: 12px;
+            cursor: pointer; transition: 0.3s; border: 2px solid #eee;
         }
-        .option:hover { background: rgba(255,255,255,0.15); }
-        .correct { background: #2e7d32 !important; border-color: #4caf50; }
-        .wrong { background: #c62828 !important; border-color: #f44336; }
+        .option:hover { background: #f1f1f1; }
+        .correct { background: #d4edda !important; border-color: #28a745 !important; color: #155724; }
+        .wrong { background: #f8d7da !important; border-color: #dc3545 !important; color: #721c24; }
 
-        /* LISTA DE SALVOS */
-        .saved-list { margin-top: 15px; }
-        .saved-item {
-            background: rgba(0,0,0,0.3);
-            padding: 12px;
-            border-radius: 10px;
-            margin-bottom: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.85rem;
-        }
+        /* CADERNO SALVO */
+        .note-item { background: #f9f9f9; padding: 15px; border-radius: 10px; margin-top: 10px; border-left: 5px solid #1a1a2e; }
 
         .btn-action {
-            background: linear-gradient(90deg, var(--accent), var(--secondary));
-            border: none; padding: 15px; color: white; border-radius: 12px;
-            font-weight: bold; cursor: pointer; width: 100%; margin-top: 10px;
+            background: #1a1a2e; border: none; padding: 15px; color: white;
+            border-radius: 12px; font-weight: bold; cursor: pointer; width: 100%; margin-top: 10px;
         }
 
-        textarea, input, select {
-            width: 100%; background: rgba(0,0,0,0.4); border: 1px solid var(--glass-border);
-            color: white; padding: 12px; border-radius: 10px; margin-bottom: 10px; font-size: 16px;
+        textarea, input {
+            width: 100%; background: #fff; border: 1px solid #ddd;
+            padding: 12px; border-radius: 10px; margin-bottom: 10px; font-size: 16px;
         }
 
         .hidden { display: none; }
@@ -130,147 +76,138 @@
 
     <header class="brand-header">
         <h1 class="brand-name">MAIVANE MARIA</h1>
-        <p style="font-size: 0.7rem; opacity: 0.7; letter-spacing: 2px;">GOD MODE V8 • NO PINK EDITION</p>
+        <p style="font-size: 0.8rem; color: #666; font-weight: bold;">CÁSSIA PROMPT V8 • ELITE EDITION</p>
     </header>
 
     <nav class="tabs">
-        <button class="tab-btn active" onclick="showTab('questoes')"><i data-lucide="help-circle"></i> QUIZ</button>
-        <button class="tab-btn" onclick="showTab('caderno')"><i data-lucide="book-marked"></i> NOTAS</button>
-        <button class="tab-btn" onclick="showTab('biblioteca')"><i data-lucide="file-text"></i> PDF</button>
+        <button class="tab-btn active" onclick="showTab('questoes')"><i data-lucide="pen-tool"></i> QUESTÕES</button>
+        <button class="tab-btn" onclick="showTab('caderno')"><i data-lucide="book"></i> CADERNO</button>
         <button class="tab-btn" onclick="showTab('ia')"><i data-lucide="cpu"></i> IA</button>
+        <button class="tab-btn" onclick="showTab('stats')"><i data-lucide="bar-chart"></i> STATS</button>
     </nav>
 
-    <main id="app">
+    <main class="container">
         <section id="questoes" class="tab-content glass-card">
             <div style="display: flex; justify-content: space-between; margin-bottom: 15px;">
-                <span>Progresso: <b id="q-count">1</b>/449</span>
-                <span id="score" style="color: var(--secondary);">Acertos: 0</span>
+                <span id="progress">Questão: 1/40</span>
+                <span id="score" style="color: #28a745; font-weight: bold;">Acertos: 0</span>
             </div>
-            <div id="quiz-area">
-                <p id="q-text" style="font-weight: 600; min-height: 60px;"></p>
-                <div id="options"></div>
+            <div id="quiz-box">
+                <p id="q-text" style="font-weight: 600; font-size: 1.1rem; margin-bottom: 20px;"></p>
+                <div id="options-container"></div>
             </div>
-            <button class="btn-action" style="background: #333;" onclick="proximaQuestao()">Pular Questão</button>
         </section>
 
         <section id="caderno" class="tab-content glass-card hidden">
-            <h2>Caderno Interno</h2>
-            <input type="text" id="noteTitle" placeholder="Título do Estudo">
-            <textarea id="noteContent" rows="5" placeholder="Sua anotação aqui..."></textarea>
-            <button class="btn-action" onclick="saveNote()">💾 SALVAR NO SISTEMA</button>
-            
-            <div class="saved-list" id="noteList">
-                </div>
-        </section>
-
-        <section id="biblioteca" class="tab-content glass-card hidden">
-            <h2>Biblioteca PDF</h2>
-            <input type="file" id="pdfInput">
-            <div id="pdfList" class="saved-list"></div>
+            <h2>Meus Estudos Salvos</h2>
+            <input type="text" id="noteTitle" placeholder="Título do resumo">
+            <textarea id="noteText" rows="6" placeholder="Escreva sua anotação aqui..."></textarea>
+            <button class="btn-action" onclick="saveNote()">💾 SALVAR NO PAINEL</button>
+            <div id="savedNotes" style="margin-top: 20px;"></div>
         </section>
 
         <section id="ia" class="tab-content glass-card hidden">
-            <h2>Mentor Digital</h2>
-            <textarea id="iaInput" rows="5" placeholder="Dúvida para a IA..."></textarea>
-            <button class="btn-action" onclick="copyIA()">COPIAR TEXTO</button>
+            <h2>Mentor Digital IA</h2>
+            <textarea id="iaText" rows="6" placeholder="Cole sua dúvida aqui..."></textarea>
+            <button class="btn-action" onclick="copyIA()">COPIAR PARA IA</button>
+        </section>
+
+        <section id="stats" class="tab-content glass-card hidden">
+            <h2>Desempenho da Maivane</h2>
+            <p>Em breve: Gráficos de evolução das 449 questões.</p>
         </section>
     </main>
 
     <script>
         lucide.createIcons();
 
-        // 1. SISTEMA DE QUESTÕES (BANCO INICIAL)
-        const db = [
-            { q: "O princípio da Legalidade estrita diz que:", o: ["Pode tudo que a lei não proíbe", "Só pode o que a lei autoriza", "A lei é facultativa", "O juiz decide sem a lei"], a: 1 },
-            { q: "Qual a capital do Brasil?", o: ["Rio", "São Paulo", "Brasília", "Salvador"], a: 2 },
-            { q: "Direito de Resposta é garantido pela CF/88?", o: ["Sim, proporcional ao agravo", "Não existe esse direito", "Apenas para políticos", "Somente via rádio"], a: 0 }
+        // QUESTÕES EXTRAÍDAS DOS SEUS PDFS
+        const questions = [
+            { q: "Na palavra 'piscina', há a presença de um dígrafo?", o: ["Sim", "Não"], a: 0 },
+            { q: "Joaquim acertou 4 questões de matemática em um teste de 10. Qual a porcentagem de acerto?", o: ["20%", "30%", "40%", "50%"], a: 2 },
+            { q: "Camila cortou uma fita de 9 metros em pedaços de 45cm. Quantos pedaços ela conseguiu?", o: ["18", "19", "20", "22"], a: 2 },
+            { q: "O que é 'Anistia' na Lei de Responsabilidade Fiscal?", o: ["Renúncia de Receita", "Aumento de Gasto", "Dedução de Despesa", "Ativo Não Circulante"], a: 0 }
         ];
 
-        let cur = 0;
-        let acertos = 0;
+        let currentQ = 0;
+        let score = 0;
 
-        function loadQ() {
-            const item = db[cur];
-            document.getElementById('q-text').innerText = item.q;
-            document.getElementById('q-count').innerText = cur + 1;
-            const optDiv = document.getElementById('options');
-            optDiv.innerHTML = '';
-            item.o.forEach((text, i) => {
-                const b = document.createElement('div');
-                b.className = 'option';
-                b.innerText = text;
-                b.onclick = () => check(i, item.a, b);
-                optDiv.appendChild(b);
+        function loadQuestion() {
+            const q = questions[currentQ];
+            document.getElementById('q-text').innerText = q.q;
+            document.getElementById('progress').innerText = `Questão: ${currentQ + 1}/${questions.length}`;
+            const container = document.getElementById('options-container');
+            container.innerHTML = '';
+            
+            q.o.forEach((opt, i) => {
+                const div = document.createElement('div');
+                div.className = 'option';
+                div.innerText = opt;
+                div.onclick = () => checkAnswer(i, q.a, div);
+                container.appendChild(div);
             });
         }
 
-        function check(sel, cor, el) {
-            if(sel === cor) {
-                el.classList.add('correct');
-                acertos++;
-                document.getElementById('score').innerText = `Acertos: ${acertos}`;
+        function checkAnswer(selected, correct, element) {
+            const options = document.querySelectorAll('.option');
+            options.forEach(opt => opt.style.pointerEvents = 'none');
+
+            if(selected === correct) {
+                element.classList.add('correct');
+                score++;
+                document.getElementById('score').innerText = `Acertos: ${score}`;
             } else {
-                el.classList.add('wrong');
-                document.getElementById('options').children[cor].classList.add('correct');
+                element.classList.add('wrong');
+                options[correct].classList.add('correct');
             }
-            setTimeout(proximaQuestao, 1200);
+            setTimeout(() => {
+                currentQ = (currentQ + 1) % questions.length;
+                loadQuestion();
+            }, 1500);
         }
 
-        function proximaQuestao() {
-            cur = (cur + 1) % db.length;
-            loadQ();
-        }
-
-        // 2. SISTEMA DE CADERNO (SALVAMENTO LOCAL)
+        // SISTEMA DE CADERNO LOCAL
         function saveNote() {
             const title = document.getElementById('noteTitle').value;
-            const text = document.getElementById('noteContent').value;
-            if(!title || !text) return alert("Preencha tudo!");
+            const text = document.getElementById('noteText').value;
+            if(!title || !text) return alert("Escreva algo!");
 
-            const notes = JSON.parse(localStorage.getItem('maivane_notes') || '[]');
+            const notes = JSON.parse(localStorage.getItem('maivane_data') || '[]');
             notes.push({ title, text, date: new Date().toLocaleDateString() });
-            localStorage.setItem('maivane_notes', JSON.stringify(notes));
+            localStorage.setItem('maivane_data', JSON.stringify(notes));
             
             document.getElementById('noteTitle').value = '';
-            document.getElementById('noteContent').value = '';
+            document.getElementById('noteText').value = '';
             renderNotes();
         }
 
         function renderNotes() {
-            const notes = JSON.parse(localStorage.getItem('maivane_notes') || '[]');
-            const list = document.getElementById('noteList');
-            list.innerHTML = notes.map((n, i) => `
-                <div class="saved-item">
-                    <div><b>${n.title}</b><br><small>${n.date}</small></div>
-                    <button onclick="delNote(${i})" style="background:none; border:none; color:#ff4444; cursor:pointer;">Excluir</button>
+            const notes = JSON.parse(localStorage.getItem('maivane_data') || '[]');
+            const container = document.getElementById('savedNotes');
+            container.innerHTML = notes.map(n => `
+                <div class="note-item">
+                    <b>${n.title}</b> (${n.date})<br>
+                    <p style="font-size:0.9rem; color:#555;">${n.text}</p>
                 </div>
-            `).join('');
+            `).reverse().join('');
         }
 
-        function delNote(i) {
-            const notes = JSON.parse(localStorage.getItem('maivane_notes') || '[]');
-            notes.splice(i, 1);
-            localStorage.setItem('maivane_notes', JSON.stringify(notes));
-            renderNotes();
-        }
-
-        // 3. NAVEGAÇÃO
-        function showTab(id) {
+        function showTab(tabId) {
             document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-            document.getElementById(id).classList.remove('hidden');
+            document.getElementById(tabId).classList.remove('hidden');
             event.currentTarget.classList.add('active');
         }
 
         function copyIA() {
-            const input = document.getElementById('iaInput');
-            input.select();
+            const txt = document.getElementById('iaText');
+            txt.select();
             document.execCommand('copy');
-            alert("Copiado para Maivane Maria!");
+            alert("Copiado! Maivane pode colar na IA agora.");
         }
 
-        // Init
-        loadQ();
+        // Iniciar
+        loadQuestion();
         renderNotes();
     </script>
 </body>
