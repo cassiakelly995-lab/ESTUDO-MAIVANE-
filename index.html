@@ -3,139 +3,133 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MAIVANE DAMASCENO | V8 ELITE EDITION</title>
+    <title>MAIVANE DAMASCENO | V8 ACADEMIC SUPREMACY</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;500;700&family=Righteous&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
     
     <style>
-        :root { --magenta: #ff007a; --cyan: #00f2ff; --bg-dark: #020205; --card-bg: rgba(10, 11, 15, 0.98); }
+        :root { --magenta: #ff007a; --cyan: #00f2ff; --bg: #020205; --card: rgba(15, 15, 20, 0.95); }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background: var(--bg-dark); color: #fff; font-family: 'Rajdhani', sans-serif; min-height: 100vh; overflow-x: hidden; }
+        body { background: var(--bg); color: #fff; font-family: 'Rajdhani', sans-serif; min-height: 100vh; }
 
         /* HEADER */
-        .header-v8 { text-align: center; padding: 25px 10px; border-bottom: 2px solid #111; background: #000; }
-        .brand-name { font-family: 'Righteous', cursive; font-size: 2rem; letter-spacing: 3px; color: #fff; text-transform: uppercase; }
-        .v8-tag { font-family: 'Orbitron'; font-size: 9px; color: var(--magenta); letter-spacing: 4px; margin-top: 5px; }
+        .header-v8 { text-align: center; padding: 20px; border-bottom: 2px solid #111; background: #000; }
+        .brand-name { font-family: 'Righteous', cursive; font-size: 1.8rem; letter-spacing: 2px; color: #fff; }
+        .v8-tag { font-family: 'Orbitron'; font-size: 8px; color: var(--magenta); letter-spacing: 4px; }
 
         /* NAV */
-        .nav-v8 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; padding: 15px; max-width: 950px; margin: 0 auto; }
-        .nav-item { background: #0a0b0f; border: 1px solid #222; padding: 12px 5px; border-radius: 4px; text-align: center; cursor: pointer; transition: 0.3s; }
-        .nav-item.active { border-color: var(--magenta); box-shadow: 0 0 15px rgba(255, 0, 122, 0.2); }
-        .nav-item span { font-size: 0.6rem; font-weight: bold; color: #666; text-transform: uppercase; display: block; }
+        .nav-v8 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; padding: 10px; max-width: 900px; margin: 0 auto; }
+        .nav-item { background: #0a0b0f; border: 1px solid #222; padding: 10px; border-radius: 6px; text-align: center; cursor: pointer; }
+        .nav-item.active { border-color: var(--cyan); box-shadow: 0 0 10px rgba(0, 242, 255, 0.2); }
+        .nav-item span { font-size: 0.6rem; font-weight: bold; color: #aaa; text-transform: uppercase; }
 
-        .container { padding: 15px; max-width: 950px; margin: 0 auto; }
+        .container { padding: 15px; max-width: 900px; margin: 0 auto; }
         .hidden { display: none !important; }
 
         /* CARDS */
-        .v8-card { background: var(--card-bg); border: 1px solid rgba(255,255,255,0.05); padding: 20px; border-radius: 4px; margin-bottom: 20px; border-left: 2px solid var(--cyan); }
-        .box-label { font-size: 10px; color: var(--cyan); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 8px; display: block; font-weight: 700; }
+        .v8-card { background: var(--card); border: 1px solid #222; padding: 20px; border-radius: 8px; margin-bottom: 15px; }
+        .box-label { font-size: 9px; color: var(--cyan); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 5px; display: block; }
         
-        input, textarea, select { width: 100%; background: rgba(0,0,0,0.6); border: none; color: #fff; font-family: 'Rajdhani'; font-size: 14px; border-bottom: 1px solid #333; padding: 10px; margin-bottom: 10px; outline: none; }
-        input:focus { border-bottom-color: var(--magenta); }
+        input, textarea, select { width: 100%; background: #000; border: 1px solid #333; color: #fff; font-family: 'Rajdhani'; padding: 10px; margin-bottom: 10px; border-radius: 4px; outline: none; }
+        textarea:focus { border-color: var(--magenta); }
 
-        /* GERADOR ACADÊMICO V8 */
-        .btn-sync { background: var(--cyan); border: none; color: #000; padding: 15px; font-family: 'Orbitron'; font-size: 11px; font-weight: 900; cursor: pointer; width: 100%; text-transform: uppercase; }
-        #output-v8 { background: #000; border: 1px solid #222; padding: 15px; color: var(--cyan); font-family: monospace; font-size: 12px; margin-top: 15px; white-space: pre-wrap; display: none; }
+        /* GERADOR 5 LACUNAS */
+        .grid-5 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .btn-v8 { background: var(--cyan); border: none; color: #000; padding: 12px; font-family: 'Orbitron'; font-size: 10px; font-weight: 900; cursor: pointer; width: 100%; border-radius: 4px; }
 
-        /* CADERNOS DINÂMICOS */
-        .notes-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 15px; }
-        .note-item { background: #0a0b0f; border: 1px solid #222; padding: 15px; border-radius: 4px; border-top: 3px solid var(--magenta); position: relative; }
-        .note-item b { display: block; font-size: 13px; color: #fff; text-transform: uppercase; margin-bottom: 5px; }
-        .delete-note { position: absolute; top: 5px; right: 5px; color: #444; cursor: pointer; font-size: 12px; }
+        /* CADERNOS REAIS */
+        .note-header { display: flex; gap: 10px; margin-bottom: 15px; }
+        .note-editor { background: #050505; border-left: 4px solid var(--magenta); padding: 15px; min-height: 200px; font-size: 16px; line-height: 1.6; white-space: pre-wrap; }
+        .note-list { margin-top: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .note-card { background: #111; padding: 10px; border-radius: 4px; cursor: pointer; border: 1px solid #222; position: relative; }
+        .note-card:hover { border-color: var(--cyan); }
 
-        /* QUESTÃO PADRÃO E */
-        .opt-btn { background: #111; border: 1px solid #333; padding: 14px; margin: 6px 0; width: 100%; border-radius: 4px; color: #fff; text-align: left; cursor: pointer; font-family: 'Rajdhani'; transition: 0.2s; }
-        .correct { background: #064e3b !important; border-color: #10b981 !important; }
-        .wrong { background: #450a0a !important; border-color: #ef4444 !important; }
+        /* TREINO GAMIFICADO */
+        .q-box { background: #0a0a0f; border: 2px solid #222; padding: 20px; border-radius: 12px; position: relative; overflow: hidden; }
+        .q-box::before { content: 'QUESTÃO ACADÊMICA'; position: absolute; top: 0; right: 0; background: var(--magenta); color: #fff; font-size: 8px; padding: 2px 10px; font-family: 'Orbitron'; }
+        .opt-btn { background: #1a1a1a; border: 1px solid #333; padding: 15px; margin: 8px 0; width: 100%; border-radius: 8px; color: #fff; text-align: left; cursor: pointer; font-family: 'Rajdhani'; font-size: 15px; transition: 0.3s; }
+        .opt-btn:hover { background: #222; transform: translateX(5px); }
+        .correct { background: #064e3b !important; border-color: #00ff88 !important; box-shadow: 0 0 15px rgba(0,255,136,0.3); }
+        .wrong { background: #450a0a !important; border-color: #ff007a !important; }
 
-        #foco-screen { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: #000; z-index: 10000; flex-direction: column; align-items: center; justify-content: center; }
+        /* CHARTS */
+        .stats-mini { display: flex; justify-content: space-between; align-items: center; background: #000; padding: 10px; border-radius: 4px; margin-bottom: 10px; }
     </style>
 </head>
 <body>
 
-    <div id="foco-screen" onclick="this.style.display='none'">
-        <h1 class="brand-name" style="opacity: 0.2;">MAIVANE DAMASCENO</h1>
-        <div id="relogio" style="font-family: 'Orbitron'; font-size: 5rem; color: var(--cyan);">00:00</div>
-    </div>
-
     <header class="header-v8">
         <h1 class="brand-name">MAIVANE DAMASCENO</h1>
-        <div class="v8-tag">V8 SINGULARITY | ACADEMIC ELITE</div>
+        <div class="v8-tag">V8 SINGULARITY | ACADEMIC GOD MODE</div>
     </header>
 
     <nav class="nav-v8">
-        <div class="nav-item active" onclick="tab('v8', this)"><span>PROMPT</span></div>
+        <div class="nav-item active" onclick="tab('prompt', this)"><span>V8 PROMPT</span></div>
         <div class="nav-item" onclick="tab('treino', this)"><span>TREINO</span></div>
         <div class="nav-item" onclick="tab('notas', this)"><span>CADERNOS</span></div>
-        <div class="nav-item" onclick="openFoco()"><span>FOCO</span></div>
+        <div class="nav-item" onclick="tab('stats', this)"><span>STATUS</span></div>
     </nav>
 
     <main class="container">
         
-        <section id="v8" class="tab-content">
+        <section id="prompt" class="tab-content">
             <div class="v8-card">
-                <span class="box-label">UPLOAD DE MATERIAL ACADÊMICO</span>
-                <div style="border: 1px dashed var(--magenta); padding: 15px; text-align: center; cursor: pointer;" onclick="document.getElementById('fileIn').click()">
-                    <span id="up-status" style="font-size: 11px; color: var(--magenta);">IMPORTAR PDF (LIVROS/ARTIGOS)</span>
-                    <input type="file" id="fileIn" hidden accept="application/pdf">
+                <span class="box-label">CONFIGURAÇÃO DE ENTRADA (5 EIXOS)</span>
+                <div class="grid-5">
+                    <input type="text" id="l1" placeholder="1. Papel Acadêmico (Ex: Doutor em Direito)">
+                    <input type="text" id="l2" placeholder="2. Nível de Rigor (Ex: Pós-Graduação)">
+                    <input type="text" id="l3" placeholder="3. Tópico Base (Ex: Atos Administrativos)">
+                    <input type="text" id="l4" placeholder="4. Formato de Saída (Ex: Tabela Comparativa)">
+                    <input type="text" id="l5" placeholder="5. Bibliografia Alvo (Ex: Celso Antônio Bandeira)">
                 </div>
-                
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px;">
-                    <select id="acadRole">
-                        <option value="Doutor Acadêmico">Doutor Acadêmico</option>
-                        <option value="Analista de Dados">Analista de Dados</option>
-                        <option value="Mestre em Direito">Mestre em Direito</option>
-                    </select>
-                    <select id="acadGoal">
-                        <option value="Fichamento Científico">Fichamento Científico</option>
-                        <option value="Análise Crítica V8">Análise Crítica V8</option>
-                        <option value="Mapa de Referências">Mapa de Referências</option>
-                    </select>
-                </div>
-                <textarea id="facts" rows="6" placeholder="Insira o texto para processamento de alta densidade..."></textarea>
-                <button class="btn-sync" onclick="gerarV8()">SINCRONIZAR PROMPT ACADÊMICO</button>
-                <div id="output-v8"></div>
-                <button id="copyBtn" class="btn-sync" style="background:var(--magenta); margin-top:10px; display:none;" onclick="copyV8()">COPIAR COMANDO</button>
+                <textarea id="facts" rows="4" placeholder="Insira aqui o texto bruto ou dados para processamento..."></textarea>
+                <button class="btn-v8" onclick="gerarV8()">GERAR COMANDO SINGULARITY</button>
+                <div id="out-v8" class="hidden" style="margin-top:15px; padding:15px; background:#000; border-left:4px solid var(--cyan); font-family:monospace; font-size:12px; color:var(--cyan);"></div>
+                <button id="copyBtn" class="btn-v8 hidden" style="background:var(--magenta); margin-top:5px; color:#fff;" onclick="copyV8()">COPIAR COMANDO</button>
             </div>
         </section>
 
         <section id="treino" class="tab-content hidden">
             <div class="v8-card">
-                <span class="box-label">PERFORMANCE DA MAIVANE</span>
-                <div style="height: 180px;"><canvas id="evolucaoChart"></canvas></div>
-            </div>
-            <div class="v8-card">
-                <span class="box-label">MONTAR QUESTÃO (A-E)</span>
-                <textarea id="qIn" rows="2" placeholder="Enunciado..."></textarea>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5px;">
-                    <input type="text" id="oA" placeholder="A"> <input type="text" id="oB" placeholder="B">
-                    <input type="text" id="oC" placeholder="C"> <input type="text" id="oD" placeholder="D">
+                <span class="box-label">CRIAR QUESTÃO ELITE</span>
+                <textarea id="qText" rows="2" placeholder="Digite o enunciado da questão aqui..."></textarea>
+                <div class="grid-5">
+                    <input type="text" id="oA" placeholder="Opção A"> <input type="text" id="oB" placeholder="Opção B">
+                    <input type="text" id="oC" placeholder="Opção C"> <input type="text" id="oD" placeholder="Opção D">
                 </div>
-                <input type="text" id="oE" placeholder="E">
-                <select id="qCorrect">
-                    <option value="A">Correta: A</option><option value="B">Correta: B</option>
-                    <option value="C">Correta: C</option><option value="D">Correta: D</option><option value="E">Correta: E</option>
+                <input type="text" id="oE" placeholder="Opção E">
+                <select id="qCorreta">
+                    <option value="A">CORRETA: A</option><option value="B">CORRETA: B</option>
+                    <option value="C">CORRETA: C</option><option value="D">CORRETA: D</option><option value="E">CORRETA: E</option>
                 </select>
-                <button class="btn-sync" onclick="buildQ()">INJETAR NA TELA</button>
+                <button class="btn-v8" onclick="ativarQuestao()">LANÇAR DESAFIO</button>
+            </div>
 
-                <div id="playArea" class="hidden" style="margin-top: 20px;">
-                    <p id="displayQ" style="color: var(--cyan); font-weight: bold; margin-bottom: 15px; border-top: 1px solid #222; padding-top: 15px;"></p>
-                    <div id="optsDisplay"></div>
-                </div>
+            <div id="playZone" class="hidden q-box">
+                <p id="displayQ" style="font-size: 1.2rem; margin-bottom: 20px; line-height: 1.4;"></p>
+                <div id="optionsArea"></div>
             </div>
         </section>
 
         <section id="notas" class="tab-content hidden">
             <div class="v8-card">
-                <span class="box-label">CRIAR NOVO CADERNO</span>
-                <div style="display: flex; gap: 10px;">
-                    <input type="text" id="noteTitle" placeholder="Título do Caderno (Ex: Direito Administrativo)">
-                    <button class="btn-sync" style="width: 100px;" onclick="addNote()">CRIAR</button>
-                </div>
+                <span class="box-label">EDITOR DE CADERNOS - MAIVANE NOTES</span>
+                <input type="text" id="noteTitle" placeholder="Título do Novo Caderno...">
+                <div id="editor" contenteditable="true" class="note-editor" data-placeholder="Comece a escrever suas anotações acadêmicas aqui..."></div>
+                <button class="btn-v8" style="margin-top:10px;" onclick="saveNote()">SALVAR NO CADERNO</button>
             </div>
-            <div id="notesContainer" class="notes-grid"></div>
+            <div id="noteList" class="note-list"></div>
+        </section>
+
+        <section id="stats" class="tab-content hidden">
+            <div class="v8-card">
+                <div class="stats-mini">
+                    <span style="color:var(--cyan)">ACERTOS: <b id="statA">0</b></span>
+                    <span style="color:var(--magenta)">ERROS: <b id="statE">0</b></span>
+                </div>
+                <div style="height: 250px;"><canvas id="chartV8"></canvas></div>
+            </div>
         </section>
 
     </main>
@@ -143,73 +137,69 @@
     <script>
         lucide.createIcons();
         let acertos = 0; let erros = 0; let chart;
-        let cadernos = JSON.parse(localStorage.getItem('cadernos_v8')) || [];
+        let db = JSON.parse(localStorage.getItem('maivane_notes')) || [];
 
-        // GERADOR ACADÊMICO
+        // GERADOR 5 LACUNAS
         function gerarV8() {
-            const f = document.getElementById('facts').value;
-            const role = document.getElementById('acadRole').value;
-            const goal = document.getElementById('acadGoal').value;
-            if(!f) return alert("Cássia, adicione dados para a Maivane!");
-
-            const prompt = `### [SISTEMA ACADÊMICO V8 SINGULARITY]\n` +
-                           `**PERFIL:** ${role}\n**MISSÃO:** ${goal}\n\n` +
-                           `**DADOS DE ANÁLISE:**\n"${f}"\n\n` +
-                           `**PROTOCOLOS:**\n- Extraia conceitos fundamentais e bibliografia implícita.\n` +
-                           `- Use linguagem técnica e acadêmica de alto nível.\n` +
-                           `- Formate para revisão rápida da Maivane Damasceno.`;
-
-            document.getElementById('output-v8').innerText = prompt;
-            document.getElementById('output-v8').style.display = 'block';
-            document.getElementById('copyBtn').style.display = 'block';
+            const prompt = `### [PROTOCOLO V8 ACADEMIC]\n` +
+                `1. PAPEL: ${document.getElementById('l1').value}\n2. NÍVEL: ${document.getElementById('l2').value}\n` +
+                `3. TÓPICO: ${document.getElementById('l3').value}\n4. SAÍDA: ${document.getElementById('l4').value}\n` +
+                `5. REFERÊNCIA: ${document.getElementById('l5').value}\n\n` +
+                `CONTEXTO: "${document.getElementById('facts').value}"\n\n` +
+                `DIRETRIZ: Maivane Damasceno exige profundidade, lógica acadêmica e zero alucinações.`;
+            
+            const out = document.getElementById('out-v8');
+            out.innerText = prompt;
+            out.classList.remove('hidden');
+            document.getElementById('copyBtn').classList.remove('hidden');
         }
 
         function copyV8() {
-            navigator.clipboard.writeText(document.getElementById('output-v8').innerText);
-            alert("V8 COPIADO COM SUCESSO!");
+            navigator.clipboard.writeText(document.getElementById('out-v8').innerText);
+            alert("V8 SINCRONIZADO!");
         }
 
-        // CADERNOS
-        function addNote() {
+        // CADERNOS (SALVAR E EDITAR)
+        function saveNote() {
             const title = document.getElementById('noteTitle').value;
-            if(!title) return;
-            cadernos.push(title);
-            localStorage.setItem('cadernos_v8', JSON.stringify(cadernos));
-            document.getElementById('noteTitle').value = '';
+            const content = document.getElementById('editor').innerText;
+            if(!title || !content) return alert("Preencha título e conteúdo!");
+            
+            db.push({title, content, date: new Date().toLocaleDateString()});
+            localStorage.setItem('maivane_notes', JSON.stringify(db));
             renderNotes();
+            document.getElementById('noteTitle').value = '';
+            document.getElementById('editor').innerText = '';
         }
 
         function renderNotes() {
-            const cont = document.getElementById('notesContainer');
-            cont.innerHTML = '';
-            cadernos.forEach((n, i) => {
-                cont.innerHTML += `<div class="note-item">
-                    <span class="delete-note" onclick="delNote(${i})">x</span>
-                    <b>${n}</b><span>Sincronizado</span>
+            const list = document.getElementById('noteList');
+            list.innerHTML = '';
+            db.forEach((n, i) => {
+                list.innerHTML += `<div class="note-card" onclick="loadNote(${i})">
+                    <b>${n.title}</b><br><small>${n.date}</small>
                 </div>`;
             });
         }
 
-        function delNote(i) {
-            cadernos.splice(i, 1);
-            localStorage.setItem('cadernos_v8', JSON.stringify(cadernos));
-            renderNotes();
+        function loadNote(i) {
+            document.getElementById('noteTitle').value = db[i].title;
+            document.getElementById('editor').innerText = db[i].content;
+            tab('notas', document.querySelectorAll('.nav-item')[2]);
         }
 
-        // TREINO A-E
-        function buildQ() {
-            const q = document.getElementById('qIn').value;
-            const cor = document.getElementById('qCorrect').value;
+        // TREINO GAMIFICADO
+        function ativarQuestao() {
+            const q = document.getElementById('qText').value;
+            const cor = document.getElementById('qCorreta').value;
             const opts = [
-                {l: 'A', v: document.getElementById('oA').value},
-                {l: 'B', v: document.getElementById('oB').value},
-                {l: 'C', v: document.getElementById('oC').value},
-                {l: 'D', v: document.getElementById('oD').value},
-                {l: 'E', v: document.getElementById('oE').value}
+                {l:'A', v:document.getElementById('oA').value}, {l:'B', v:document.getElementById('oB').value},
+                {l:'C', v:document.getElementById('oC').value}, {l:'D', v:document.getElementById('oD').value},
+                {l:'E', v:document.getElementById('oE').value}
             ];
-            
+
             document.getElementById('displayQ').innerText = q;
-            const area = document.getElementById('optsDisplay');
+            const area = document.getElementById('optionsArea');
             area.innerHTML = '';
 
             opts.forEach(o => {
@@ -218,8 +208,8 @@
                     b.className = 'opt-btn';
                     b.innerText = `${o.l}) ${o.v}`;
                     b.onclick = () => {
-                        const all = area.querySelectorAll('.opt-btn');
-                        all.forEach(btn => btn.style.pointerEvents = 'none');
+                        const btns = area.querySelectorAll('button');
+                        btns.forEach(btn => btn.style.pointerEvents = 'none');
                         if(o.l === cor) { b.classList.add('correct'); acertos++; }
                         else { b.classList.add('wrong'); area.querySelector(`button:nth-child(${['A','B','C','D','E'].indexOf(cor)+1})`).classList.add('correct'); erros++; }
                         updateChart();
@@ -227,53 +217,27 @@
                     area.appendChild(b);
                 }
             });
-            document.getElementById('playArea').classList.remove('hidden');
+            document.getElementById('playZone').classList.remove('hidden');
         }
 
         function updateChart() {
-            const ctx = document.getElementById('evolucaoChart').getContext('2d');
+            document.getElementById('statA').innerText = acertos;
+            document.getElementById('statE').innerText = erros;
+            const ctx = document.getElementById('chartV8').getContext('2d');
             if(chart) chart.destroy();
             chart = new Chart(ctx, {
                 type: 'doughnut',
-                data: { labels: ['A','E'], datasets: [{ data: [acertos, erros], backgroundColor: ['#00f2ff', '#ff007a'], borderWidth: 0 }]},
+                data: { labels: ['Acertos', 'Erros'], datasets: [{ data: [acertos, erros], backgroundColor: ['#00f2ff', '#ff007a'], borderWidth: 0 }]},
                 options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
             });
         }
-
-        // PDF
-        document.getElementById('fileIn').addEventListener('change', async (e) => {
-            const file = e.target.files[0];
-            if (!file) return;
-            document.getElementById('up-status').innerText = "⌛ EXTRAINDO DADOS...";
-            const reader = new FileReader();
-            reader.onload = async function() {
-                const typedarray = new Uint8Array(this.result);
-                const pdf = await pdfjsLib.getDocument(typedarray).promise;
-                let text = "";
-                for (let i = 1; i <= pdf.numPages; i++) {
-                    const page = await pdf.getPage(i);
-                    const content = await page.getTextContent();
-                    text += content.items.map(item => item.str).join(" ") + "\n";
-                }
-                document.getElementById('facts').value = text.substring(0, 15000);
-                document.getElementById('up-status').innerText = "✓ MATERIAL CARREGADO";
-            };
-            reader.readAsArrayBuffer(file);
-        });
 
         function tab(id, el) {
             document.querySelectorAll('.tab-content').forEach(t => t.classList.add('hidden'));
             document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
             document.getElementById(id).classList.remove('hidden');
             el.classList.add('active');
-            if(id === 'treino') updateChart();
-        }
-
-        function openFoco() {
-            document.getElementById('foco-screen').style.display = 'flex';
-            setInterval(() => {
-                document.getElementById('relogio').innerText = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
-            }, 1000);
+            if(id === 'stats') updateChart();
         }
 
         renderNotes();
