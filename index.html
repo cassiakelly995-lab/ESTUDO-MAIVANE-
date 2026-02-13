@@ -3,202 +3,129 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MAIVANE DAMASCENO | V8 POMODORO ELITE</title>
+    <title>MAIVANE DAMASCENO - V8 ELITE</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;500;700&family=Righteous&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        :root { --magenta: #ff007a; --cyan: #00f2ff; --bg: #020205; --card: rgba(15, 15, 20, 0.98); }
+        :root { --magenta: #ff007a; --cyan: #00f2ff; --bg: #020205; --card: rgba(10, 11, 15, 0.98); }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background: var(--bg); color: #fff; font-family: 'Rajdhani', sans-serif; overflow-x: hidden; }
+        body { background: var(--bg); color: #fff; font-family: 'Rajdhani', sans-serif; min-height: 100vh; }
 
-        header { text-align: center; padding: 15px; border-bottom: 2px solid #111; background: #000; }
-        .brand { font-family: 'Righteous', cursive; font-size: 1.5rem; color: #fff; }
-        .v8-tag { font-family: 'Orbitron'; font-size: 8px; color: var(--magenta); letter-spacing: 3px; }
+        /* HEADER FIXO */
+        .header-v8 { text-align: center; padding: 20px; border-bottom: 1px solid #1a1a1a; background: #000; }
+        .brand-name { font-family: 'Righteous', cursive; font-size: 1.8rem; letter-spacing: 2px; }
+        .v8-tag { font-family: 'Orbitron'; font-size: 9px; color: var(--magenta); letter-spacing: 4px; }
 
+        /* NAV PADRÃO ANTERIOR */
         .nav-v8 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; padding: 10px; max-width: 900px; margin: 0 auto; }
-        .nav-item { background: #0a0b0f; border: 1px solid #222; padding: 10px; border-radius: 6px; text-align: center; cursor: pointer; transition: 0.3s; }
-        .nav-item.active { border-color: var(--cyan); box-shadow: 0 0 10px rgba(0, 242, 255, 0.2); }
+        .nav-item { background: #0a0b0f; border: 1px solid #222; padding: 12px; border-radius: 4px; text-align: center; cursor: pointer; }
+        .nav-item.active { border-color: var(--magenta); box-shadow: 0 0 10px rgba(255, 0, 122, 0.2); }
         .nav-item span { font-size: 0.6rem; font-weight: bold; color: #fff; text-transform: uppercase; }
 
         .container { padding: 15px; max-width: 900px; margin: 0 auto; }
         .hidden { display: none !important; }
 
+        /* CARDS */
+        .v8-card { background: var(--card); border: 1px solid #222; padding: 20px; border-radius: 4px; margin-bottom: 15px; }
+        .box-label { font-size: 10px; color: var(--cyan); text-transform: uppercase; margin-bottom: 10px; display: block; font-weight: bold; }
+
+        /* GERADOR 5 LACUNAS */
+        .grid-inputs { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        input, textarea, select { width: 100%; background: #000; border: 1px solid #333; color: #fff; padding: 10px; margin-bottom: 10px; font-family: 'Rajdhani'; outline: none; }
+        input:focus { border-color: var(--cyan); }
+
+        /* CADERNOS REAIS */
+        .note-item { background: #0a0b0f; border: 1px solid #222; padding: 15px; border-radius: 4px; border-left: 4px solid var(--magenta); margin-bottom: 10px; cursor: pointer; }
+        .note-editor { background: #000; border: 1px solid #222; padding: 15px; min-height: 200px; color: #fff; outline: none; border-radius: 4px; white-space: pre-wrap; }
+
+        /* TREINO A-E */
+        .opt-btn { background: #111; border: 1px solid #333; padding: 12px; margin: 5px 0; width: 100%; text-align: left; color: #fff; cursor: pointer; border-radius: 4px; }
+        .correct { background: #064e3b !important; border-color: #00f2ff !important; }
+        .wrong { background: #450a0a !important; border-color: var(--magenta) !important; }
+
         /* FOCO POMODORO */
-        #foco-screen { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: #000; z-index: 10000; flex-direction: column; align-items: center; justify-content: center; }
-        .pomo-timer { font-family: 'Orbitron'; font-size: 6rem; color: var(--cyan); text-shadow: 0 0 20px var(--cyan); margin: 20px 0; }
-        .pomo-label { font-family: 'Orbitron'; font-size: 1rem; color: var(--magenta); letter-spacing: 5px; }
-        .pomo-controls { display: flex; gap: 20px; }
-
-        /* GERADOR INTERATIVO */
-        .v8-card { background: var(--card); border: 1px solid #222; padding: 20px; border-radius: 8px; margin-bottom: 15px; border-left: 4px solid var(--magenta); }
-        .chat-box { background: #050505; padding: 15px; border-radius: 8px; min-height: 180px; border: 1px solid #1a1a1a; margin-bottom: 15px; overflow-y: auto; max-height: 250px; }
-        .bot-msg { color: var(--cyan); font-family: 'Orbitron'; font-size: 0.75rem; margin-bottom: 10px; border-left: 2px solid var(--cyan); padding-left: 10px; }
-        .user-reply { color: var(--magenta); text-align: right; font-size: 0.9rem; margin-bottom: 10px; }
-
-        /* CADERNOS */
-        .note-editor { background: #000; border: 1px solid #222; padding: 15px; min-height: 250px; color: #fff; font-size: 1rem; outline: none; border-radius: 8px; }
-        .note-card { background: #0a0b0f; padding: 12px; border: 1px solid #222; border-radius: 4px; cursor: pointer; margin-top: 10px; }
-
-        /* BOTÕES */
-        .btn { background: var(--cyan); border: none; color: #000; padding: 10px 20px; font-family: 'Orbitron'; font-size: 10px; font-weight: 900; cursor: pointer; border-radius: 4px; }
-        .btn-mag { background: var(--magenta); color: #fff; }
-        input[type="text"] { background: #000; border: 1px solid #333; color: #fff; padding: 10px; width: 100%; border-radius: 4px; outline: none; }
+        .pomo-display { text-align: center; padding: 40px 0; }
+        .timer-val { font-family: 'Orbitron'; font-size: 5rem; color: var(--cyan); text-shadow: 0 0 20px rgba(0, 242, 255, 0.3); }
+        .btn-pomo { background: var(--magenta); border: none; color: #fff; padding: 10px 30px; font-family: 'Orbitron'; cursor: pointer; border-radius: 4px; font-size: 12px; }
     </style>
 </head>
 <body>
 
-    <div id="foco-screen">
-        <div class="pomo-label" id="pomo-status">WORK SESSION</div>
-        <div class="pomo-timer" id="timer-display">25:00</div>
-        <div class="pomo-controls">
-            <button class="btn" onclick="toggleTimer()" id="btn-start">START</button>
-            <button class="btn btn-mag" onclick="resetTimer()">RESET</button>
-            <button class="btn" style="background:#333; color:#fff" onclick="closeFoco()">SAIR</button>
-        </div>
-        <div style="margin-top: 40px; opacity: 0.3; font-family: 'Righteous';">MAIVANE DAMASCENO</div>
-    </div>
-
-    <header>
-        <div class="brand">MAIVANE DAMASCENO</div>
-        <div class="v8-tag">V8 SINGULARITY | POMODORO ELITE</div>
+    <header class="header-v8">
+        <h1 class="brand-name">MAIVANE DAMASCENO</h1>
+        <div class="v8-tag">V8 GOD MODE | ELITE EDITION</div>
     </header>
 
     <nav class="nav-v8">
         <div class="nav-item active" onclick="tab('prompt', this)"><span>PROMPT</span></div>
-        <div class="nav-item" onclick="tab('notas', this)"><span>NOTAS</span></div>
+        <div class="nav-item" onclick="tab('notas', this)"><span>CADERNOS</span></div>
         <div class="nav-item" onclick="tab('treino', this)"><span>TREINO</span></div>
-        <div class="nav-item" onclick="openFoco()" style="border-color: var(--magenta);"><span>FOCO</span></div>
+        <div class="nav-item" onclick="tab('foco', this)"><span>FOCO</span></div>
     </nav>
 
     <main class="container">
         
         <section id="prompt" class="tab-content">
             <div class="v8-card">
-                <div class="chat-box" id="chatV8">
-                    <div class="bot-msg">SISTEMA V8 ATIVO. VAMOS CONFIGURAR SEU ESTUDO.</div>
-                    <div class="bot-msg" id="q-v8">1. Qual o PAPEL acadêmico da Maivane agora?</div>
+                <span class="box-label">GERADOR ACADÊMICO INTERATIVO</span>
+                <div class="grid-inputs">
+                    <input type="text" id="l1" placeholder="Papel (Ex: Juiz)">
+                    <input type="text" id="l2" placeholder="Nível (Ex: Acadêmico)">
+                    <input type="text" id="l3" placeholder="Tópico (Ex: LRF)">
+                    <input type="text" id="l4" placeholder="Formato (Ex: Tabela)">
+                    <input type="text" id="l5" placeholder="Autor (Ex: Maria Sylvia)">
                 </div>
-                <div style="display: flex; gap: 10px;">
-                    <input type="text" id="userIn" placeholder="Sua resposta...">
-                    <button class="btn" onclick="nextStep()">ENVIAR</button>
-                </div>
-                <div id="final-box" class="hidden" style="margin-top:15px;">
-                    <div id="res-v8" style="background:#000; border:1px dashed var(--cyan); padding:10px; color:var(--cyan); font-family:monospace; font-size:11px;"></div>
-                    <button class="btn btn-mag" style="width:100%; margin-top:10px;" onclick="copyV8()">COPIAR COMANDO</button>
-                </div>
+                <textarea id="facts" rows="4" placeholder="Texto base..."></textarea>
+                <button class="opt-btn" style="background: var(--cyan); color:#000; font-weight:bold; text-align:center;" onclick="gerarV8()">SINCRONIZAR COMANDO</button>
+                <div id="out-v8" class="hidden" style="margin-top:10px; padding:10px; border:1px dashed var(--cyan); font-family:monospace; font-size:12px; color:var(--cyan);"></div>
             </div>
         </section>
 
         <section id="notas" class="tab-content hidden">
-            <input type="text" id="noteTitle" placeholder="Título do Caderno..." style="margin-bottom:10px;">
-            <div id="editor" class="note-editor" contenteditable="true">Escreva suas anotações aqui...</div>
-            <button class="btn btn-mag" style="width:100%; margin-top:10px;" onclick="saveNote()">SALVAR CADERNO</button>
+            <div class="v8-card">
+                <span class="box-label">NOVO CADERNO</span>
+                <input type="text" id="noteTitle" placeholder="Título do Assunto...">
+                <div id="editor" class="note-editor" contenteditable="true"></div>
+                <button class="opt-btn" style="background: var(--magenta); text-align:center; margin-top:10px;" onclick="saveNote()">SALVAR NO CADERNO</button>
+            </div>
             <div id="noteList"></div>
         </section>
 
         <section id="treino" class="tab-content hidden">
             <div class="v8-card">
-                <textarea id="qArea" rows="3" placeholder="Enunciado da Questão..." style="width:100%; background:#000; color:#fff; border:1px solid #333; padding:10px;"></textarea>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap:5px; margin: 10px 0;">
-                    <input type="text" id="optA" placeholder="A"> <input type="text" id="optB" placeholder="B">
-                    <input type="text" id="optC" placeholder="C"> <input type="text" id="optD" placeholder="D">
-                    <input type="text" id="optE" placeholder="E">
-                    <select id="correctOpt" style="background:#000; color:var(--cyan); border:1px solid #333;">
-                        <option value="A">CORRETA: A</option><option value="B">CORRETA: B</option>
-                        <option value="C">CORRETA: C</option><option value="D">CORRETA: D</option><option value="E">CORRETA: E</option>
-                    </select>
+                <span class="box-label">SIMULADOR ELITE (A-E)</span>
+                <textarea id="qIn" rows="2" placeholder="Enunciado..."></textarea>
+                <div class="grid-inputs">
+                    <input type="text" id="oA" placeholder="A"> <input type="text" id="oB" placeholder="B">
+                    <input type="text" id="oC" placeholder="C"> <input type="text" id="oD" placeholder="D">
                 </div>
-                <button class="btn" style="width:100%;" onclick="startQuiz()">LANÇAR QUESTÃO</button>
+                <input type="text" id="oE" placeholder="E">
+                <select id="qCorreta">
+                    <option value="A">CORRETA: A</option><option value="B">CORRETA: B</option>
+                    <option value="C">CORRETA: C</option><option value="D">CORRETA: D</option><option value="E">CORRETA: E</option>
+                </select>
+                <button class="opt-btn" style="background: var(--cyan); color:#000; text-align:center;" onclick="startQuest()">CRIAR QUESTÃO</button>
             </div>
-            <div id="quizDisplay" class="hidden v8-card"></div>
+            <div id="quizArea" class="hidden v8-card"></div>
+        </section>
+
+        <section id="foco" class="tab-content hidden">
+            <div class="v8-card pomo-display">
+                <span class="box-label" id="pomo-mode">MODO FOCO ATIVO</span>
+                <div class="timer-val" id="timer">25:00</div>
+                <div style="margin-top: 20px; display: flex; gap: 10px; justify-content: center;">
+                    <button class="btn-pomo" onclick="startPomo()">INICIAR</button>
+                    <button class="btn-pomo" style="background:#333" onclick="resetPomo()">RESET</button>
+                </div>
+            </div>
         </section>
 
     </main>
 
     <script>
-        // LÓGICA POMODORO
+        let notes = JSON.parse(localStorage.getItem('v8_notes')) || [];
         let timer;
-        let timeLeft = 25 * 60;
-        let isRunning = false;
-        let mode = 'WORK';
-
-        function updateTimer() {
-            const mins = Math.floor(timeLeft / 60);
-            const secs = timeLeft % 60;
-            document.getElementById('timer-display').innerText = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-        }
-
-        function toggleTimer() {
-            if (isRunning) {
-                clearInterval(timer);
-                document.getElementById('btn-start').innerText = 'START';
-            } else {
-                timer = setInterval(() => {
-                    timeLeft--;
-                    updateTimer();
-                    if (timeLeft <= 0) {
-                        clearInterval(timer);
-                        alert(mode === 'WORK' ? "Pausa! Descanse 5 min." : "De volta ao trabalho!");
-                        mode = mode === 'WORK' ? 'BREAK' : 'WORK';
-                        timeLeft = (mode === 'WORK' ? 25 : 5) * 60;
-                        document.getElementById('pomo-status').innerText = mode + " SESSION";
-                        toggleTimer();
-                    }
-                }, 1000);
-                document.getElementById('btn-start').innerText = 'PAUSE';
-            }
-            isRunning = !isRunning;
-        }
-
-        function resetTimer() {
-            clearInterval(timer);
-            isRunning = false;
-            timeLeft = 25 * 60;
-            mode = 'WORK';
-            document.getElementById('pomo-status').innerText = "WORK SESSION";
-            document.getElementById('btn-start').innerText = 'START';
-            updateTimer();
-        }
-
-        function openFoco() { document.getElementById('foco-screen').style.display = 'flex'; }
-        function closeFoco() { document.getElementById('foco-screen').style.display = 'none'; }
-
-        // GERADOR INTERATIVO
-        let steps = 0;
-        let data = [];
-        const qs = ["1. Qual o PAPEL?", "2. Qual o NÍVEL?", "3. Qual o TÓPICO?", "4. Qual o FORMATO?", "5. Qual a REFERÊNCIA?"];
-
-        function nextStep() {
-            const val = document.getElementById('userIn').value;
-            if(!val) return;
-            data.push(val);
-            const chat = document.getElementById('chatV8');
-            chat.innerHTML += `<div class="user-reply">${val}</div>`;
-            steps++;
-            if(steps < 5) {
-                chat.innerHTML += `<div class="bot-msg">${qs[steps]}</div>`;
-                document.getElementById('userIn').value = '';
-            } else {
-                document.getElementById('final-box').classList.remove('hidden');
-                document.getElementById('res-v8').innerText = `[V8 ACADEMIC] ATUE COMO: ${data[0]} | NÍVEL: ${data[1]} | ASSUNTO: ${data[2]} | SAÍDA: ${data[3]} | REF: ${data[4]}`;
-            }
-        }
-
-        function copyV8() { navigator.clipboard.writeText(document.getElementById('res-v8').innerText); alert("V8 COPIADO!"); }
-
-        // CADERNOS
-        let notes = JSON.parse(localStorage.getItem('m_notes')) || [];
-        function saveNote() {
-            const t = document.getElementById('noteTitle').value;
-            const c = document.getElementById('editor').innerText;
-            notes.push({t, c});
-            localStorage.setItem('m_notes', JSON.stringify(notes));
-            renderNotes();
-        }
-        function renderNotes() {
-            const list = document.getElementById('noteList');
-            list.innerHTML = '';
-            notes.forEach(n => list.innerHTML += `<div class="note-card"><b>${n.t}</b></div>`);
-        }
+        let timeLeft = 1500;
 
         function tab(id, el) {
             document.querySelectorAll('.tab-content').forEach(t => t.classList.add('hidden'));
@@ -206,6 +133,62 @@
             document.getElementById(id).classList.remove('hidden');
             el.classList.add('active');
         }
+
+        // GERADOR
+        function gerarV8() {
+            const p = `[V8 ACADEMIC] PAPEL: ${document.getElementById('l1').value} | NÍVEL: ${document.getElementById('l2').value} | TÓPICO: ${document.getElementById('l3').value} | SAÍDA: ${document.getElementById('l4').value} | REF: ${document.getElementById('l5').value}\n\nCONTEXTO: ${document.getElementById('facts').value}`;
+            document.getElementById('out-v8').innerText = p;
+            document.getElementById('out-v8').classList.remove('hidden');
+        }
+
+        // CADERNOS
+        function saveNote() {
+            const title = document.getElementById('noteTitle').value;
+            const content = document.getElementById('editor').innerText;
+            if(!title) return;
+            notes.push({title, content});
+            localStorage.setItem('v8_notes', JSON.stringify(notes));
+            renderNotes();
+            document.getElementById('noteTitle').value = '';
+            document.getElementById('editor').innerText = '';
+        }
+
+        function renderNotes() {
+            const list = document.getElementById('noteList');
+            list.innerHTML = '';
+            notes.forEach(n => list.innerHTML += `<div class="note-item"><b>${n.title}</b></div>`);
+        }
+
+        // TREINO
+        function startQuest() {
+            const area = document.getElementById('quizArea');
+            const certa = document.getElementById('qCorreta').value;
+            area.innerHTML = `<p style="margin-bottom:15px;">${document.getElementById('qIn').value}</p>`;
+            ['A','B','C','D','E'].forEach(l => {
+                const val = document.getElementById('opt'+l)?.value || document.getElementById('o'+l).value;
+                if(val) area.innerHTML += `<button class="opt-btn" onclick="check('${l}','${certa}', this)">${l}) ${val}</button>`;
+            });
+            area.classList.remove('hidden');
+        }
+
+        function check(l, c, el) {
+            if(l === c) el.classList.add('correct');
+            else el.classList.add('wrong');
+        }
+
+        // POMODORO
+        function startPomo() {
+            clearInterval(timer);
+            timer = setInterval(() => {
+                timeLeft--;
+                let m = Math.floor(timeLeft / 60);
+                let s = timeLeft % 60;
+                document.getElementById('timer').innerText = `${m}:${s < 10 ? '0'+s : s}`;
+                if(timeLeft <= 0) { clearInterval(timer); alert("Tempo Esgotado!"); }
+            }, 1000);
+        }
+
+        function resetPomo() { clearInterval(timer); timeLeft = 1500; document.getElementById('timer').innerText = "25:00"; }
 
         renderNotes();
     </script>
