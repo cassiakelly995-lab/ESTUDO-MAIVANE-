@@ -3,211 +3,242 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MAIVANE MARIA - ELITE V8</title>
+    <title>MAIVANE MARIA - V8 GOD MODE</title>
     <link href="https://fonts.googleapis.com/css2?family=Righteous&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     
     <style>
         :root {
-            --primary: #1a1a2e; /* Azul Escuro Sólido */
-            --secondary: #4a148c; /* Roxo Profundo */
-            --accent: #00bcd4; /* Ciano para detalhes */
-            --glass: rgba(255, 255, 255, 0.08);
-            --glass-border: rgba(255, 255, 255, 0.2);
+            --dark-blue: #0f172a;
+            --deep-purple: #1e1b4b;
+            --accent: #3730a3;
+            --bg: #f8fafc;
+            --text-dark: #1e293b;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
 
-        body {
-            background: #eef2f3; /* Fundo claro para contraste com o nome escuro */
-            color: #333;
-            min-height: 100vh;
-            padding: 10px;
+        body { background: var(--bg); color: var(--text-dark); transition: 0.5s; }
+
+        /* TELA DE DESCANSO (HIDDEN BY DEFAULT) */
+        #screensaver {
+            display: none; position: fixed; top:0; left:0; width:100%; height:100%;
+            background: var(--dark-blue); z-index: 9999;
+            flex-direction: column; align-items: center; justify-content: center;
+            color: white; text-align: center;
         }
 
-        /* NOME MAIVANE MARIA - ESCURO E FIXO */
-        .brand-header { text-align: center; padding: 30px 0; }
+        /* NOME FIXO E ESCURO */
+        .brand-header { text-align: center; padding: 20px 0; background: white; border-bottom: 1px solid #e2e8f0; }
         .brand-name {
             font-family: 'Righteous', cursive;
-            font-size: clamp(2.2rem, 10vw, 4rem);
-            color: #1a1a2e; /* COR ESCURA FIXA */
-            letter-spacing: 2px;
+            font-size: clamp(1.8rem, 8vw, 3rem);
+            color: var(--dark-blue);
             text-transform: uppercase;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
         }
 
-        .tabs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 20px; }
+        .tabs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; padding: 10px; background: white; }
         .tab-btn {
-            background: white; border: 1px solid #ddd; color: #1a1a2e;
-            padding: 12px 5px; border-radius: 12px; cursor: pointer;
-            font-size: 0.75rem; font-weight: 600; display: flex; flex-direction: column; align-items: center; gap: 5px;
+            background: #f1f5f9; border: none; padding: 12px 5px; border-radius: 12px;
+            cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 5px;
+            font-size: 0.7rem; font-weight: 600; color: #64748b;
         }
-        .tab-btn.active { background: #1a1a2e; color: white; border-color: #1a1a2e; }
+        .tab-btn.active { background: var(--dark-blue); color: white; }
 
-        .glass-card { background: white; border-radius: 20px; padding: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); margin-bottom: 20px; }
-
-        /* QUIZ NO PAINEL */
-        .option {
-            background: #f8f9fa; padding: 15px; margin: 10px 0; border-radius: 12px;
-            cursor: pointer; transition: 0.3s; border: 2px solid #eee;
-        }
-        .option:hover { background: #f1f1f1; }
-        .correct { background: #d4edda !important; border-color: #28a745 !important; color: #155724; }
-        .wrong { background: #f8d7da !important; border-color: #dc3545 !important; color: #721c24; }
-
-        /* CADERNO SALVO */
-        .note-item { background: #f9f9f9; padding: 15px; border-radius: 10px; margin-top: 10px; border-left: 5px solid #1a1a2e; }
-
-        .btn-action {
-            background: #1a1a2e; border: none; padding: 15px; color: white;
-            border-radius: 12px; font-weight: bold; cursor: pointer; width: 100%; margin-top: 10px;
-        }
-
-        textarea, input {
-            width: 100%; background: #fff; border: 1px solid #ddd;
-            padding: 12px; border-radius: 10px; margin-bottom: 10px; font-size: 16px;
-        }
-
+        .container { padding: 15px; max-width: 800px; margin: 0 auto; }
         .hidden { display: none; }
+
+        /* CARDS ESTILO SAMSUNG NOTES */
+        .notes-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 15px; }
+        .note-card {
+            background: white; border-radius: 15px; overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); cursor: pointer;
+        }
+        .note-cover {
+            height: 120px; background: linear-gradient(135deg, var(--dark-blue), var(--accent));
+            display: flex; align-items: center; justify-content: center; color: white;
+            padding: 10px; text-align: center; font-size: 0.7rem; font-weight: bold;
+        }
+
+        /* HUB DE PROMPTS */
+        .prompt-card {
+            background: white; padding: 15px; border-radius: 15px; margin-bottom: 15px;
+            border-left: 4px solid var(--accent); position: relative;
+        }
+        .copy-badge {
+            position: absolute; top: 10px; right: 10px; font-size: 0.6rem;
+            background: #e2e8f0; padding: 3px 8px; border-radius: 5px; cursor: pointer;
+        }
+
+        /* QUIZ */
+        .option { background: white; padding: 15px; margin: 10px 0; border-radius: 12px; border: 1px solid #e2e8f0; cursor: pointer; }
+        .correct { background: #dcfce7; border-color: #22c55e; }
+        .wrong { background: #fee2e2; border-color: #ef4444; }
+
+        .btn-float {
+            position: fixed; bottom: 20px; right: 20px; background: var(--dark-blue);
+            color: white; width: 50px; height: 50px; border-radius: 25px;
+            display: flex; align-items: center; justify-content: center; border: none; box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
     </style>
 </head>
 <body>
 
+    <div id="screensaver" onclick="closeFocus()">
+        <h1 style="font-family: 'Righteous'; font-size: 3rem; margin-bottom: 10px;">MAIVANE MARIA</h1>
+        <div id="clock" style="font-size: 2rem; opacity: 0.8; font-weight: 300;">00:00:00</div>
+        <p style="margin-top: 20px; font-size: 0.8rem; opacity: 0.5;">Toque para voltar ao God Mode</p>
+    </div>
+
     <header class="brand-header">
         <h1 class="brand-name">MAIVANE MARIA</h1>
-        <p style="font-size: 0.8rem; color: #666; font-weight: bold;">CÁSSIA PROMPT V8 • ELITE EDITION</p>
+        <p style="font-size: 0.7rem; color: #94a3b8; font-weight: bold;">CÁSSIA PROMPT V8 • ELITE EDITION</p>
     </header>
 
     <nav class="tabs">
-        <button class="tab-btn active" onclick="showTab('questoes')"><i data-lucide="pen-tool"></i> QUESTÕES</button>
-        <button class="tab-btn" onclick="showTab('caderno')"><i data-lucide="book"></i> CADERNO</button>
-        <button class="tab-btn" onclick="showTab('ia')"><i data-lucide="cpu"></i> IA</button>
-        <button class="tab-btn" onclick="showTab('stats')"><i data-lucide="bar-chart"></i> STATS</button>
+        <button class="tab-btn active" onclick="showTab('questoes')"><i data-lucide="check-square"></i> QUIZ</button>
+        <button class="tab-btn" onclick="showTab('caderno')"><i data-lucide="book"></i> NOTAS</button>
+        <button class="tab-btn" onclick="showTab('prompts')"><i data-lucide="zap"></i> PROMPTS</button>
+        <button class="tab-btn" onclick="startFocus()"><i data-lucide="moon"></i> FOCO</button>
     </nav>
 
     <main class="container">
-        <section id="questoes" class="tab-content glass-card">
-            <div style="display: flex; justify-content: space-between; margin-bottom: 15px;">
-                <span id="progress">Questão: 1/40</span>
-                <span id="score" style="color: #28a745; font-weight: bold;">Acertos: 0</span>
+        <section id="questoes" class="tab-content">
+            <div id="q-box" style="background: white; padding: 20px; border-radius: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
+                <div style="display: flex; justify-content: space-between; font-size: 0.8rem; margin-bottom: 15px; color: #64748b;">
+                    <span id="q-progress">Questão 1</span>
+                    <span id="q-score">Acertos: 0</span>
+                </div>
+                <p id="q-text" style="font-weight: 600; margin-bottom: 20px;"></p>
+                <div id="q-options"></div>
             </div>
-            <div id="quiz-box">
-                <p id="q-text" style="font-weight: 600; font-size: 1.1rem; margin-bottom: 20px;"></p>
-                <div id="options-container"></div>
+        </section>
+
+        <section id="caderno" class="tab-content hidden">
+            <div class="notes-grid" id="notesGrid"></div>
+        </section>
+
+        <section id="prompts" class="tab-content hidden">
+            <h2 style="margin-bottom: 15px; font-size: 1.2rem;">Prompts de Alta Performance</h2>
+            
+            <div class="prompt-card">
+                <span class="copy-badge" onclick="copyPrompt(this)">COPIAR</span>
+                <b>🚀 Resumo Estruturado</b>
+                <p style="font-size: 0.75rem; color: #64748b; margin-top: 5px;">"Analise o texto abaixo e crie um mapa mental hierárquico com os pontos que mais caem em concursos da banca AvançaSP."</p>
             </div>
-        </section>
 
-        <section id="caderno" class="tab-content glass-card hidden">
-            <h2>Meus Estudos Salvos</h2>
-            <input type="text" id="noteTitle" placeholder="Título do resumo">
-            <textarea id="noteText" rows="6" placeholder="Escreva sua anotação aqui..."></textarea>
-            <button class="btn-action" onclick="saveNote()">💾 SALVAR NO PAINEL</button>
-            <div id="savedNotes" style="margin-top: 20px;"></div>
-        </section>
+            <div class="prompt-card">
+                <span class="copy-badge" onclick="copyPrompt(this)">COPIAR</span>
+                <b>🧠 Método Feynman</b>
+                <p style="font-size: 0.75rem; color: #64748b; margin-top: 5px;">"Explique o conceito de Atos Administrativos como se eu tivesse 10 anos, usando analogias do cotidiano."</p>
+            </div>
 
-        <section id="ia" class="tab-content glass-card hidden">
-            <h2>Mentor Digital IA</h2>
-            <textarea id="iaText" rows="6" placeholder="Cole sua dúvida aqui..."></textarea>
-            <button class="btn-action" onclick="copyIA()">COPIAR PARA IA</button>
-        </section>
-
-        <section id="stats" class="tab-content glass-card hidden">
-            <h2>Desempenho da Maivane</h2>
-            <p>Em breve: Gráficos de evolução das 449 questões.</p>
+            <div class="prompt-card">
+                <span class="copy-badge" onclick="copyPrompt(this)">COPIAR</span>
+                <b>⏱️ Cronograma Ninja</b>
+                <p style="font-size: 0.75rem; color: #64748b; margin-top: 5px;">"Tenho 2 horas de estudo hoje. Monte um ciclo de estudos intercalando Português e Matemática com revisões de 10 min."</p>
+            </div>
         </section>
     </main>
+
+    <div id="noteEditor" class="hidden" style="position: fixed; top:0; left:0; width:100%; height:100%; background:white; z-index:1000; padding:20px;">
+        <button onclick="closeEditor()" style="margin-bottom: 15px; border:none; background:none; font-weight:bold;">⬅ VOLTAR</button>
+        <input type="text" id="ntTitle" placeholder="Título da Capa" style="font-size: 1.5rem; border:none; border-bottom: 2px solid #eee; margin-bottom: 15px; width: 100%;">
+        <textarea id="ntContent" placeholder="Escreva aqui..." style="width:100%; height:70%; border:none; outline:none; font-size: 1rem; line-height: 1.6;"></textarea>
+        <button class="btn-float" style="width: 100%; position: static; margin-top: 10px;" onclick="saveNote()">SALVAR NO PAINEL</button>
+    </div>
+
+    <button class="btn-float" id="btnPlus" onclick="openEditor()"><i data-lucide="plus"></i></button>
 
     <script>
         lucide.createIcons();
 
-        // QUESTÕES EXTRAÍDAS DOS SEUS PDFS
+        // QUESTÕES DOS PDFS
         const questions = [
-            { q: "Na palavra 'piscina', há a presença de um dígrafo?", o: ["Sim", "Não"], a: 0 },
-            { q: "Joaquim acertou 4 questões de matemática em um teste de 10. Qual a porcentagem de acerto?", o: ["20%", "30%", "40%", "50%"], a: 2 },
-            { q: "Camila cortou uma fita de 9 metros em pedaços de 45cm. Quantos pedaços ela conseguiu?", o: ["18", "19", "20", "22"], a: 2 },
-            { q: "O que é 'Anistia' na Lei de Responsabilidade Fiscal?", o: ["Renúncia de Receita", "Aumento de Gasto", "Dedução de Despesa", "Ativo Não Circulante"], a: 0 }
+            { q: "Na palavra 'piscina', ocorre um dígrafo?", o: ["Sim", "Não"], a: 0 },
+            { q: "Joaquim acertou 4 questões de 10. Qual a porcentagem?", o: ["20%", "40%", "60%", "10%"], a: 1 },
+            { q: "Camila comprou 9m de fita e cortou em pedaços de 45cm. Quantos pedaços?", o: ["18", "20", "22"], a: 1 }
         ];
 
-        let currentQ = 0;
-        let score = 0;
+        let curQ = 0; let score = 0;
 
-        function loadQuestion() {
-            const q = questions[currentQ];
+        function loadQ() {
+            const q = questions[curQ];
             document.getElementById('q-text').innerText = q.q;
-            document.getElementById('progress').innerText = `Questão: ${currentQ + 1}/${questions.length}`;
-            const container = document.getElementById('options-container');
-            container.innerHTML = '';
-            
-            q.o.forEach((opt, i) => {
-                const div = document.createElement('div');
-                div.className = 'option';
-                div.innerText = opt;
-                div.onclick = () => checkAnswer(i, q.a, div);
-                container.appendChild(div);
+            document.getElementById('q-progress').innerText = `Questão ${curQ + 1}/${questions.length}`;
+            const optDiv = document.getElementById('q-options');
+            optDiv.innerHTML = '';
+            q.o.forEach((text, i) => {
+                const btn = document.createElement('div');
+                btn.className = 'option';
+                btn.innerText = text;
+                btn.onclick = () => {
+                    if(i === q.a) { btn.classList.add('correct'); score++; }
+                    else { btn.classList.add('wrong'); }
+                    document.getElementById('q-score').innerText = `Acertos: ${score}`;
+                    setTimeout(() => { curQ = (curQ + 1) % questions.length; loadQ(); }, 1000);
+                };
+                optDiv.appendChild(btn);
             });
         }
 
-        function checkAnswer(selected, correct, element) {
-            const options = document.querySelectorAll('.option');
-            options.forEach(opt => opt.style.pointerEvents = 'none');
-
-            if(selected === correct) {
-                element.classList.add('correct');
-                score++;
-                document.getElementById('score').innerText = `Acertos: ${score}`;
-            } else {
-                element.classList.add('wrong');
-                options[correct].classList.add('correct');
-            }
-            setTimeout(() => {
-                currentQ = (currentQ + 1) % questions.length;
-                loadQuestion();
-            }, 1500);
-        }
-
-        // SISTEMA DE CADERNO LOCAL
+        // SISTEMA DE CADERNOS (LOCAL STORAGE)
         function saveNote() {
-            const title = document.getElementById('noteTitle').value;
-            const text = document.getElementById('noteText').value;
-            if(!title || !text) return alert("Escreva algo!");
-
-            const notes = JSON.parse(localStorage.getItem('maivane_data') || '[]');
-            notes.push({ title, text, date: new Date().toLocaleDateString() });
-            localStorage.setItem('maivane_data', JSON.stringify(notes));
-            
-            document.getElementById('noteTitle').value = '';
-            document.getElementById('noteText').value = '';
+            const title = document.getElementById('ntTitle').value;
+            const content = document.getElementById('ntContent').value;
+            if(!title || !content) return;
+            const notes = JSON.parse(localStorage.getItem('maivane_v8_notes') || '[]');
+            notes.push({ id: Date.now(), title, content });
+            localStorage.setItem('maivane_v8_notes', JSON.stringify(notes));
+            closeEditor();
             renderNotes();
         }
 
         function renderNotes() {
-            const notes = JSON.parse(localStorage.getItem('maivane_data') || '[]');
-            const container = document.getElementById('savedNotes');
-            container.innerHTML = notes.map(n => `
-                <div class="note-item">
-                    <b>${n.title}</b> (${n.date})<br>
-                    <p style="font-size:0.9rem; color:#555;">${n.text}</p>
+            const notes = JSON.parse(localStorage.getItem('maivane_v8_notes') || '[]');
+            const grid = document.getElementById('notesGrid');
+            grid.innerHTML = notes.map(n => `
+                <div class="note-card">
+                    <div class="note-cover">${n.title.toUpperCase()}</div>
+                    <div style="padding: 10px; font-size: 0.7rem;"><b>${n.title}</b></div>
                 </div>
-            `).reverse().join('');
+            `).join('');
         }
 
-        function showTab(tabId) {
+        // TELA DE DESCANSO / FOCO
+        function startFocus() {
+            document.getElementById('screensaver').style.display = 'flex';
+            updateClock();
+            setInterval(updateClock, 1000);
+        }
+
+        function closeFocus() { document.getElementById('screensaver').style.display = 'none'; }
+
+        function updateClock() {
+            const now = new Date();
+            document.getElementById('clock').innerText = now.toLocaleTimeString();
+        }
+
+        // UTILITÁRIOS
+        function showTab(id) {
             document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-            document.getElementById(tabId).classList.remove('hidden');
+            document.getElementById(id).classList.remove('hidden');
             event.currentTarget.classList.add('active');
+            document.getElementById('btnPlus').style.display = (id === 'caderno') ? 'flex' : 'none';
         }
 
-        function copyIA() {
-            const txt = document.getElementById('iaText');
-            txt.select();
-            document.execCommand('copy');
-            alert("Copiado! Maivane pode colar na IA agora.");
+        function openEditor() { document.getElementById('noteEditor').classList.remove('hidden'); }
+        function closeEditor() { document.getElementById('noteEditor').classList.add('hidden'); }
+
+        function copyPrompt(btn) {
+            const text = btn.parentElement.querySelector('p').innerText;
+            navigator.clipboard.writeText(text);
+            btn.innerText = "COPIADO!";
+            setTimeout(() => btn.innerText = "COPIAR", 2000);
         }
 
-        // Iniciar
-        loadQuestion();
+        loadQ();
         renderNotes();
     </script>
 </body>
