@@ -10,110 +10,136 @@
     <style>
         :root {
             --black: #000000;
-            --dark-card: #0a0a0a;
+            --dark-card: #0d0d0d;
             --neon-blue: #00d2ff;
             --neon-purple: #7000ff;
-            --text-main: #ffffff;
+            --white: #ffffff;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-        body { background: var(--black); color: var(--text-main); min-height: 100vh; }
+        body { background: var(--black); color: var(--white); min-height: 100vh; overflow-x: hidden; }
 
-        /* HEADER FIXO */
-        .header-elite { text-align: center; padding: 35px 20px; border-bottom: 2px solid #111; }
+        /* HEADER SUPREMO - SEM PISCAR */
+        .header-elite { text-align: center; padding: 30px 20px; border-bottom: 1px solid #1a1a1a; }
         .brand-name {
             font-family: 'Righteous', cursive;
-            font-size: clamp(2rem, 8vw, 3.5rem);
-            color: #fff;
-            letter-spacing: 4px;
+            font-size: clamp(1.8rem, 8vw, 3.5rem);
+            color: var(--white);
+            letter-spacing: 5px;
             text-transform: uppercase;
         }
 
-        /* NAVEGAÇÃO */
+        /* NAVEGAÇÃO V8 */
         .nav-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; padding: 15px; max-width: 800px; margin: 0 auto; }
-        .nav-item { background: var(--dark-card); border: 1px solid #222; padding: 12px; border-radius: 12px; text-align: center; cursor: pointer; transition: 0.3s; }
+        .nav-item { background: var(--dark-card); border: 1px solid #222; padding: 12px 5px; border-radius: 12px; text-align: center; cursor: pointer; }
         .nav-item i { color: var(--neon-blue); width: 20px; }
-        .nav-item span { display: block; font-size: 0.6rem; font-weight: bold; margin-top: 5px; color: #666; }
-        .nav-item.active { border-color: var(--neon-purple); box-shadow: 0 0 15px rgba(112,0,255,0.3); }
-        .nav-item.active span { color: #fff; }
+        .nav-item span { display: block; font-size: 0.6rem; font-weight: bold; margin-top: 5px; color: #444; }
+        .nav-item.active { border-color: var(--neon-purple); box-shadow: 0 0 15px rgba(112,0,255,0.2); }
+        .nav-item.active span { color: var(--white); }
 
-        .container { padding: 20px; max-width: 800px; margin: 0 auto; }
+        .container { padding: 15px; max-width: 800px; margin: 0 auto; }
 
-        /* GERADOR V8 COM LACUNA */
-        .v8-box { background: var(--dark-card); border-radius: 20px; padding: 20px; border: 1px solid #222; }
-        .v8-title { font-family: 'Orbitron'; font-size: 0.8rem; color: var(--neon-blue); margin-bottom: 15px; }
-        .lacuna-input { width: 100%; background: #111; border: 1px solid var(--neon-purple); padding: 12px; color: #fff; border-radius: 8px; margin-bottom: 15px; outline: none; }
-        .v8-result { background: #000; padding: 15px; border-radius: 10px; border-left: 4px solid var(--neon-blue); font-size: 0.85rem; min-height: 100px; white-space: pre-wrap; }
+        /* GERADOR DE PROMPT INTERATIVO */
+        .v8-engine { background: var(--dark-card); border-radius: 20px; padding: 25px; border: 1px solid #222; }
+        .label-v8 { font-family: 'Orbitron'; font-size: 0.7rem; color: var(--neon-purple); margin-bottom: 10px; display: block; }
+        
+        .lacuna-master { 
+            width: 100%; background: #000; border: 2px solid #222; padding: 15px; 
+            color: var(--white); border-radius: 10px; font-size: 1rem; margin-bottom: 20px;
+            outline: none; transition: 0.3s;
+        }
+        .lacuna-master:focus { border-color: var(--neon-blue); box-shadow: 0 0 10px rgba(0, 210, 255, 0.2); }
+
+        .v8-output { 
+            background: #050505; padding: 20px; border-radius: 12px; border-left: 4px solid var(--neon-blue);
+            font-size: 0.85rem; line-height: 1.6; color: #ccc; min-height: 120px; white-space: pre-wrap;
+        }
 
         /* QUESTÕES DO PAINEL */
-        .q-card { background: var(--dark-card); padding: 20px; border-radius: 20px; border: 1px solid #222; }
-        .option { background: #111; padding: 15px; margin: 10px 0; border-radius: 10px; cursor: pointer; border: 1px solid #333; transition: 0.2s; }
-        .option:hover { border-color: var(--neon-blue); }
-        .correct { background: #064e3b !important; border-color: #10b981 !important; }
-        .wrong { background: #7f1d1d !important; border-color: #ef4444 !important; }
+        .q-box { background: var(--dark-card); padding: 25px; border-radius: 20px; border: 1px solid #222; }
+        .option { 
+            background: #111; padding: 16px; margin: 12px 0; border-radius: 12px; 
+            cursor: pointer; border: 1px solid #333; transition: 0.2s; font-size: 0.9rem;
+        }
+        .correct { background: #064e3b !important; border-color: #10b981 !important; color: #fff; }
+        .wrong { background: #450a0a !important; border-color: #ef4444 !important; color: #fff; }
 
-        /* CADERNO ESTILO SAMSUNG */
-        .notes-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
-        .note-folder { background: #111; padding: 20px; border-radius: 15px; border-left: 5px solid var(--neon-purple); min-height: 120px; position: relative; }
+        .btn-v8 { 
+            background: linear-gradient(90deg, var(--neon-purple), var(--neon-blue)); 
+            color: #fff; border: none; padding: 18px; width: 100%; border-radius: 12px; 
+            font-weight: bold; cursor: pointer; margin: 15px 0; text-transform: uppercase; letter-spacing: 1px;
+        }
 
-        .btn-v8 { background: linear-gradient(90deg, var(--neon-purple), var(--neon-blue)); color: #fff; border: none; padding: 15px; width: 100%; border-radius: 10px; font-weight: bold; cursor: pointer; margin-top: 10px; text-transform: uppercase; }
-        
-        #foco-screen { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: #000; z-index: 1000; flex-direction: column; align-items: center; justify-content: center; }
+        /* TELA DE FOCO */
+        #foco-mode { 
+            display: none; position: fixed; top:0; left:0; width:100%; height:100%; 
+            background: #000; z-index: 9999; flex-direction: column; align-items: center; justify-content: center; 
+        }
 
         .hidden { display: none; }
     </style>
 </head>
 <body>
 
-    <div id="foco-screen" onclick="this.style.display='none'">
-        <h1 class="brand-name" style="opacity: 0.5;">MAIVANE MARIA</h1>
-        <div id="clock" style="font-family: 'Orbitron'; font-size: 4rem; color: var(--neon-blue);">00:00</div>
+    <div id="foco-mode" onclick="this.style.display='none'">
+        <h1 class="brand-name" style="opacity: 0.3;">MAIVANE MARIA</h1>
+        <div id="clock-v8" style="font-family: 'Orbitron'; font-size: 4.5rem; color: var(--neon-blue);">00:00</div>
+        <p style="color: #444; margin-top: 20px; letter-spacing: 10px;">POWERED BY CÁSSIA</p>
     </div>
 
     <header class="header-elite">
         <h1 class="brand-name">MAIVANE MARIA</h1>
-        <p style="font-family: 'Orbitron'; font-size: 0.6rem; color: var(--neon-purple); letter-spacing: 5px;">GOD MODE V8 ELITE</p>
+        <p style="font-family: 'Orbitron'; font-size: 0.6rem; color: var(--neon-blue); letter-spacing: 4px;">SYSTEM V8 GOD MODE</p>
     </header>
 
     <nav class="nav-grid">
-        <div class="nav-item active" onclick="tab('v8', this)"><i data-lucide="zap"></i><span>V8 PROMPT</span></div>
-        <div class="nav-item" onclick="tab('quiz', this)"><i data-lucide="target"></i><span>QUESTÕES</span></div>
-        <div class="nav-item" onclick="tab('notas', this)"><i data-lucide="folder"></i><span>NOTAS</span></div>
-        <div class="nav-item" onclick="document.getElementById('foco-screen').style.display='flex';"><i data-lucide="moon"></i><span>FOCO</span></div>
+        <div class="nav-item active" onclick="tab('v8', this)"><i data-lucide="zap"></i><span>GERADOR</span></div>
+        <div class="nav-item" onclick="tab('quiz', this)"><i data-lucide="target"></i><span>TREINO</span></div>
+        <div class="nav-item" onclick="tab('notes', this)"><i data-lucide="book"></i><span>NOTAS</span></div>
+        <div class="nav-item" onclick="openFoco()"><i data-lucide="moon"></i><span>FOCO</span></div>
     </nav>
 
     <main class="container">
         
         <section id="v8" class="tab-content">
-            <div class="v8-box">
-                <p class="v8-title">GERADOR DE PROMPTS V8</p>
-                <input type="text" id="lacuna" class="lacuna-input" placeholder="Digite o tema (ex: Atos Administrativos)">
-                <select id="v8Mode" class="lacuna-input">
-                    <option value="1">Resumo Estruturado (AvançaSP)</option>
-                    <option value="2">Mapa Mental Hierárquico</option>
-                    <option value="3">Simulado Inédito (Nível Difícil)</option>
+            <div class="v8-engine">
+                <span class="label-v8">CONFIGURAÇÃO DE PROMPT V8</span>
+                <textarea id="userInput" class="lacuna-master" rows="3" placeholder="Insira o tema ou o texto para processar..."></textarea>
+                
+                <span class="label-v8">ESCOLHA O MODO DE PROCESSAMENTO</span>
+                <select id="v8Mode" class="lacuna-master" style="height: 55px; margin-bottom: 10px;">
+                    <option value="resumo">Extração Estruturada (Foco AvançaSP)</option>
+                    <option value="mental">Arquitetura de Mapa Mental</option>
+                    <option value="questoes">Criação de 5 Questões Brutais</option>
+                    <option value="feynman">Método Feynman (Simplificação)</option>
                 </select>
-                <button class="btn-v8" onclick="gerarV8()">GERAR PROMPT DE POTÊNCIA</button>
-                <div class="v8-result" id="resV8">O prompt aparecerá aqui...</div>
-                <button class="btn-v8" style="background: #222;" onclick="copyV8()">COPIAR COMANDO</button>
+
+                <button class="btn-v8" onclick="processV8()">INJETAR POTÊNCIA V8</button>
+                
+                <div class="v8-output" id="output">O prompt otimizado aparecerá aqui para ser copiado...</div>
+                <button id="copyBtn" class="btn-v8" style="background: #111; border: 1px solid #333;" onclick="copyV8()">COPIAR COMANDO</button>
             </div>
         </section>
 
         <section id="quiz" class="tab-content hidden">
-            <div class="q-card">
-                <div style="display: flex; justify-content: space-between; font-size: 0.8rem; margin-bottom: 15px; color: var(--neon-blue);">
-                    <span id="qIdx">Questão 1</span>
-                    <span id="qScore">Acertos: 0</span>
+            <div class="q-box">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
+                    <span id="qInfo" style="color: var(--neon-purple); font-weight: bold;">Q: 1/10</span>
+                    <span id="qScore" style="color: var(--neon-blue);">Score: 0</span>
                 </div>
-                <p id="qTxt" style="font-size: 1rem; font-weight: 500; min-height: 80px;"></p>
-                <div id="qOpts"></div>
+                <p id="qText" style="font-size: 1.1rem; line-height: 1.5; min-height: 100px;"></p>
+                <div id="qOptions"></div>
             </div>
         </section>
 
-        <section id="notas" class="tab-content hidden">
-            <div class="notes-grid">
-                <div class="note-folder"><b>Português</b><p style="font-size: 0.6rem; color: #666;">Salvo em 13/02</p></div>
-                <div class="note-folder"><b>Matemática</b><p style="font-size: 0.6rem; color: #666;">Salvo em 13/02</p></div>
+        <section id="notes" class="tab-content hidden">
+            <div class="v8-engine">
+                <h2 style="font-family: 'Orbitron'; font-size: 0.9rem; margin-bottom: 20px;">MEUS CADERNOS SAMSUNG</h2>
+                <div id="notesGrid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                    <div style="background:#111; padding:20px; border-radius:15px; border-left: 4px solid var(--neon-purple);">
+                        <b>Português</b><p style="font-size:0.6rem; color:#555;">Resumos V8</p>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -122,72 +148,52 @@
     <script>
         lucide.createIcons();
 
-        // 1. LÓGICA DO GERADOR V8
-        function gerarV8() {
-            const tema = document.getElementById('lacuna').value || "[TEMA]";
-            const modo = document.getElementById('v8Mode').value;
-            let prompt = "";
+        // 1. GERADOR V8 INTERATIVO
+        function processV8() {
+            const input = document.getElementById('userInput').value;
+            const mode = document.getElementById('v8Mode').value;
+            if(!input) { alert("Cássia, insira o tema na lacuna!"); return; }
 
-            if(modo == "1") prompt = `Aja como um Professor Especialista da Banca AvançaSP. Analise o tema "${tema}" e crie um resumo de alto impacto para Maivane Maria, focando exclusivamente no que é cobrado para o cargo de Auxiliar e Gestão. Sem enrolação, direto nos tópicos quentes.`;
-            if(modo == "2") prompt = `Gere um Mapa Mental em formato de texto para "${tema}". Divida em: Tronco Principal, Ramificações Legais, Exceções Cruciais e Prazos. Use emojis para facilitar a memorização visual.`;
-            if(modo == "3") prompt = `Gere 5 questões de múltipla escolha inéditas sobre "${tema}", seguindo o padrão da banca AvançaSP. Nível de dificuldade: Alto. Ao final, apresente o gabarito comentado para estudo imediato.`;
+            let promptBase = "";
+            switch(mode) {
+                case 'resumo': promptBase = `Aja como um mentor de elite para concursos. Com base no tema "${input}", extraia os pontos mais cobrados pela banca AvançaSP. Organize em: Regras de Ouro, Prazos e Pegadinhas Comuns.`; break;
+                case 'mental': promptBase = `Crie a estrutura de um mapa mental para "${input}". Identifique o conceito central e 4 ramificações lógicas fundamentais para memorização rápida da Maivane Maria.`; break;
+                case 'questoes': promptBase = `Gere 5 questões de múltipla escolha nível avançado sobre "${input}". As alternativas devem ser confusas como as da banca real. Forneça o gabarito comentado ao final.`; break;
+                case 'feynman': promptBase = `Explique "${input}" usando o Método Feynman. Transforme o 'juridiquês' em uma linguagem simples, mas mantenha a precisão necessária para acertar questões.`; break;
+            }
 
-            document.getElementById('resV8').innerText = prompt;
+            document.getElementById('output').innerText = promptBase;
         }
 
         function copyV8() {
-            navigator.clipboard.writeText(document.getElementById('resV8').innerText);
-            alert("V8 Copiado! Agora cole na sua IA.");
+            const text = document.getElementById('output').innerText;
+            navigator.clipboard.writeText(text);
+            alert("V8 COPIADO COM SUCESSO!");
         }
 
-        // 2. SISTEMA DE QUESTÕES (BANCO COMPLETO DOS SEUS PDFS)
-        const db = [
+        // 2. BANCO DE QUESTÕES PDF (SEM REPETIÇÃO)
+        const database = [
             { q: "Na palavra 'piscina', ocorre um dígrafo?", o: ["Sim", "Não"], a: 0 },
-            { q: "Joaquim acertou 4 questões de 10. Qual a porcentagem?", o: ["20%", "40%", "60%", "10%"], a: 1 },
-            { q: "Camila cortou 9m de fita em pedaços de 45cm. Quantos pedaços deu?", o: ["18", "20", "22", "25"], a: 1 },
-            { q: "Qual o peso total: 2,5kg de maçã + 1,75kg de peras + 3,2kg de bananas?", o: ["6,25kg", "7,45kg", "8,55kg", "7,25kg"], a: 1 },
-            { q: "O princípio da Legalidade Estrita diz que o agente público só pode fazer o que:", o: ["A lei não proíbe", "A lei autoriza", "O chefe manda", "A moral permite"], a: 1 },
-            { q: "Na sequência 7, 11, 17, 25, 35, (...), qual o próximo número?", o: ["44", "45", "47", "49"], a: 2 }
+            { q: "Joaquim acertou 4 questões de 10. Qual a porcentagem de acerto?", o: ["20%", "40%", "60%", "10%"], a: 1 },
+            { q: "Camila cortou uma fita de 9m em pedaços de 45cm. Quantos pedaços deu?", o: ["18", "20", "22", "25"], a: 1 },
+            { q: "Qual o peso total: 2,5kg de maçã + 1,75kg de peras + 3,2kg de bananas?", o: ["7,45kg", "8,55kg", "7,25kg", "8,25kg"], a: 0 },
+            { q: "O que significa 'Anistia' na Lei de Responsabilidade Fiscal?", o: ["Multa", "Perdão de dívida", "Aumento de imposto", "Bloqueio"], a: 1 },
+            { q: "Próximo número da sequência: 7, 11, 17, 25, 35...", o: ["44", "45", "47", "49"], a: 2 }
         ];
 
-        let cur = 0; let score = 0;
+        let currentQ = 0;
+        let score = 0;
 
-        function loadQ() {
-            if(cur >= db.length) cur = 0; // Reinicia o banco sem travar
-            const item = db[cur];
-            document.getElementById('qTxt').innerText = item.q;
-            document.getElementById('qIdx').innerText = `Questão ${cur + 1}/${db.length}`;
-            const optArea = document.getElementById('qOpts');
-            optArea.innerHTML = '';
+        function loadQuestion() {
+            if(currentQ >= database.length) currentQ = 0; // Reinicia o banco após a última
+            const item = database[currentQ];
+            document.getElementById('qText').innerText = item.q;
+            document.getElementById('qInfo').innerText = `Questão ${currentQ + 1}/${database.length}`;
+            
+            const optionsDiv = document.getElementById('qOptions');
+            optionsDiv.innerHTML = '';
+            
             item.o.forEach((txt, i) => {
-                const d = document.createElement('div');
-                d.className = 'option';
-                d.innerText = txt;
-                d.onclick = () => {
-                    if(i === item.a) { d.classList.add('correct'); score++; }
-                    else { d.classList.add('wrong'); }
-                    document.getElementById('qScore').innerText = `Acertos: ${score}`;
-                    setTimeout(() => { cur++; loadQ(); }, 1200);
-                };
-                optArea.appendChild(d);
-            });
-        }
-
-        // 3. NAVEGAÇÃO
-        function tab(id, el) {
-            document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
-            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-            document.getElementById(id).classList.remove('hidden');
-            el.classList.add('active');
-        }
-
-        // RELÓGIO FOCO
-        setInterval(() => {
-            const now = new Date();
-            document.getElementById('clock').innerText = now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
-        }, 1000);
-
-        loadQ();
-    </script>
-</body>
-</html>
+                const btn = document.createElement('div');
+                btn.className = 'option';
+                btn
