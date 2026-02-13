@@ -3,61 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MAIVANE DAMASCENO - V8 GOD MODE</title>
+    <title>MAIVANE DAMASCENO | V8 ELITE EDITION</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;500;700&family=Righteous&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
     
     <style>
-        :root { 
-            --magenta: #ff007a; 
-            --cyan: #00f2ff; 
-            --bg-dark: #020205; 
-            --card-bg: rgba(10, 11, 15, 0.98); 
-        }
-
+        :root { --magenta: #ff007a; --cyan: #00f2ff; --bg-dark: #020205; --card-bg: rgba(10, 11, 15, 0.98); }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { background: var(--bg-dark); color: #fff; font-family: 'Rajdhani', sans-serif; min-height: 100vh; overflow-x: hidden; }
 
         /* HEADER */
-        .header-elite { text-align: center; padding: 25px 10px; border-bottom: 1px solid #1a1a1a; background: #000; }
+        .header-v8 { text-align: center; padding: 25px 10px; border-bottom: 2px solid #111; background: #000; }
         .brand-name { font-family: 'Righteous', cursive; font-size: 2rem; letter-spacing: 3px; color: #fff; text-transform: uppercase; }
         .v8-tag { font-family: 'Orbitron'; font-size: 9px; color: var(--magenta); letter-spacing: 4px; margin-top: 5px; }
 
         /* NAV */
         .nav-v8 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; padding: 15px; max-width: 950px; margin: 0 auto; }
         .nav-item { background: #0a0b0f; border: 1px solid #222; padding: 12px 5px; border-radius: 4px; text-align: center; cursor: pointer; transition: 0.3s; }
-        .nav-item i { color: var(--cyan); display: block; margin-bottom: 5px; width: 18px; margin-left: auto; margin-right: auto; }
-        .nav-item span { font-size: 0.6rem; font-weight: bold; color: #666; text-transform: uppercase; }
         .nav-item.active { border-color: var(--magenta); box-shadow: 0 0 15px rgba(255, 0, 122, 0.2); }
-        .nav-item.active span { color: #fff; }
+        .nav-item span { font-size: 0.6rem; font-weight: bold; color: #666; text-transform: uppercase; display: block; }
 
         .container { padding: 15px; max-width: 950px; margin: 0 auto; }
         .hidden { display: none !important; }
 
         /* CARDS */
-        .v8-card { background: var(--card-bg); border: 1px solid rgba(255,255,255,0.05); padding: 20px; border-radius: 4px; margin-bottom: 20px; }
+        .v8-card { background: var(--card-bg); border: 1px solid rgba(255,255,255,0.05); padding: 20px; border-radius: 4px; margin-bottom: 20px; border-left: 2px solid var(--cyan); }
         .box-label { font-size: 10px; color: var(--cyan); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 8px; display: block; font-weight: 700; }
         
-        input, textarea, select { width: 100%; background: rgba(0,0,0,0.4); border: none; color: #fff; font-family: 'Rajdhani'; font-size: 14px; border-bottom: 1px solid #333; padding: 8px 5px; margin-bottom: 10px; outline: none; }
-        input:focus, textarea:focus { border-bottom-color: var(--magenta); }
+        input, textarea, select { width: 100%; background: rgba(0,0,0,0.6); border: none; color: #fff; font-family: 'Rajdhani'; font-size: 14px; border-bottom: 1px solid #333; padding: 10px; margin-bottom: 10px; outline: none; }
+        input:focus { border-bottom-color: var(--magenta); }
 
-        /* CADERNOS SAMSUNG STYLE */
-        .notes-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-        .note-item { background: #0a0b0f; border: 1px solid #222; padding: 20px; border-radius: 8px; border-left: 4px solid var(--magenta); }
-        .note-item b { display: block; font-size: 1rem; color: var(--cyan); }
-        .note-item span { font-size: 0.7rem; color: #555; }
-
-        /* BUTTONS */
+        /* GERADOR ACADÊMICO V8 */
         .btn-sync { background: var(--cyan); border: none; color: #000; padding: 15px; font-family: 'Orbitron'; font-size: 11px; font-weight: 900; cursor: pointer; width: 100%; text-transform: uppercase; }
-        .btn-magenta { background: var(--magenta); color: white; border: none; padding: 10px; cursor: pointer; font-family: 'Orbitron'; font-size: 10px; }
-
-        /* TERMINAL OUTPUT */
         #output-v8 { background: #000; border: 1px solid #222; padding: 15px; color: var(--cyan); font-family: monospace; font-size: 12px; margin-top: 15px; white-space: pre-wrap; display: none; }
 
-        /* TREINO */
-        .opt-btn { background: #111; border: 1px solid #333; padding: 12px; margin: 5px 0; width: 100%; border-radius: 4px; color: #fff; text-align: left; cursor: pointer; font-family: 'Rajdhani'; }
+        /* CADERNOS DINÂMICOS */
+        .notes-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 15px; }
+        .note-item { background: #0a0b0f; border: 1px solid #222; padding: 15px; border-radius: 4px; border-top: 3px solid var(--magenta); position: relative; }
+        .note-item b { display: block; font-size: 13px; color: #fff; text-transform: uppercase; margin-bottom: 5px; }
+        .delete-note { position: absolute; top: 5px; right: 5px; color: #444; cursor: pointer; font-size: 12px; }
+
+        /* QUESTÃO PADRÃO E */
+        .opt-btn { background: #111; border: 1px solid #333; padding: 14px; margin: 6px 0; width: 100%; border-radius: 4px; color: #fff; text-align: left; cursor: pointer; font-family: 'Rajdhani'; transition: 0.2s; }
         .correct { background: #064e3b !important; border-color: #10b981 !important; }
         .wrong { background: #450a0a !important; border-color: #ef4444 !important; }
 
@@ -67,75 +56,86 @@
 <body>
 
     <div id="foco-screen" onclick="this.style.display='none'">
-        <h1 class="brand-name" style="opacity: 0.2; font-size: 3rem;">MAIVANE DAMASCENO</h1>
+        <h1 class="brand-name" style="opacity: 0.2;">MAIVANE DAMASCENO</h1>
         <div id="relogio" style="font-family: 'Orbitron'; font-size: 5rem; color: var(--cyan);">00:00</div>
     </div>
 
-    <header class="header-elite">
+    <header class="header-v8">
         <h1 class="brand-name">MAIVANE DAMASCENO</h1>
-        <div class="v8-tag">UNIVERSAL PROTOCOL: V8 SINGULARITY</div>
+        <div class="v8-tag">V8 SINGULARITY | ACADEMIC ELITE</div>
     </header>
 
     <nav class="nav-v8">
-        <div class="nav-item active" onclick="tab('v8', this)"><i data-lucide="zap"></i><span>PROMPT</span></div>
-        <div class="nav-item" onclick="tab('treino', this)"><i data-lucide="edit-3"></i><span>TREINO</span></div>
-        <div class="nav-item" onclick="tab('notas', this)"><i data-lucide="book"></i><span>CADERNOS</span></div>
-        <div class="nav-item" onclick="openFoco()"><i data-lucide="moon"></i><span>FOCO</span></div>
+        <div class="nav-item active" onclick="tab('v8', this)"><span>PROMPT</span></div>
+        <div class="nav-item" onclick="tab('treino', this)"><span>TREINO</span></div>
+        <div class="nav-item" onclick="tab('notas', this)"><span>CADERNOS</span></div>
+        <div class="nav-item" onclick="openFoco()"><span>FOCO</span></div>
     </nav>
 
     <main class="container">
         
         <section id="v8" class="tab-content">
             <div class="v8-card">
-                <div style="border: 1px dashed var(--cyan); padding: 15px; text-align: center; margin-bottom: 20px; cursor: pointer;" onclick="document.getElementById('fileIn').click()">
-                    <span id="up-status" style="font-size: 11px; color: var(--cyan); font-weight: bold;">⇪ IMPORTAR PDF V8</span>
+                <span class="box-label">UPLOAD DE MATERIAL ACADÊMICO</span>
+                <div style="border: 1px dashed var(--magenta); padding: 15px; text-align: center; cursor: pointer;" onclick="document.getElementById('fileIn').click()">
+                    <span id="up-status" style="font-size: 11px; color: var(--magenta);">IMPORTAR PDF (LIVROS/ARTIGOS)</span>
                     <input type="file" id="fileIn" hidden accept="application/pdf">
                 </div>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                    <input type="text" id="p1" placeholder="Papel (Ex: Auditor)">
-                    <input type="text" id="p2" placeholder="Objetivo (Ex: Resumo)">
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 15px;">
+                    <select id="acadRole">
+                        <option value="Doutor Acadêmico">Doutor Acadêmico</option>
+                        <option value="Analista de Dados">Analista de Dados</option>
+                        <option value="Mestre em Direito">Mestre em Direito</option>
+                    </select>
+                    <select id="acadGoal">
+                        <option value="Fichamento Científico">Fichamento Científico</option>
+                        <option value="Análise Crítica V8">Análise Crítica V8</option>
+                        <option value="Mapa de Referências">Mapa de Referências</option>
+                    </select>
                 </div>
-                <textarea id="facts" rows="5" placeholder="Cole o contexto ou aguarde o PDF..."></textarea>
-                <button class="btn-sync" onclick="gerarV8()">SINCRONIZAR COMANDO</button>
+                <textarea id="facts" rows="6" placeholder="Insira o texto para processamento de alta densidade..."></textarea>
+                <button class="btn-sync" onclick="gerarV8()">SINCRONIZAR PROMPT ACADÊMICO</button>
                 <div id="output-v8"></div>
-                <button id="copyBtn" class="btn-magenta" style="width: 100%; margin-top: 10px; display: none;" onclick="copyV8()">COPIAR COMANDO</button>
+                <button id="copyBtn" class="btn-sync" style="background:var(--magenta); margin-top:10px; display:none;" onclick="copyV8()">COPIAR COMANDO</button>
             </div>
         </section>
 
         <section id="treino" class="tab-content hidden">
             <div class="v8-card">
-                <span class="box-label">PERFORMANCE EM TEMPO REAL</span>
-                <div style="height: 200px;"><canvas id="evolucaoChart"></canvas></div>
+                <span class="box-label">PERFORMANCE DA MAIVANE</span>
+                <div style="height: 180px;"><canvas id="evolucaoChart"></canvas></div>
             </div>
             <div class="v8-card">
-                <span class="box-label">QUESTÃO INTERATIVA (A ATÉ E)</span>
-                <textarea id="qText" rows="2" placeholder="Enunciado da questão..."></textarea>
-                <input type="text" id="oA" placeholder="Alternativa A">
-                <input type="text" id="oB" placeholder="Alternativa B">
-                <input type="text" id="oC" placeholder="Alternativa C">
-                <input type="text" id="oD" placeholder="Alternativa D">
-                <input type="text" id="oE" placeholder="Alternativa E">
-                <select id="qCorreta">
+                <span class="box-label">MONTAR QUESTÃO (A-E)</span>
+                <textarea id="qIn" rows="2" placeholder="Enunciado..."></textarea>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5px;">
+                    <input type="text" id="oA" placeholder="A"> <input type="text" id="oB" placeholder="B">
+                    <input type="text" id="oC" placeholder="C"> <input type="text" id="oD" placeholder="D">
+                </div>
+                <input type="text" id="oE" placeholder="E">
+                <select id="qCorrect">
                     <option value="A">Correta: A</option><option value="B">Correta: B</option>
-                    <option value="C">Correta: C</option><option value="D">Correta: D</option>
-                    <option value="E">Correta: E</option>
+                    <option value="C">Correta: C</option><option value="D">Correta: D</option><option value="E">Correta: E</option>
                 </select>
-                <button class="btn-sync" onclick="montarQuestao()">GERAR TREINO</button>
-                
-                <div id="qDisplay" class="hidden" style="margin-top: 20px; border-top: 1px solid #333; padding-top: 15px;">
-                    <p id="qPrompt" style="font-weight: bold; margin-bottom: 15px; color: var(--cyan);"></p>
-                    <div id="optsArea"></div>
+                <button class="btn-sync" onclick="buildQ()">INJETAR NA TELA</button>
+
+                <div id="playArea" class="hidden" style="margin-top: 20px;">
+                    <p id="displayQ" style="color: var(--cyan); font-weight: bold; margin-bottom: 15px; border-top: 1px solid #222; padding-top: 15px;"></p>
+                    <div id="optsDisplay"></div>
                 </div>
             </div>
         </section>
 
         <section id="notas" class="tab-content hidden">
-            <div class="notes-grid">
-                <div class="note-item"><b>Português</b><span>Interpretação e Gramática</span></div>
-                <div class="note-item"><b>Matemática</b><span>Raciocínio Lógico V8</span></div>
-                <div class="note-item"><b>Gestão Pública</b><span>Teoria e Atos</span></div>
-                <div class="note-item"><b>Constitucional</b><span>Art. 5º ao 37º</span></div>
+            <div class="v8-card">
+                <span class="box-label">CRIAR NOVO CADERNO</span>
+                <div style="display: flex; gap: 10px;">
+                    <input type="text" id="noteTitle" placeholder="Título do Caderno (Ex: Direito Administrativo)">
+                    <button class="btn-sync" style="width: 100px;" onclick="addNote()">CRIAR</button>
+                </div>
             </div>
+            <div id="notesContainer" class="notes-grid"></div>
         </section>
 
     </main>
@@ -143,12 +143,108 @@
     <script>
         lucide.createIcons();
         let acertos = 0; let erros = 0; let chart;
+        let cadernos = JSON.parse(localStorage.getItem('cadernos_v8')) || [];
 
-        // PDF V8
+        // GERADOR ACADÊMICO
+        function gerarV8() {
+            const f = document.getElementById('facts').value;
+            const role = document.getElementById('acadRole').value;
+            const goal = document.getElementById('acadGoal').value;
+            if(!f) return alert("Cássia, adicione dados para a Maivane!");
+
+            const prompt = `### [SISTEMA ACADÊMICO V8 SINGULARITY]\n` +
+                           `**PERFIL:** ${role}\n**MISSÃO:** ${goal}\n\n` +
+                           `**DADOS DE ANÁLISE:**\n"${f}"\n\n` +
+                           `**PROTOCOLOS:**\n- Extraia conceitos fundamentais e bibliografia implícita.\n` +
+                           `- Use linguagem técnica e acadêmica de alto nível.\n` +
+                           `- Formate para revisão rápida da Maivane Damasceno.`;
+
+            document.getElementById('output-v8').innerText = prompt;
+            document.getElementById('output-v8').style.display = 'block';
+            document.getElementById('copyBtn').style.display = 'block';
+        }
+
+        function copyV8() {
+            navigator.clipboard.writeText(document.getElementById('output-v8').innerText);
+            alert("V8 COPIADO COM SUCESSO!");
+        }
+
+        // CADERNOS
+        function addNote() {
+            const title = document.getElementById('noteTitle').value;
+            if(!title) return;
+            cadernos.push(title);
+            localStorage.setItem('cadernos_v8', JSON.stringify(cadernos));
+            document.getElementById('noteTitle').value = '';
+            renderNotes();
+        }
+
+        function renderNotes() {
+            const cont = document.getElementById('notesContainer');
+            cont.innerHTML = '';
+            cadernos.forEach((n, i) => {
+                cont.innerHTML += `<div class="note-item">
+                    <span class="delete-note" onclick="delNote(${i})">x</span>
+                    <b>${n}</b><span>Sincronizado</span>
+                </div>`;
+            });
+        }
+
+        function delNote(i) {
+            cadernos.splice(i, 1);
+            localStorage.setItem('cadernos_v8', JSON.stringify(cadernos));
+            renderNotes();
+        }
+
+        // TREINO A-E
+        function buildQ() {
+            const q = document.getElementById('qIn').value;
+            const cor = document.getElementById('qCorrect').value;
+            const opts = [
+                {l: 'A', v: document.getElementById('oA').value},
+                {l: 'B', v: document.getElementById('oB').value},
+                {l: 'C', v: document.getElementById('oC').value},
+                {l: 'D', v: document.getElementById('oD').value},
+                {l: 'E', v: document.getElementById('oE').value}
+            ];
+            
+            document.getElementById('displayQ').innerText = q;
+            const area = document.getElementById('optsDisplay');
+            area.innerHTML = '';
+
+            opts.forEach(o => {
+                if(o.v) {
+                    const b = document.createElement('button');
+                    b.className = 'opt-btn';
+                    b.innerText = `${o.l}) ${o.v}`;
+                    b.onclick = () => {
+                        const all = area.querySelectorAll('.opt-btn');
+                        all.forEach(btn => btn.style.pointerEvents = 'none');
+                        if(o.l === cor) { b.classList.add('correct'); acertos++; }
+                        else { b.classList.add('wrong'); area.querySelector(`button:nth-child(${['A','B','C','D','E'].indexOf(cor)+1})`).classList.add('correct'); erros++; }
+                        updateChart();
+                    };
+                    area.appendChild(b);
+                }
+            });
+            document.getElementById('playArea').classList.remove('hidden');
+        }
+
+        function updateChart() {
+            const ctx = document.getElementById('evolucaoChart').getContext('2d');
+            if(chart) chart.destroy();
+            chart = new Chart(ctx, {
+                type: 'doughnut',
+                data: { labels: ['A','E'], datasets: [{ data: [acertos, erros], backgroundColor: ['#00f2ff', '#ff007a'], borderWidth: 0 }]},
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
+            });
+        }
+
+        // PDF
         document.getElementById('fileIn').addEventListener('change', async (e) => {
             const file = e.target.files[0];
             if (!file) return;
-            document.getElementById('up-status').innerText = "⌛ PROCESSANDO...";
+            document.getElementById('up-status').innerText = "⌛ EXTRAINDO DADOS...";
             const reader = new FileReader();
             reader.onload = async function() {
                 const typedarray = new Uint8Array(this.result);
@@ -159,68 +255,12 @@
                     const content = await page.getTextContent();
                     text += content.items.map(item => item.str).join(" ") + "\n";
                 }
-                document.getElementById('facts').value = text.substring(0, 10000);
-                document.getElementById('up-status').innerText = "✓ SINCRONIZADO";
+                document.getElementById('facts').value = text.substring(0, 15000);
+                document.getElementById('up-status').innerText = "✓ MATERIAL CARREGADO";
             };
             reader.readAsArrayBuffer(file);
         });
 
-        function gerarV8() {
-            const f = document.getElementById('facts').value;
-            const prompt = `### [PROTOCOLO V8 SINGULARITY]\nESPECIALISTA: ${document.getElementById('p1').value}\nOBJETIVO: ${document.getElementById('p2').value}\n\nCONTEXTO: "${f}"\n\nDIRETRIZES: Técnico, direto, Maivane Damasceno.`;
-            document.getElementById('output-v8').innerText = prompt;
-            document.getElementById('output-v8').style.display = 'block';
-            document.getElementById('copyBtn').style.display = 'block';
-        }
-
-        function copyV8() {
-            navigator.clipboard.writeText(document.getElementById('output-v8').innerText);
-            alert("V8 COPIADO!");
-        }
-
-        // TREINO A-E
-        function montarQuestao() {
-            const questao = document.getElementById('qText').value;
-            const opts = [
-                {l: 'A', v: document.getElementById('oA').value},
-                {l: 'B', v: document.getElementById('oB').value},
-                {l: 'C', v: document.getElementById('oC').value},
-                {l: 'D', v: document.getElementById('oD').value},
-                {l: 'E', v: document.getElementById('oE').value}
-            ];
-            const certa = document.getElementById('qCorreta').value;
-
-            document.getElementById('qPrompt').innerText = questao;
-            const area = document.getElementById('optsArea');
-            area.innerHTML = '';
-
-            opts.forEach(opt => {
-                if(opt.v) {
-                    const b = document.createElement('button');
-                    b.className = 'opt-btn';
-                    b.innerText = `${opt.l}) ${opt.v}`;
-                    b.onclick = () => {
-                        if(opt.l === certa) { b.classList.add('correct'); acertos++; }
-                        else { b.classList.add('wrong'); erros++; }
-                        updateChart();
-                    };
-                    area.appendChild(b);
-                }
-            });
-            document.getElementById('qDisplay').classList.remove('hidden');
-        }
-
-        function updateChart() {
-            const ctx = document.getElementById('evolucaoChart').getContext('2d');
-            if(chart) chart.destroy();
-            chart = new Chart(ctx, {
-                type: 'doughnut',
-                data: { labels: ['Acertos', 'Erros'], datasets: [{ data: [acertos, erros], backgroundColor: ['#00f2ff', '#ff007a'], borderWidth: 0 }]},
-                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } } }
-            });
-        }
-
-        // NAV
         function tab(id, el) {
             document.querySelectorAll('.tab-content').forEach(t => t.classList.add('hidden'));
             document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
@@ -236,6 +276,7 @@
             }, 1000);
         }
 
+        renderNotes();
         updateChart();
     </script>
 </body>
