@@ -3,243 +3,271 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MAIVANE MARIA - V8 GOD MODE</title>
-    <link href="https://fonts.googleapis.com/css2?family=Righteous&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>MAIVANE MARIA - GOD MODE V8</title>
+    <link href="https://fonts.googleapis.com/css2?family=Righteous&family=Orbitron:wght@400;700&family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
     
     <style>
         :root {
-            --dark-blue: #0f172a;
-            --deep-purple: #1e1b4b;
-            --accent: #3730a3;
-            --bg: #f8fafc;
-            --text-dark: #1e293b;
+            --black-pure: #050505;
+            --dark-card: #111111;
+            --neon-blue: #00d2ff;
+            --neon-purple: #7000ff;
+            --text-gray: #a1a1aa;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
-
-        body { background: var(--bg); color: var(--text-dark); transition: 0.5s; }
-
-        /* TELA DE DESCANSO (HIDDEN BY DEFAULT) */
-        #screensaver {
-            display: none; position: fixed; top:0; left:0; width:100%; height:100%;
-            background: var(--dark-blue); z-index: 9999;
-            flex-direction: column; align-items: center; justify-content: center;
-            color: white; text-align: center;
+        
+        body { 
+            background-color: var(--black-pure); 
+            color: #fff; 
+            min-height: 100vh; 
+            overflow-x: hidden;
         }
 
-        /* NOME FIXO E ESCURO */
-        .brand-header { text-align: center; padding: 20px 0; background: white; border-bottom: 1px solid #e2e8f0; }
+        /* HEADER SUPREMO */
+        .header-elite {
+            text-align: center;
+            padding: 40px 20px;
+            background: linear-gradient(to bottom, #111, var(--black-pure));
+            border-bottom: 1px solid #222;
+        }
+
         .brand-name {
             font-family: 'Righteous', cursive;
-            font-size: clamp(1.8rem, 8vw, 3rem);
-            color: var(--dark-blue);
+            font-size: clamp(2.5rem, 10vw, 4.5rem);
+            color: #ffffff; /* COR ESCURA/BRANCO SÓLIDO - SEM PISCAR */
+            letter-spacing: 5px;
             text-transform: uppercase;
+            text-shadow: 0 0 20px rgba(112, 0, 255, 0.3);
         }
 
-        .tabs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; padding: 10px; background: white; }
-        .tab-btn {
-            background: #f1f5f9; border: none; padding: 12px 5px; border-radius: 12px;
-            cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 5px;
-            font-size: 0.7rem; font-weight: 600; color: #64748b;
+        /* NAVEGAÇÃO TÁTICA */
+        .nav-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            padding: 15px;
+            max-width: 800px;
+            margin: 0 auto;
         }
-        .tab-btn.active { background: var(--dark-blue); color: white; }
 
-        .container { padding: 15px; max-width: 800px; margin: 0 auto; }
+        .nav-item {
+            background: var(--dark-card);
+            border: 1px solid #222;
+            padding: 15px 5px;
+            border-radius: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .nav-item i { color: var(--neon-blue); margin-bottom: 5px; }
+        .nav-item span { display: block; font-size: 0.65rem; font-weight: bold; color: var(--text-gray); }
+        .nav-item.active { border-color: var(--neon-purple); background: #1a1a1a; box-shadow: 0 0 15px rgba(112, 0, 255, 0.4); }
+
+        .container { padding: 20px; max-width: 900px; margin: 0 auto; }
+
+        /* GERADOR DE PROMPTS V8 (POTÊNCIA MÁXIMA) */
+        .prompt-engine {
+            background: var(--dark-card);
+            border-radius: 20px;
+            padding: 25px;
+            border: 1px solid #333;
+        }
+
+        .prompt-input-group {
+            background: #000;
+            padding: 15px;
+            border-radius: 12px;
+            border: 1px solid var(--neon-purple);
+            margin-bottom: 20px;
+        }
+
+        .v8-output {
+            background: #1a1a1a;
+            padding: 15px;
+            border-radius: 10px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.8rem;
+            color: var(--neon-blue);
+            min-height: 80px;
+            border-left: 4px solid var(--neon-blue);
+            margin-top: 15px;
+        }
+
+        /* SAMSUNG NOTES GRID */
+        .notes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 20px;
+        }
+
+        .note-folder {
+            background: #1a1a1a;
+            height: 200px;
+            border-radius: 15px 15px 5px 5px;
+            position: relative;
+            cursor: pointer;
+            border-bottom: 4px solid var(--neon-purple);
+        }
+
+        .folder-tab {
+            width: 60px; height: 15px; background: #1a1a1a;
+            position: absolute; top: -10px; left: 0; border-radius: 5px 10px 0 0;
+        }
+
+        .folder-content {
+            padding: 20px; display: flex; align-items: center; justify-content: center;
+            height: 100%; text-align: center; font-weight: bold; font-size: 0.9rem;
+        }
+
+        /* TELA DE DESCANSO (FOCO SUPREMO) */
+        #foco-screen {
+            display: none; position: fixed; top:0; left:0; width:100%; height:100%;
+            background: var(--black-pure); z-index: 10000;
+            flex-direction: column; align-items: center; justify-content: center;
+        }
+
+        .btn-action {
+            background: linear-gradient(90deg, var(--neon-purple), var(--neon-blue));
+            color: white; border: none; padding: 15px; border-radius: 12px;
+            font-weight: bold; width: 100%; cursor: pointer; text-transform: uppercase;
+        }
+
         .hidden { display: none; }
-
-        /* CARDS ESTILO SAMSUNG NOTES */
-        .notes-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 15px; }
-        .note-card {
-            background: white; border-radius: 15px; overflow: hidden;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); cursor: pointer;
-        }
-        .note-cover {
-            height: 120px; background: linear-gradient(135deg, var(--dark-blue), var(--accent));
-            display: flex; align-items: center; justify-content: center; color: white;
-            padding: 10px; text-align: center; font-size: 0.7rem; font-weight: bold;
-        }
-
-        /* HUB DE PROMPTS */
-        .prompt-card {
-            background: white; padding: 15px; border-radius: 15px; margin-bottom: 15px;
-            border-left: 4px solid var(--accent); position: relative;
-        }
-        .copy-badge {
-            position: absolute; top: 10px; right: 10px; font-size: 0.6rem;
-            background: #e2e8f0; padding: 3px 8px; border-radius: 5px; cursor: pointer;
-        }
-
-        /* QUIZ */
-        .option { background: white; padding: 15px; margin: 10px 0; border-radius: 12px; border: 1px solid #e2e8f0; cursor: pointer; }
-        .correct { background: #dcfce7; border-color: #22c55e; }
-        .wrong { background: #fee2e2; border-color: #ef4444; }
-
-        .btn-float {
-            position: fixed; bottom: 20px; right: 20px; background: var(--dark-blue);
-            color: white; width: 50px; height: 50px; border-radius: 25px;
-            display: flex; align-items: center; justify-content: center; border: none; box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-        }
     </style>
 </head>
 <body>
 
-    <div id="screensaver" onclick="closeFocus()">
-        <h1 style="font-family: 'Righteous'; font-size: 3rem; margin-bottom: 10px;">MAIVANE MARIA</h1>
-        <div id="clock" style="font-size: 2rem; opacity: 0.8; font-weight: 300;">00:00:00</div>
-        <p style="margin-top: 20px; font-size: 0.8rem; opacity: 0.5;">Toque para voltar ao God Mode</p>
+    <div id="foco-screen" onclick="sairFoco()">
+        <h1 class="brand-name" style="font-size: 4rem; opacity: 0.9;">MAIVANE MARIA</h1>
+        <div id="relogio" style="font-family: 'Orbitron'; font-size: 3rem; color: var(--neon-blue); margin-top: 20px;">00:00</div>
+        <p style="color: var(--text-gray); margin-top: 40px; letter-spacing: 5px;">MODO FOCO ATIVO</p>
     </div>
 
-    <header class="brand-header">
+    <header class="header-elite">
         <h1 class="brand-name">MAIVANE MARIA</h1>
-        <p style="font-size: 0.7rem; color: #94a3b8; font-weight: bold;">CÁSSIA PROMPT V8 • ELITE EDITION</p>
+        <p style="color: var(--neon-blue); font-family: 'Orbitron'; font-size: 0.7rem; letter-spacing: 3px; margin-top: 10px;">V8 GOD MODE • ELITE EDITION</p>
     </header>
 
-    <nav class="tabs">
-        <button class="tab-btn active" onclick="showTab('questoes')"><i data-lucide="check-square"></i> QUIZ</button>
-        <button class="tab-btn" onclick="showTab('caderno')"><i data-lucide="book"></i> NOTAS</button>
-        <button class="tab-btn" onclick="showTab('prompts')"><i data-lucide="zap"></i> PROMPTS</button>
-        <button class="tab-btn" onclick="startFocus()"><i data-lucide="moon"></i> FOCO</button>
+    <nav class="nav-grid">
+        <div class="nav-item active" onclick="tab('prompts')"><i data-lucide="zap"></i><span>PROMPTS</span></div>
+        <div class="nav-item" onclick="tab('notas')"><i data-lucide="book-open"></i><span>CADERNOS</span></div>
+        <div class="nav-item" onclick="tab('quiz')"><i data-lucide="target"></i><span>QUESTÕES</span></div>
+        <div class="nav-item" onclick="entrarFoco()"><i data-lucide="moon"></i><span>FOCO</span></div>
     </nav>
 
     <main class="container">
-        <section id="questoes" class="tab-content">
-            <div id="q-box" style="background: white; padding: 20px; border-radius: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
-                <div style="display: flex; justify-content: space-between; font-size: 0.8rem; margin-bottom: 15px; color: #64748b;">
-                    <span id="q-progress">Questão 1</span>
-                    <span id="q-score">Acertos: 0</span>
+        
+        <section id="prompts" class="tab-content">
+            <div class="prompt-engine">
+                <h2 style="margin-bottom: 20px; font-family: 'Orbitron'; font-size: 1rem; color: var(--neon-blue);">POWER GENERATOR V8</h2>
+                <div class="prompt-input-group">
+                    <p style="font-size: 0.7rem; color: var(--text-gray); margin-bottom: 10px;">O QUE VOCÊ QUER ESTUDAR AGORA?</p>
+                    <select id="promptType" style="width: 100%; background: transparent; color: white; border: none; font-size: 1.1rem; outline: none;">
+                        <option value="resumo">Resumo Estruturado de PDF</option>
+                        <option value="mental">Criar Mapa Mental Completo</option>
+                        <option value="simulado">Gerar Simulado de 10 Questões</option>
+                        <option value="feynman">Explicar Conceito Difícil</option>
+                    </select>
                 </div>
-                <p id="q-text" style="font-weight: 600; margin-bottom: 20px;"></p>
-                <div id="q-options"></div>
+                <button class="btn-action" onclick="generateV8()">GERAR PROMPT POTENTE</button>
+                <div class="v8-output" id="outputV8">Aguardando comando...</div>
+                <button id="copyBtn" class="hidden" style="margin-top: 10px; background: #333; color: #fff; padding: 5px 10px; border-radius: 5px; border: none;" onclick="copyV8()">COPIAR PROMPT</button>
             </div>
         </section>
 
-        <section id="caderno" class="tab-content hidden">
-            <div class="notes-grid" id="notesGrid"></div>
+        <section id="notas" class="tab-content hidden">
+            <div class="notes-grid" id="gridNotas">
+                </div>
         </section>
 
-        <section id="prompts" class="tab-content hidden">
-            <h2 style="margin-bottom: 15px; font-size: 1.2rem;">Prompts de Alta Performance</h2>
-            
-            <div class="prompt-card">
-                <span class="copy-badge" onclick="copyPrompt(this)">COPIAR</span>
-                <b>🚀 Resumo Estruturado</b>
-                <p style="font-size: 0.75rem; color: #64748b; margin-top: 5px;">"Analise o texto abaixo e crie um mapa mental hierárquico com os pontos que mais caem em concursos da banca AvançaSP."</p>
-            </div>
-
-            <div class="prompt-card">
-                <span class="copy-badge" onclick="copyPrompt(this)">COPIAR</span>
-                <b>🧠 Método Feynman</b>
-                <p style="font-size: 0.75rem; color: #64748b; margin-top: 5px;">"Explique o conceito de Atos Administrativos como se eu tivesse 10 anos, usando analogias do cotidiano."</p>
-            </div>
-
-            <div class="prompt-card">
-                <span class="copy-badge" onclick="copyPrompt(this)">COPIAR</span>
-                <b>⏱️ Cronograma Ninja</b>
-                <p style="font-size: 0.75rem; color: #64748b; margin-top: 5px;">"Tenho 2 horas de estudo hoje. Monte um ciclo de estudos intercalando Português e Matemática com revisões de 10 min."</p>
+        <section id="quiz" class="tab-content hidden">
+            <div class="prompt-engine">
+                <div id="q-header" style="display: flex; justify-content: space-between; margin-bottom: 20px;">
+                    <span id="q-prog" style="color: var(--neon-blue);">Q: 1/40</span>
+                    <span id="q-score" style="color: #00ff00;">ACERTOS: 0</span>
+                </div>
+                <p id="q-txt" style="font-size: 1.1rem; margin-bottom: 25px; font-weight: 500;"></p>
+                <div id="q-opts"></div>
             </div>
         </section>
+
     </main>
 
-    <div id="noteEditor" class="hidden" style="position: fixed; top:0; left:0; width:100%; height:100%; background:white; z-index:1000; padding:20px;">
-        <button onclick="closeEditor()" style="margin-bottom: 15px; border:none; background:none; font-weight:bold;">⬅ VOLTAR</button>
-        <input type="text" id="ntTitle" placeholder="Título da Capa" style="font-size: 1.5rem; border:none; border-bottom: 2px solid #eee; margin-bottom: 15px; width: 100%;">
-        <textarea id="ntContent" placeholder="Escreva aqui..." style="width:100%; height:70%; border:none; outline:none; font-size: 1rem; line-height: 1.6;"></textarea>
-        <button class="btn-float" style="width: 100%; position: static; margin-top: 10px;" onclick="saveNote()">SALVAR NO PAINEL</button>
-    </div>
-
-    <button class="btn-float" id="btnPlus" onclick="openEditor()"><i data-lucide="plus"></i></button>
+    <button id="btnNew" class="hidden" style="position: fixed; bottom: 30px; right: 30px; background: var(--neon-purple); width: 60px; height: 60px; border-radius: 30px; border: none; color: white;" onclick="novaNota()">
+        <i data-lucide="plus"></i>
+    </button>
 
     <script>
         lucide.createIcons();
 
-        // QUESTÕES DOS PDFS
+        // GERADOR V8 - LÓGICA DE POTÊNCIA
+        function generateV8() {
+            const type = document.getElementById('promptType').value;
+            let final = "";
+            if(type === 'resumo') final = "Aja como um Especialista em Concursos. Analise o material anexado e extraia os 5 pontos de maior incidência estatística para a banca AvançaSP, formatando em tópicos de alta retenção.";
+            if(type === 'mental') final = "Crie uma estrutura hierárquica para um Mapa Mental sobre este tema. Use o método de cores e ramificações. Separe por: Conceito, Requisitos, Exceções e Prazos.";
+            if(type === 'simulado') final = "Com base no texto fornecido, gere 10 questões inéditas de múltipla escolha (A a E) no nível 'Difícil'. Ao final, forneça o gabarito comentado fundamentado na lei.";
+            if(type === 'feynman') final = "Use o Método Feynman para explicar este conceito. Reduza a complexidade técnica para uma linguagem de 10 anos de idade, mas sem perder o rigor jurídico/administrativo.";
+
+            const out = document.getElementById('outputV8');
+            out.innerText = final;
+            document.getElementById('copyBtn').classList.remove('hidden');
+        }
+
+        function copyV8() {
+            navigator.clipboard.writeText(document.getElementById('outputV8').innerText);
+            alert("Prompt V8 Copiado! Cole no ChatGPT ou Claude.");
+        }
+
+        // QUESTÕES (SIMULAÇÃO REAL)
         const questions = [
             { q: "Na palavra 'piscina', ocorre um dígrafo?", o: ["Sim", "Não"], a: 0 },
-            { q: "Joaquim acertou 4 questões de 10. Qual a porcentagem?", o: ["20%", "40%", "60%", "10%"], a: 1 },
-            { q: "Camila comprou 9m de fita e cortou em pedaços de 45cm. Quantos pedaços?", o: ["18", "20", "22"], a: 1 }
+            { q: "Um técnico em gestão pública deve zelar por qual princípio?", o: ["Eficiência", "Amadorismo", "Subjetividade"], a: 0 }
         ];
+        let cur = 0; let score = 0;
 
-        let curQ = 0; let score = 0;
-
-        function loadQ() {
-            const q = questions[curQ];
-            document.getElementById('q-text').innerText = q.q;
-            document.getElementById('q-progress').innerText = `Questão ${curQ + 1}/${questions.length}`;
-            const optDiv = document.getElementById('q-options');
-            optDiv.innerHTML = '';
-            q.o.forEach((text, i) => {
-                const btn = document.createElement('div');
-                btn.className = 'option';
-                btn.innerText = text;
-                btn.onclick = () => {
-                    if(i === q.a) { btn.classList.add('correct'); score++; }
-                    else { btn.classList.add('wrong'); }
-                    document.getElementById('q-score').innerText = `Acertos: ${score}`;
-                    setTimeout(() => { curQ = (curQ + 1) % questions.length; loadQ(); }, 1000);
+        function loadQuiz() {
+            const q = questions[cur];
+            document.getElementById('q-txt').innerText = q.q;
+            const container = document.getElementById('q-opts');
+            container.innerHTML = '';
+            q.o.forEach((opt, i) => {
+                const b = document.createElement('div');
+                b.style = "background: #222; padding: 15px; margin: 10px 0; border-radius: 10px; cursor: pointer; border: 1px solid #333;";
+                b.innerText = opt;
+                b.onclick = () => {
+                    if(i === q.a) { b.style.borderColor = "#00ff00"; score++; }
+                    else { b.style.borderColor = "#ff0000"; }
+                    document.getElementById('q-score').innerText = `ACERTOS: ${score}`;
+                    setTimeout(() => { cur = (cur+1)%questions.length; loadQuiz(); }, 1000);
                 };
-                optDiv.appendChild(btn);
+                container.appendChild(b);
             });
         }
 
-        // SISTEMA DE CADERNOS (LOCAL STORAGE)
-        function saveNote() {
-            const title = document.getElementById('ntTitle').value;
-            const content = document.getElementById('ntContent').value;
-            if(!title || !content) return;
-            const notes = JSON.parse(localStorage.getItem('maivane_v8_notes') || '[]');
-            notes.push({ id: Date.now(), title, content });
-            localStorage.setItem('maivane_v8_notes', JSON.stringify(notes));
-            closeEditor();
-            renderNotes();
+        // MODO FOCO / DESCANSO
+        function entrarFoco() {
+            document.getElementById('foco-screen').style.display = 'flex';
+            setInterval(() => {
+                const now = new Date();
+                document.getElementById('relogio').innerText = now.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+            }, 1000);
         }
+        function sairFoco() { document.getElementById('foco-screen').style.display = 'none'; }
 
-        function renderNotes() {
-            const notes = JSON.parse(localStorage.getItem('maivane_v8_notes') || '[]');
-            const grid = document.getElementById('notesGrid');
-            grid.innerHTML = notes.map(n => `
-                <div class="note-card">
-                    <div class="note-cover">${n.title.toUpperCase()}</div>
-                    <div style="padding: 10px; font-size: 0.7rem;"><b>${n.title}</b></div>
-                </div>
-            `).join('');
-        }
-
-        // TELA DE DESCANSO / FOCO
-        function startFocus() {
-            document.getElementById('screensaver').style.display = 'flex';
-            updateClock();
-            setInterval(updateClock, 1000);
-        }
-
-        function closeFocus() { document.getElementById('screensaver').style.display = 'none'; }
-
-        function updateClock() {
-            const now = new Date();
-            document.getElementById('clock').innerText = now.toLocaleTimeString();
-        }
-
-        // UTILITÁRIOS
-        function showTab(id) {
+        // NAVEGAÇÃO
+        function tab(id) {
             document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
-            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
             document.getElementById(id).classList.remove('hidden');
             event.currentTarget.classList.add('active');
-            document.getElementById('btnPlus').style.display = (id === 'caderno') ? 'flex' : 'none';
+            document.getElementById('btnNew').style.display = (id === 'notas') ? 'block' : 'none';
         }
 
-        function openEditor() { document.getElementById('noteEditor').classList.remove('hidden'); }
-        function closeEditor() { document.getElementById('noteEditor').classList.add('hidden'); }
-
-        function copyPrompt(btn) {
-            const text = btn.parentElement.querySelector('p').innerText;
-            navigator.clipboard.writeText(text);
-            btn.innerText = "COPIADO!";
-            setTimeout(() => btn.innerText = "COPIAR", 2000);
-        }
-
-        loadQ();
-        renderNotes();
+        loadQuiz();
     </script>
 </body>
 </html>
